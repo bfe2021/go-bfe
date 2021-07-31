@@ -25,6 +25,7 @@ var Modules = map[string]string{
 	"bfeash":     BfeashJs,
 	"debug":      DebugJs,
 	"bfe":        BfeJs,
+	"miner":      MinerJs,
 	"net":        NetJs,
 	"personal":   PersonalJs,
 	"rpc":        RpcJs,
@@ -579,6 +580,52 @@ web3._extend({
 	]
 });
 `
+
+const MinerJs = `
+web3._extend({
+	property: 'miner',
+	Methods: [
+		new web3._extend.Method({
+			name: 'start',
+			call: 'miner_start',
+			params: 1,
+			inputFormatter: [null]
+		}),
+		new web3._extend.Method({
+			name: 'stop',
+			call: 'miner_stop'
+		}),
+		new web3._extend.Method({
+			name: 'setGdturbase',
+			call: 'miner_setGdturbase',
+			params: 1,
+			inputFormatter: [web3._extend.formatters.inputAddressFormatter]
+		}),
+		new web3._extend.Method({
+			name: 'setExtra',
+			call: 'miner_setExtra',
+			params: 1
+		}),
+		new web3._extend.Method({
+			name: 'setGasPrice',
+			call: 'miner_setGasPrice',
+			params: 1,
+			inputFormatter: [web3._extend.utils.fromDecimal]
+		}),
+		new web3._extend.Method({
+			name: 'setRecommitInterval',
+			call: 'miner_setRecommitInterval',
+			params: 1,
+		}),
+		new web3._extend.Method({
+			name: 'getHashrate',
+			call: 'miner_getHashrate'
+		}),
+	],
+	properties: []
+});
+`
+
 const NetJs = `
 web3._extend({
 	property: 'net',
