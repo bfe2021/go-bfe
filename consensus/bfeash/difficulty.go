@@ -28,9 +28,9 @@ const (
 	// The decision boundary on the blocktime duration used to determine
 	// whether difficulty should go up or down.
 	// by cici
-	frontierDurationLimit = 300
+	frontierDurationLimit = 13
 	// minimumDifficulty The minimum that the difficulty may ever be.
-	minimumDifficulty = 49999999
+	minimumDifficulty = 131072
 	// expDiffPeriod is the exponential difficulty period
 	expDiffPeriodUint = 100000
 	// difficultyBoundDivisorBitShift is the bound divisor of the difficulty (2048),

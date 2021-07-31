@@ -248,7 +248,7 @@ func (ks *KeyStore) Delete(a accounts.Account, passphrase string) error {
 		return err
 	}
 	// The order is crucial here. The key is dropped from the
-	// cache after the file is gone so that a reload happening in
+	// cache after the file is gbfe so that a reload happening in
 	// between won't insert it into the cache again.
 	err = os.Remove(a.URL.Path)
 	if err == nil {

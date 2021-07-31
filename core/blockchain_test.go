@@ -2025,10 +2025,10 @@ func TestReorgToShorterRemovesCanonMapping(t *testing.T) {
 	}
 	// We have now inserted a sidechain.
 	if blockByNum := chain.GetBlockByNumber(canonNum); blockByNum != nil {
-		t.Errorf("expected block to be gone: %v", blockByNum.NumberU64())
+		t.Errorf("expected block to be gbfe: %v", blockByNum.NumberU64())
 	}
 	if headerByNum := chain.GetHeaderByNumber(canonNum); headerByNum != nil {
-		t.Errorf("expected header to be gone: %v", headerByNum.Number.Uint64())
+		t.Errorf("expected header to be gbfe: %v", headerByNum.Number.Uint64())
 	}
 }
 
@@ -2062,10 +2062,10 @@ func TestReorgToShorterRemovesCanonMappingHeaderChain(t *testing.T) {
 	}
 	// We have now inserted a sidechain.
 	if blockByNum := chain.GetBlockByNumber(canonNum); blockByNum != nil {
-		t.Errorf("expected block to be gone: %v", blockByNum.NumberU64())
+		t.Errorf("expected block to be gbfe: %v", blockByNum.NumberU64())
 	}
 	if headerByNum := chain.GetHeaderByNumber(canonNum); headerByNum != nil {
-		t.Errorf("expected header to be gone: %v", headerByNum.Number.Uint64())
+		t.Errorf("expected header to be gbfe: %v", headerByNum.Number.Uint64())
 	}
 }
 

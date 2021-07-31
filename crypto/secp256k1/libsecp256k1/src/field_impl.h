@@ -228,7 +228,7 @@ static void secp256k1_fe_inv_var(secp256k1_fe *r, const secp256k1_fe *a) {
     secp256k1_fe_inv(r, a);
 #elif defined(USE_FIELD_INV_NUM)
     secp256k1_num n, m;
-    static const secp256k1_fe negone = SECP256K1_FE_CONST(
+    static const secp256k1_fe negbfe = SECP256K1_FE_CONST(
         0xFFFFFFFFUL, 0xFFFFFFFFUL, 0xFFFFFFFFUL, 0xFFFFFFFFUL,
         0xFFFFFFFFUL, 0xFFFFFFFFUL, 0xFFFFFFFEUL, 0xFFFFFC2EUL
     );
@@ -253,7 +253,7 @@ static void secp256k1_fe_inv_var(secp256k1_fe *r, const secp256k1_fe *a) {
     VERIFY_CHECK(res);
     /* Verify the result is the (unique) valid inverse using non-GMP code. */
     secp256k1_fe_mul(&c, &c, r);
-    secp256k1_fe_add(&c, &negone);
+    secp256k1_fe_add(&c, &negbfe);
     CHECK(secp256k1_fe_normalizes_to_zero_var(&c));
 #else
 #error "Please select field inverse implementation"

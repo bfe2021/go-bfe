@@ -91,7 +91,7 @@ type freezerTable struct {
 	index  *os.File            // File descriptor for the indexEntry file of the table
 
 	// In the case that old items are deleted (from the tail), we use itemOffset
-	// to count how many historic items have gone missing.
+	// to count how many historic items have gbfe missing.
 	itemOffset uint32 // Offset (number of discarded items)
 
 	headBytes  uint32        // Number of bytes written to the head file
@@ -282,7 +282,7 @@ func (t *freezerTable) repair() error {
 				}
 				if stat, err = t.head.Stat(); err != nil {
 					// TODO, anything more we can do here?
-					// A data file has gone missing...
+					// A data file has gbfe missing...
 					return err
 				}
 				contentSize = stat.Size()

@@ -2423,11 +2423,11 @@ void ecmult_const_commutativity(void) {
 void ecmult_const_mult_zero_one(void) {
     secp256k1_scalar zero = SECP256K1_SCALAR_CONST(0, 0, 0, 0, 0, 0, 0, 0);
     secp256k1_scalar one = SECP256K1_SCALAR_CONST(0, 0, 0, 0, 0, 0, 0, 1);
-    secp256k1_scalar negone;
+    secp256k1_scalar negbfe;
     secp256k1_gej res1;
     secp256k1_ge res2;
     secp256k1_ge point;
-    secp256k1_scalar_negate(&negone, &one);
+    secp256k1_scalar_negate(&negbfe, &one);
 
     random_group_element_test(&point);
     secp256k1_ecmult_const(&res1, &point, &zero);
@@ -2436,7 +2436,7 @@ void ecmult_const_mult_zero_one(void) {
     secp256k1_ecmult_const(&res1, &point, &one);
     secp256k1_ge_set_gej(&res2, &res1);
     ge_equals_ge(&res2, &point);
-    secp256k1_ecmult_const(&res1, &point, &negone);
+    secp256k1_ecmult_const(&res1, &point, &negbfe);
     secp256k1_gej_neg(&res1, &res1);
     secp256k1_ge_set_gej(&res2, &res1);
     ge_equals_ge(&res2, &point);
@@ -3112,7 +3112,7 @@ void run_eckey_edge_case_test(void) {
     secp256k1_pubkey pubkey;
     secp256k1_pubkey pubkey2;
     secp256k1_pubkey pubkey_one;
-    secp256k1_pubkey pubkey_negone;
+    secp256k1_pubkey pubkey_negbfe;
     const secp256k1_pubkey *pubkeys[3];
     size_t len;
     int32_t ecount;
@@ -3164,7 +3164,7 @@ void run_eckey_edge_case_test(void) {
     CHECK(secp256k1_ec_pubkey_create(ctx, &pubkey, ctmp) == 1);
     VG_CHECK(&pubkey, sizeof(pubkey));
     CHECK(memcmp(&pubkey, zeros, sizeof(secp256k1_pubkey)) > 0);
-    pubkey_negone = pubkey;
+    pubkey_negbfe = pubkey;
     /* Tweak of zero leaves the value changed. */
     memset(ctmp2, 0, 32);
     CHECK(secp256k1_ec_privkey_tweak_add(ctx, ctmp, ctmp2) == 1);
@@ -3292,7 +3292,7 @@ void run_eckey_edge_case_test(void) {
     VG_CHECK(&pubkey, sizeof(secp256k1_pubkey));
     CHECK(memcmp(&pubkey, zeros, sizeof(secp256k1_pubkey)) == 0);
     CHECK(ecount == 3);
-    pubkeys[0] = &pubkey_negone;
+    pubkeys[0] = &pubkey_negbfe;
     memset(&pubkey, 255, sizeof(secp256k1_pubkey));
     VG_UNDEF(&pubkey, sizeof(secp256k1_pubkey));
     CHECK(secp256k1_ec_pubkey_combine(ctx, &pubkey, pubkeys, 1) == 1);
@@ -3301,11 +3301,11 @@ void run_eckey_edge_case_test(void) {
     CHECK(ecount == 3);
     len = 33;
     CHECK(secp256k1_ec_pubkey_serialize(ctx, ctmp, &len, &pubkey, SECP256K1_EC_COMPRESSED) == 1);
-    CHECK(secp256k1_ec_pubkey_serialize(ctx, ctmp2, &len, &pubkey_negone, SECP256K1_EC_COMPRESSED) == 1);
+    CHECK(secp256k1_ec_pubkey_serialize(ctx, ctmp2, &len, &pubkey_negbfe, SECP256K1_EC_COMPRESSED) == 1);
     CHECK(memcmp(ctmp, ctmp2, 33) == 0);
     /* Result is infinity. */
     pubkeys[0] = &pubkey_one;
-    pubkeys[1] = &pubkey_negone;
+    pubkeys[1] = &pubkey_negbfe;
     memset(&pubkey, 255, sizeof(secp256k1_pubkey));
     VG_UNDEF(&pubkey, sizeof(secp256k1_pubkey));
     CHECK(secp256k1_ec_pubkey_combine(ctx, &pubkey, pubkeys, 2) == 0);

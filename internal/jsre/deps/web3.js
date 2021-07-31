@@ -4802,7 +4802,7 @@ Check if the current connection is still valid.
 IpcProvider.prototype.isConnected = function() {
     var _this = this;
 
-    // try reconnect, when connection is gone
+    // try reconnect, when connection is gbfe
     if(!_this.connection.writable)
         _this.connection.connect({path: _this.path});
 
@@ -4814,7 +4814,7 @@ IpcProvider.prototype.send = function (payload) {
     if(this.connection.writeSync) {
         var result;
 
-        // try reconnect, when connection is gone
+        // try reconnect, when connection is gbfe
         if(!this.connection.writable)
             this.connection.connect({path: this.path});
 
@@ -4834,7 +4834,7 @@ IpcProvider.prototype.send = function (payload) {
 };
 
 IpcProvider.prototype.sendAsync = function (payload, callback) {
-    // try reconnect, when connection is gone
+    // try reconnect, when connection is gbfe
     if(!this.connection.writable)
         this.connection.connect({path: this.path});
 
