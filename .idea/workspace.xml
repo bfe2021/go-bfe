@@ -11,86 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1601850a-ab21-4789-9c41-dc0f6492a686" name="Default Changelist" comment="fixed bug">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/keystore/keystore.go" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/keystore/keystore.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/keystore/keystore_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/keystore/keystore_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/abidump" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/abigen" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/bfedu/bfe-along.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/bfedu/bfe-harmony.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/bfedu/bfe-parity.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/bfedu/bfe.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/bfekey" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/boot.key" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/bootnode" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/checkpoint-admin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/clef" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/devp2p" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/evm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/faucet" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/gbfe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/p2psim" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/pass.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/puppong" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/bin/rlpdump" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/accountcmd.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/accountcmd.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/accountcmd_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/accountcmd_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/chaincmd.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/chaincmd.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/consolecmd.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/consolecmd.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/consolecmd_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/consolecmd_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/dao_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/dao_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/dbcmd.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/dbcmd.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/genesis_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/genesis_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/les_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/les_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/misccmd.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/misccmd.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/run_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/run_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/snapshot.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/snapshot.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/blockchain.blocks" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/blockchain.blocks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/clique.json" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/clique.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/empty.js" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/empty.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/guswallet.json" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/guswallet.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/key.prv" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/key.prv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/password.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/password.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/passwords.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/passwords.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/vcheck/data.json" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/vcheck/data.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/vcheck/minisig-sigs/vulnerabilities.json.minisig.1" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/vcheck/minisig-sigs/vulnerabilities.json.minisig.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/vcheck/minisig-sigs/vulnerabilities.json.minisig.2" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/vcheck/minisig-sigs/vulnerabilities.json.minisig.2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/vcheck/minisig-sigs/vulnerabilities.json.minisig.3" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/vcheck/minisig-sigs/vulnerabilities.json.minisig.3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/vcheck/minisign.pub" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/vcheck/minisign.pub" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/vcheck/minisign.sec" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/vcheck/minisign.sec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/vcheck/signify-sigs/data.json.sig" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/vcheck/signify-sigs/data.json.sig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/vcheck/signifykey.pub" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/vcheck/signifykey.pub" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/vcheck/signifykey.sec" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/vcheck/signifykey.sec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/vcheck/sigs/vulnerabilities.json.minisig.1" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/vcheck/sigs/vulnerabilities.json.minisig.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/vcheck/sigs/vulnerabilities.json.minisig.2" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/vcheck/sigs/vulnerabilities.json.minisig.2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/vcheck/sigs/vulnerabilities.json.minisig.3" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/vcheck/sigs/vulnerabilities.json.minisig.3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/vcheck/vulnerabilities.json" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/vcheck/vulnerabilities.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/testdata/wrong-passwords.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/testdata/wrong-passwords.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/usage.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/usage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/version_check.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/version_check.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/gong/version_check_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/gbfe/version_check_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/ongkey/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bfekey/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/ongkey/changepassword.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bfekey/changepassword.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/ongkey/generate.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bfekey/generate.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/ongkey/inspect.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bfekey/inspect.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/ongkey/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bfekey/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/ongkey/message.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bfekey/message.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/ongkey/message_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bfekey/message_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/ongkey/run_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bfekey/run_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/ongkey/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/bfekey/utils.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/consensus/bfeash/consensus.go" beforeDir="false" afterPath="$PROJECT_DIR$/consensus/bfeash/consensus.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/consensus/bfeash/difficulty.go" beforeDir="false" afterPath="$PROJECT_DIR$/consensus/bfeash/difficulty.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/blockchain_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/core/blockchain_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/rawdb/freezer_table.go" beforeDir="false" afterPath="$PROJECT_DIR$/core/rawdb/freezer_table.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/vm/evm.go" beforeDir="false" afterPath="$PROJECT_DIR$/core/vm/evm.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/secp256k1/libsecp256k1/src/field_impl.h" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/secp256k1/libsecp256k1/src/field_impl.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/secp256k1/libsecp256k1/src/tests.c" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/secp256k1/libsecp256k1/src/tests.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/jsre/deps/web3.js" beforeDir="false" afterPath="$PROJECT_DIR$/internal/jsre/deps/web3.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/params/protocol_params.go" beforeDir="false" afterPath="$PROJECT_DIR$/params/protocol_params.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,10 +83,10 @@
       <screen x="0" y="23" width="1792" height="1041" />
     </state>
     <state x="432" y="199" key="SettingsEditor/0.23.1792.1041@0.23.1792.1041" timestamp="1627740468100" />
-    <state x="530" y="300" key="Vcs.Push.Dialog.v2" timestamp="1627747227739">
+    <state x="530" y="300" key="Vcs.Push.Dialog.v2" timestamp="1627749367596">
       <screen x="0" y="23" width="1792" height="1041" />
     </state>
-    <state x="530" y="300" key="Vcs.Push.Dialog.v2/0.23.1792.1041@0.23.1792.1041" timestamp="1627747227739" />
+    <state x="530" y="300" key="Vcs.Push.Dialog.v2/0.23.1792.1041@0.23.1792.1041" timestamp="1627749367596" />
     <state x="306" y="123" width="1317" height="801" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1627741293736">
       <screen x="0" y="23" width="1792" height="1041" />
     </state>
