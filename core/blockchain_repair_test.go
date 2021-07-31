@@ -429,7 +429,7 @@ func testShortNewlyForkedFastSyncingRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a short canonical chain and a longer side chain, where a
+// Tests a recovery for a short canonical chain and a logner side chain, where a
 // recent block was already committed to disk and then the process crashed. In this
 // case we expect the canonical chain to be rolled back to the committed block, but
 // the chain data itself left in the database for replaying.
@@ -471,7 +471,7 @@ func testShortReorgedRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a short canonical chain and a longer side chain, where
+// Tests a recovery for a short canonical chain and a logner side chain, where
 // the fast sync pivot point was already committed to disk and then the process
 // crashed. In this case we expect the canonical chain to be rolled back to the
 // committed block, but the chain data itself left in the database for replaying.
@@ -517,7 +517,7 @@ func testShortReorgedFastSyncedRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a short canonical chain and a longer side chain, where
+// Tests a recovery for a short canonical chain and a logner side chain, where
 // the fast sync pivot point was not yet committed, but the process crashed. In
 // this case we expect the chain to detect that it was fast syncing and not delete
 // anything, since we can just pick up directly where we left off.
@@ -563,7 +563,7 @@ func testShortReorgedFastSyncingRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks where a recent
+// Tests a recovery for a logn canonical chain with frozen blocks where a recent
 // block - newer than the ancient limit - was already committed to disk and then
 // the process crashed. In this case we expect the chain to be rolled back to the
 // committed block, with everything afterwads kept as fast sync data.
@@ -608,7 +608,7 @@ func testLongShallowRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks where a recent
+// Tests a recovery for a logn canonical chain with frozen blocks where a recent
 // block - older than the ancient limit - was already committed to disk and then
 // the process crashed. In this case we expect the chain to be rolled back to the
 // committed block, with everything afterwads deleted.
@@ -652,7 +652,7 @@ func testLongDeepRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks where the fast
+// Tests a recovery for a logn canonical chain with frozen blocks where the fast
 // sync pivot point - newer than the ancient limit - was already committed, after
 // which the process crashed. In this case we expect the chain to be rolled back
 // to the committed block, with everything afterwads kept as fast sync data.
@@ -701,7 +701,7 @@ func testLongFastSyncedShallowRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks where the fast
+// Tests a recovery for a logn canonical chain with frozen blocks where the fast
 // sync pivot point - older than the ancient limit - was already committed, after
 // which the process crashed. In this case we expect the chain to be rolled back
 // to the committed block, with everything afterwads deleted.
@@ -745,7 +745,7 @@ func testLongFastSyncedDeepRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks where the fast
+// Tests a recovery for a logn canonical chain with frozen blocks where the fast
 // sync pivot point - older than the ancient limit - was not yet committed, but the
 // process crashed. In this case we expect the chain to detect that it was fast
 // syncing and not delete anything, since we can just pick up directly where we
@@ -795,7 +795,7 @@ func testLongFastSyncingShallowRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks where the fast
+// Tests a recovery for a logn canonical chain with frozen blocks where the fast
 // sync pivot point - newer than the ancient limit - was not yet committed, but the
 // process crashed. In this case we expect the chain to detect that it was fast
 // syncing and not delete anything, since we can just pick up directly where we
@@ -841,7 +841,7 @@ func testLongFastSyncingDeepRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a shorter
+// Tests a recovery for a logn canonical chain with frozen blocks and a shorter
 // side chain, where a recent block - newer than the ancient limit - was already
 // committed to disk and then the process crashed. In this test scenario the side
 // chain is below the committed block. In this case we expect the chain to be
@@ -893,7 +893,7 @@ func testLongOldForkedShallowRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a shorter
+// Tests a recovery for a logn canonical chain with frozen blocks and a shorter
 // side chain, where a recent block - older than the ancient limit - was already
 // committed to disk and then the process crashed. In this test scenario the side
 // chain is below the committed block. In this case we expect the canonical chain
@@ -940,7 +940,7 @@ func testLongOldForkedDeepRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a shorter
+// Tests a recovery for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - newer than the ancient limit -
 // was already committed to disk and then the process crashed. In this test scenario
 // the side chain is below the committed block. In this case we expect the chain
@@ -992,7 +992,7 @@ func testLongOldForkedFastSyncedShallowRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a shorter
+// Tests a recovery for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - older than the ancient limit -
 // was already committed to disk and then the process crashed. In this test scenario
 // the side chain is below the committed block. In this case we expect the canonical
@@ -1043,7 +1043,7 @@ func testLongOldForkedFastSyncedDeepRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a shorter
+// Tests a recovery for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - older than the ancient limit -
 // was not yet committed, but the process crashed. In this test scenario the side
 // chain is below the committed block. In this case we expect the chain to detect
@@ -1095,7 +1095,7 @@ func testLongOldForkedFastSyncingShallowRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a shorter
+// Tests a recovery for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - older than the ancient limit -
 // was not yet committed, but the process crashed. In this test scenario the side
 // chain is below the committed block. In this case we expect the chain to detect
@@ -1147,7 +1147,7 @@ func testLongOldForkedFastSyncingDeepRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a shorter
+// Tests a recovery for a logn canonical chain with frozen blocks and a shorter
 // side chain, where a recent block - newer than the ancient limit - was already
 // committed to disk and then the process crashed. In this test scenario the side
 // chain is above the committed block. In this case we expect the chain to be
@@ -1199,7 +1199,7 @@ func testLongNewerForkedShallowRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a shorter
+// Tests a recovery for a logn canonical chain with frozen blocks and a shorter
 // side chain, where a recent block - older than the ancient limit - was already
 // committed to disk and then the process crashed. In this test scenario the side
 // chain is above the committed block. In this case we expect the canonical chain
@@ -1246,7 +1246,7 @@ func testLongNewerForkedDeepRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a shorter
+// Tests a recovery for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - newer than the ancient limit -
 // was already committed to disk and then the process crashed. In this test scenario
 // the side chain is above the committed block. In this case we expect the chain
@@ -1298,7 +1298,7 @@ func testLongNewerForkedFastSyncedShallowRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a shorter
+// Tests a recovery for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - older than the ancient limit -
 // was already committed to disk and then the process crashed. In this test scenario
 // the side chain is above the committed block. In this case we expect the canonical
@@ -1349,7 +1349,7 @@ func testLongNewerForkedFastSyncedDeepRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a shorter
+// Tests a recovery for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - older than the ancient limit -
 // was not yet committed, but the process crashed. In this test scenario the side
 // chain is above the committed block. In this case we expect the chain to detect
@@ -1401,7 +1401,7 @@ func testLongNewerForkedFastSyncingShallowRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a shorter
+// Tests a recovery for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - older than the ancient limit -
 // was not yet committed, but the process crashed. In this test scenario the side
 // chain is above the committed block. In this case we expect the chain to detect
@@ -1453,7 +1453,7 @@ func testLongNewerForkedFastSyncingDeepRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a longer side
+// Tests a recovery for a logn canonical chain with frozen blocks and a logner side
 // chain, where a recent block - newer than the ancient limit - was already committed
 // to disk and then the process crashed. In this case we expect the chain to be
 // rolled back to the committed block, with everything afterwads kept as fast sync
@@ -1500,7 +1500,7 @@ func testLongReorgedShallowRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a longer side
+// Tests a recovery for a logn canonical chain with frozen blocks and a logner side
 // chain, where a recent block - older than the ancient limit - was already committed
 // to disk and then the process crashed. In this case we expect the canonical chains
 // to be rolled back to the committed block, with everything afterwads deleted. The
@@ -1546,7 +1546,7 @@ func testLongReorgedDeepRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a longer
+// Tests a recovery for a logn canonical chain with frozen blocks and a logner
 // side chain, where the fast sync pivot point - newer than the ancient limit -
 // was already committed to disk and then the process crashed. In this case we
 // expect the chain to be rolled back to the committed block, with everything
@@ -1598,7 +1598,7 @@ func testLongReorgedFastSyncedShallowRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a longer
+// Tests a recovery for a logn canonical chain with frozen blocks and a logner
 // side chain, where the fast sync pivot point - older than the ancient limit -
 // was already committed to disk and then the process crashed. In this case we
 // expect the canonical chains to be rolled back to the committed block, with
@@ -1648,7 +1648,7 @@ func testLongReorgedFastSyncedDeepRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a longer
+// Tests a recovery for a logn canonical chain with frozen blocks and a logner
 // side chain, where the fast sync pivot point - newer than the ancient limit -
 // was not yet committed, but the process crashed. In this case we expect the
 // chain to detect that it was fast syncing and not delete anything, since we
@@ -1699,7 +1699,7 @@ func testLongReorgedFastSyncingShallowRepair(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a recovery for a long canonical chain with frozen blocks and a longer
+// Tests a recovery for a logn canonical chain with frozen blocks and a logner
 // side chain, where the fast sync pivot point - older than the ancient limit -
 // was not yet committed, but the process crashed. In this case we expect the
 // chain to detect that it was fast syncing and not delete anything, since we

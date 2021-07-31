@@ -33,22 +33,22 @@ import (
 
 	"github.com/bfe2021/go-bfe/accounts"
 	"github.com/bfe2021/go-bfe/accounts/keystore"
-	"github.com/bfe2021/go-bfe/common"
-	"github.com/bfe2021/go-bfe/common/fdlimit"
-	"github.com/bfe2021/go-bfe/consensus"
-	"github.com/bfe2021/go-bfe/consensus/clique"
-	"github.com/bfe2021/go-bfe/consensus/bfeash"
-	"github.com/bfe2021/go-bfe/core"
-	"github.com/bfe2021/go-bfe/core/rawdb"
-	"github.com/bfe2021/go-bfe/core/vm"
-	"github.com/bfe2021/go-bfe/crypto"
 	"github.com/bfe2021/go-bfe/bfe"
-	"github.com/bfe2021/go-bfe/bfe/downloader"
 	"github.com/bfe2021/go-bfe/bfe/bfeconfig"
+	"github.com/bfe2021/go-bfe/bfe/downloader"
 	"github.com/bfe2021/go-bfe/bfe/gasprice"
 	"github.com/bfe2021/go-bfe/bfe/tracers"
 	"github.com/bfe2021/go-bfe/bfedb"
 	"github.com/bfe2021/go-bfe/bfestats"
+	"github.com/bfe2021/go-bfe/common"
+	"github.com/bfe2021/go-bfe/common/fdlimit"
+	"github.com/bfe2021/go-bfe/consensus"
+	"github.com/bfe2021/go-bfe/consensus/bfeash"
+	"github.com/bfe2021/go-bfe/consensus/clique"
+	"github.com/bfe2021/go-bfe/core"
+	"github.com/bfe2021/go-bfe/core/rawdb"
+	"github.com/bfe2021/go-bfe/core/vm"
+	"github.com/bfe2021/go-bfe/crypto"
 	"github.com/bfe2021/go-bfe/graphql"
 	"github.com/bfe2021/go-bfe/internal/bfeapi"
 	"github.com/bfe2021/go-bfe/internal/flags"
@@ -491,7 +491,7 @@ var (
 	}
 	RPCGlobalTxFeeCapFlag = cli.Float64Flag{
 		Name:  "rpc.txfeecap",
-		Usage: "Sets a cap on transaction fee (in onger) that can be sent via the RPC APIs (0 = no cap)",
+		Usage: "Sets a cap on transaction fee (in bfeer) that can be sent via the RPC APIs (0 = no cap)",
 		Value: bfeconfig.Defaults.RPCTxFeeCap,
 	}
 	// Logging and debug settings
@@ -1076,24 +1076,24 @@ func MakeAddress(ks *keystore.KeyStore, account string) (accounts.Account, error
 	return accs[index], nil
 }
 
-// setBfeerbase retrieves the ongerbase either from the directly specified
+// setBfeerbase retrieves the bfeerbase either from the directly specified
 // command line flags or from the keystore if CLI indexed.
 func setBfeerbase(ctx *cli.Context, ks *keystore.KeyStore, cfg *bfeconfig.Config) {
-	// Extract the current ongerbase
-	var ongerbase string
+	// Extract the current bfeerbase
+	var bfeerbase string
 	if ctx.GlobalIsSet(MinerBfeerbaseFlag.Name) {
-		ongerbase = ctx.GlobalString(MinerBfeerbaseFlag.Name)
+		bfeerbase = ctx.GlobalString(MinerBfeerbaseFlag.Name)
 	}
-	// Convert the ongerbase into an address and configure it
-	if ongerbase != "" {
+	// Convert the bfeerbase into an address and configure it
+	if bfeerbase != "" {
 		if ks != nil {
-			account, err := MakeAddress(ks, ongerbase)
+			account, err := MakeAddress(ks, bfeerbase)
 			if err != nil {
-				Fatalf("Invalid miner ongerbase: %v", err)
+				Fatalf("Invalid miner bfeerbase: %v", err)
 			}
 			cfg.Miner.Bfeerbase = account.Address
 		} else {
-			Fatalf("No ongerbase configured")
+			Fatalf("No bfeerbase configured")
 		}
 	}
 }
@@ -1148,11 +1148,11 @@ func SetP2PConfig(ctx *cli.Context, cfg *p2p.Config) {
 	if !(lightClient || lightServer) {
 		lightPeers = 0
 	}
-	ongPeers := cfg.MaxPeers - lightPeers
+	bfePeers := cfg.MaxPeers - lightPeers
 	if lightClient {
-		ongPeers = 0
+		bfePeers = 0
 	}
-	log.Info("Maximum peer count", "BFE", ongPeers, "LES", lightPeers, "total", cfg.MaxPeers)
+	log.Info("Maximum peer count", "BFE", bfePeers, "LES", lightPeers, "total", cfg.MaxPeers)
 
 	if ctx.GlobalIsSet(MaxPendingPeersFlag.Name) {
 		cfg.MaxPendingPeers = ctx.GlobalInt(MaxPendingPeersFlag.Name)

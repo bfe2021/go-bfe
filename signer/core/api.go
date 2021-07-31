@@ -512,7 +512,7 @@ func (api *SignerAPI) lookupOrQueryPassword(address common.Address, title, promp
 	if err != nil {
 		log.Warn("error obtaining password", "error", err)
 		// We'll not forward the error here, in case the error contains info about the response from the UI,
-		// which could leak the password if it was malformed json or somonging
+		// which could leak the password if it was malformed json or somogning
 		return "", errors.New("internal error")
 	}
 	return pwResp.Text, nil

@@ -41,7 +41,7 @@ import (
 )
 
 // testBfeHandler is a mock event handler to listen for inbound network requests
-// on the `ong` protocol and convert them into a more easily testable form.
+// on the `bfe` protocol and convert them into a more easily testable form.
 type testBfeHandler struct {
 	blockBroadcasts event.Feed
 	txAnnounces     event.Feed
@@ -74,7 +74,7 @@ func (h *testBfeHandler) Handle(peer *bfe.Peer, packet bfe.Packet) error {
 		return nil
 
 	default:
-		panic(fmt.Sprintf("unexpected ong packet type in tests: %T", packet))
+		panic(fmt.Sprintf("unexpected  bfe  packet type in tests: %T", packet))
 	}
 }
 
@@ -112,7 +112,7 @@ func testForkIDSplit(t *testing.T, protocol uint) {
 		blocksNoFork, _  = core.GenerateChain(configNoFork, genesisNoFork, engine, dbNoFork, 2, nil)
 		blocksProFork, _ = core.GenerateChain(configProFork, genesisProFork, engine, dbProFork, 2, nil)
 
-		ongNoFork, _ = newHandler(&handlerConfig{
+		bfeNoFork, _ = newHandler(&handlerConfig{
 			Database:   dbNoFork,
 			Chain:      chainNoFork,
 			TxPool:     newTestTxPool(),
@@ -120,7 +120,7 @@ func testForkIDSplit(t *testing.T, protocol uint) {
 			Sync:       downloader.FullSync,
 			BloomCache: 1,
 		})
-		ongProFork, _ = newHandler(&handlerConfig{
+		bfeProFork, _ = newHandler(&handlerConfig{
 			Database:   dbProFork,
 			Chain:      chainProFork,
 			TxPool:     newTestTxPool(),
@@ -129,15 +129,15 @@ func testForkIDSplit(t *testing.T, protocol uint) {
 			BloomCache: 1,
 		})
 	)
-	ongNoFork.Start(1000)
-	ongProFork.Start(1000)
+	bfeNoFork.Start(1000)
+	bfeProFork.Start(1000)
 
 	// Clean up everything after ourselves
 	defer chainNoFork.Stop()
 	defer chainProFork.Stop()
 
-	defer ongNoFork.Stop()
-	defer ongProFork.Stop()
+	defer bfeNoFork.Stop()
+	defer bfeProFork.Stop()
 
 	// Both nodes should allow the other to connect (same genesis, next fork is the same)
 	p2pNoFork, p2pProFork := p2p.MsgPipe()
@@ -151,10 +151,10 @@ func testForkIDSplit(t *testing.T, protocol uint) {
 
 	errc := make(chan error, 2)
 	go func(errc chan error) {
-		errc <- ongNoFork.runBfePeer(peerProFork, func(peer *bfe.Peer) error { return nil })
+		errc <- bfeNoFork.runBfePeer(peerProFork, func(peer *bfe.Peer) error { return nil })
 	}(errc)
 	go func(errc chan error) {
-		errc <- ongProFork.runBfePeer(peerNoFork, func(peer *bfe.Peer) error { return nil })
+		errc <- bfeProFork.runBfePeer(peerNoFork, func(peer *bfe.Peer) error { return nil })
 	}(errc)
 
 	for i := 0; i < 2; i++ {
@@ -182,10 +182,10 @@ func testForkIDSplit(t *testing.T, protocol uint) {
 
 	errc = make(chan error, 2)
 	go func(errc chan error) {
-		errc <- ongNoFork.runBfePeer(peerProFork, func(peer *bfe.Peer) error { return nil })
+		errc <- bfeNoFork.runBfePeer(peerProFork, func(peer *bfe.Peer) error { return nil })
 	}(errc)
 	go func(errc chan error) {
-		errc <- ongProFork.runBfePeer(peerNoFork, func(peer *bfe.Peer) error { return nil })
+		errc <- bfeProFork.runBfePeer(peerNoFork, func(peer *bfe.Peer) error { return nil })
 	}(errc)
 
 	for i := 0; i < 2; i++ {
@@ -213,10 +213,10 @@ func testForkIDSplit(t *testing.T, protocol uint) {
 
 	errc = make(chan error, 2)
 	go func(errc chan error) {
-		errc <- ongNoFork.runBfePeer(peerProFork, func(peer *bfe.Peer) error { return nil })
+		errc <- bfeNoFork.runBfePeer(peerProFork, func(peer *bfe.Peer) error { return nil })
 	}(errc)
 	go func(errc chan error) {
-		errc <- ongProFork.runBfePeer(peerNoFork, func(peer *bfe.Peer) error { return nil })
+		errc <- bfeProFork.runBfePeer(peerNoFork, func(peer *bfe.Peer) error { return nil })
 	}(errc)
 
 	var successes int
@@ -263,7 +263,7 @@ func testRecvTransactions(t *testing.T, protocol uint) {
 	defer sink.Close()
 
 	go handler.handler.runBfePeer(sink, func(peer *bfe.Peer) error {
-		return bfe.Handle((*ongHandler)(handler.handler), peer)
+		return bfe.Handle((*bfeHandler)(handler.handler), peer)
 	})
 	// Run the handshake locally to avoid spinning up a source handler
 	var (
@@ -325,7 +325,7 @@ func testSendTransactions(t *testing.T, protocol uint) {
 	defer sink.Close()
 
 	go handler.handler.runBfePeer(src, func(peer *bfe.Peer) error {
-		return bfe.Handle((*ongHandler)(handler.handler), peer)
+		return bfe.Handle((*bfeHandler)(handler.handler), peer)
 	})
 	// Run the handshake locally to avoid spinning up a source handler
 	var (
@@ -425,10 +425,10 @@ func testTransactionPropagation(t *testing.T, protocol uint) {
 		defer sinkPeer.Close()
 
 		go source.handler.runBfePeer(sourcePeer, func(peer *bfe.Peer) error {
-			return bfe.Handle((*ongHandler)(source.handler), peer)
+			return bfe.Handle((*bfeHandler)(source.handler), peer)
 		})
 		go sink.handler.runBfePeer(sinkPeer, func(peer *bfe.Peer) error {
-			return bfe.Handle((*ongHandler)(sink.handler), peer)
+			return bfe.Handle((*bfeHandler)(sink.handler), peer)
 		})
 	}
 	// Subscribe to all the transaction pools
@@ -462,7 +462,7 @@ func testTransactionPropagation(t *testing.T, protocol uint) {
 	}
 }
 
-// Tests that post ong protocol handshake, clients perform a mutual checkpoint
+// Tests that post  bfe  protocol handshake, clients perform a mutual checkpoint
 // challenge to validate each other's chains. Hash mismatches, or missing ones
 // during a fast sync should lead to the peer getting dropped.
 func TestCheckpointChallenge(t *testing.T) {
@@ -536,7 +536,7 @@ func testCheckpointChallenge(t *testing.T, syncmode downloader.SyncMode, checkpo
 	defer remote.Close()
 
 	go handler.handler.runBfePeer(local, func(peer *bfe.Peer) error {
-		return bfe.Handle((*ongHandler)(handler.handler), peer)
+		return bfe.Handle((*bfeHandler)(handler.handler), peer)
 	})
 	// Run the handshake locally to avoid spinning up a remote handler
 	var (
@@ -626,7 +626,7 @@ func testBroadcastBlock(t *testing.T, peers, bcasts int) {
 		defer sinkPeer.Close()
 
 		go source.handler.runBfePeer(sourcePeer, func(peer *bfe.Peer) error {
-			return bfe.Handle((*ongHandler)(source.handler), peer)
+			return bfe.Handle((*bfeHandler)(source.handler), peer)
 		})
 		if err := sinkPeer.Handshake(1, td, genesis.Hash(), genesis.Hash(), forkid.NewIDWithChain(source.chain), forkid.NewFilter(source.chain)); err != nil {
 			t.Fatalf("failed to run protocol handshake")
@@ -694,7 +694,7 @@ func testBroadcastMalformedBlock(t *testing.T, protocol uint) {
 	defer sink.Close()
 
 	go source.handler.runBfePeer(src, func(peer *bfe.Peer) error {
-		return bfe.Handle((*ongHandler)(source.handler), peer)
+		return bfe.Handle((*bfeHandler)(source.handler), peer)
 	})
 	// Run the handshake locally to avoid spinning up a sink handler
 	var (

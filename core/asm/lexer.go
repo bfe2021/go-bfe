@@ -155,7 +155,7 @@ func (l *lexer) accept(valid string) bool {
 }
 
 // acceptRun will continue to advance the seeker until valid
-// can no longer be met.
+// can no logner be met.
 func (l *lexer) acceptRun(valid string) {
 	for strings.ContainsRune(valid, l.next()) {
 	}

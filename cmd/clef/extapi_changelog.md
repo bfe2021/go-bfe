@@ -41,7 +41,7 @@ The API-Method `account_signGnosisSafeTx` was added. This Method takes two param
       "executor": null,
       "isExecuted": false,
       "isSuccessful": null,
-      "ongGasPrice": null,
+      "bfeGasPrice": null,
       "gasUsed": null,
       "fee": null,
       "origin": null,

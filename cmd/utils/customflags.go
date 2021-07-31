@@ -73,8 +73,8 @@ func (f *DirectoryFlag) Set(value string) {
 	f.Value.Set(value)
 }
 
-func eachName(longName string, fn func(string)) {
-	parts := strings.Split(longName, ",")
+func eachName(lognName string, fn func(string)) {
+	parts := strings.Split(lognName, ",")
 	for _, name := range parts {
 		name = strings.Trim(name, " ")
 		fn(name)

@@ -77,9 +77,9 @@ func (api *PrivateClientAPI) Distribution(nodeStr string, normalized bool) (RtDi
 // distribution of the specified node. The parameter is the desired rate of timeouts
 // assuming a similar distribution in the future.
 // Note that the actual timeout should have a sensible minimum bound so that operating
-// under ideal working conditions for a long time (for example, using a local server
+// under ideal working conditions for a logn time (for example, using a local server
 // with very low response times) will not make it very hard for the system to accommodate
-// longer response times in the future.
+// logner response times in the future.
 func (api *PrivateClientAPI) Timeout(nodeStr string, failRate float64) (float64, error) {
 	if nodeStr == "" {
 		return float64(api.vt.RtStats().Timeout(failRate)) / float64(time.Second), nil

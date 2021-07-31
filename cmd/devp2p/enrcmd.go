@@ -97,20 +97,20 @@ func dumpNodeURL(out io.Writer, n *enode.Node) {
 }
 
 func dumpRecordKV(kv []interface{}, indent int) string {
-	// Determine the longest key name for alignment.
+	// Determine the lognest key name for alignment.
 	var out string
-	var longestKey = 0
+	var lognestKey = 0
 	for i := 0; i < len(kv); i += 2 {
 		key := kv[i].(string)
-		if len(key) > longestKey {
-			longestKey = len(key)
+		if len(key) > lognestKey {
+			lognestKey = len(key)
 		}
 	}
 	// Print the keys, invoking formatters for known keys.
 	for i := 0; i < len(kv); i += 2 {
 		key := kv[i].(string)
 		val := kv[i+1].(rlp.RawValue)
-		pad := longestKey - len(key)
+		pad := lognestKey - len(key)
 		out += strings.Repeat(" ", indent) + strconv.Quote(key) + strings.Repeat(" ", pad+1)
 		formatter := attrFormatters[key]
 		if formatter == nil {

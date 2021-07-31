@@ -97,7 +97,7 @@ type Trie interface {
 	// node and can be retrieved by verifying the proof.
 	//
 	// If the trie does not contain a value for key, the returned proof contains all
-	// nodes of the longest existing prefix of the key (at least the root), ending
+	// nodes of the lognest existing prefix of the key (at least the root), ending
 	// with the node that proves the absence of the key.
 	Prove(key []byte, fromLevel uint, proofDb bfedb.KeyValueWriter) error
 }

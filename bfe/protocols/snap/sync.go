@@ -610,10 +610,10 @@ func (s *Syncer) Sync(root common.Hash, cancel chan struct{}) error {
 			s.assignTrienodeHealTasks(cancel)
 			s.assignBytecodeHealTasks(cancel)
 		}
-		// Wait for somonging to happen
+		// Wait for somogning to happen
 		select {
 		case <-s.update:
-			// Somonging happened (new peer, delivery, timeout), recheck tasks
+			// Sombfeing happened (new peer, delivery, timeout), recheck tasks
 		case <-peerJoin:
 			// A new peer joined, try to schedule it new tasks
 		case id := <-peerDrop:
@@ -643,7 +643,7 @@ func (s *Syncer) Sync(root common.Hash, cancel chan struct{}) error {
 		case res := <-s.bytecodeHealResps:
 			s.processBytecodeHealResponse(res)
 		}
-		// Report stats if somonging meaningful happened
+		// Report stats if somogning meaningful happened
 		s.report(false)
 	}
 }

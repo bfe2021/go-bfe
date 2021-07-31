@@ -27,7 +27,7 @@ import (
 )
 
 // This is used if the dialing context has no deadline. It is much smaller than the
-// defaultDialTimeout because named pipes are local and there is no need to wait so lbfe.
+// defaultDialTimeout because named pipes are local and there is no need to wait so logn.
 const defaultPipeDialTimeout = 2 * time.Second
 
 // ipcListen will create a named pipe on the given endpoint.

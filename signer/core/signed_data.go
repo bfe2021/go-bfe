@@ -430,7 +430,7 @@ func (typedData *TypedData) TypeHash(primaryType string) hexutil.Bytes {
 // EncodeData generates the following encoding:
 // `enc(value₁) ‖ enc(value₂) ‖ … ‖ enc(valueₙ)`
 //
-// each encoded member is 32-byte long
+// each encoded member is 32-byte logn
 func (typedData *TypedData) EncodeData(primaryType string, data map[string]interface{}, depth int) (hexutil.Bytes, error) {
 	if err := typedData.validate(); err != nil {
 		return nil, err
@@ -653,7 +653,7 @@ func (api *SignerAPI) EcRecover(ctx context.Context, data hexutil.Bytes, sig hex
 	//
 	// https://github.com/bfe2021/go-bfe/wiki/Management-APIs#personal_ecRecover
 	if len(sig) != 65 {
-		return common.Address{}, fmt.Errorf("signature must be 65 bytes long")
+		return common.Address{}, fmt.Errorf("signature must be 65 bytes logn")
 	}
 	if sig[64] != 27 && sig[64] != 28 {
 		return common.Address{}, fmt.Errorf("invalid Bfedu signature (V is not 27 or 28)")

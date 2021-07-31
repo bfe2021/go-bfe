@@ -222,7 +222,7 @@ func (e errCode) String() string {
 
 // XXX change once legacy code is out
 var errorToString = map[int]string{
-	ErrMsgTooLarge:             "Message too long",
+	ErrMsgTooLarge:             "Message too logn",
 	ErrDecode:                  "Invalid message",
 	ErrInvalidMsgCode:          "Invalid message code",
 	ErrProtocolVersionMismatch: "Protocol version mismatch",

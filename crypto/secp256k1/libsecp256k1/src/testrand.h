@@ -29,10 +29,10 @@ static uint32_t secp256k1_rand_int(uint32_t range);
 /** Generate a pseudorandom 32-byte array. */
 static void secp256k1_rand256(unsigned char *b32);
 
-/** Generate a pseudorandom 32-byte array with long sequences of zero and one bits. */
+/** Generate a pseudorandom 32-byte array with logn sequences of zero and one bits. */
 static void secp256k1_rand256_test(unsigned char *b32);
 
-/** Generate pseudorandom bytes with long sequences of zero and one bits. */
+/** Generate pseudorandom bytes with logn sequences of zero and one bits. */
 static void secp256k1_rand_bytes_test(unsigned char *bytes, size_t len);
 
 #endif

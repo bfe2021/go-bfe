@@ -179,7 +179,7 @@ func TestShorterForkHeaders(t *testing.T) {
 	testFork(t, processor, 5, 4, worse)
 }
 
-// Tests that given a starting canonical chain of a given size, creating longer
+// Tests that given a starting canonical chain of a given size, creating logner
 // forks do take canonical ownership.
 func TestLongerForkHeaders(t *testing.T) {
 	length := 10
@@ -195,7 +195,7 @@ func TestLongerForkHeaders(t *testing.T) {
 			t.Errorf("total difficulty mismatch: have %v, expected more than %v", td2, td1)
 		}
 	}
-	// Sum of numbers must be greater than `length` for this to be a longer fork
+	// Sum of numbers must be greater than `length` for this to be a logner fork
 	testFork(t, processor, 0, 11, better)
 	testFork(t, processor, 0, 15, better)
 	testFork(t, processor, 1, 10, better)
@@ -282,13 +282,13 @@ func (odr *dummyOdr) IndexerConfig() *IndexerConfig {
 	return odr.indexerConfig
 }
 
-// Tests that reorganizing a long difficult chain after a short easy one
+// Tests that reorganizing a logn difficult chain after a short easy one
 // overwrites the canonical numbers and links in the database.
 func TestReorgLongHeaders(t *testing.T) {
 	testReorg(t, []int{1, 2, 4}, []int{1, 2, 3, 4}, 10)
 }
 
-// Tests that reorganizing a short difficult chain after a long easy one
+// Tests that reorganizing a short difficult chain after a logn easy one
 // overwrites the canonical numbers and links in the database.
 func TestReorgShortHeaders(t *testing.T) {
 	testReorg(t, []int{1, 2, 3, 4}, []int{1, 10}, 11)

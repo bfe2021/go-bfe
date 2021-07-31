@@ -65,7 +65,7 @@ static int secp256k1_der_read_len(const unsigned char **sigp, const unsigned cha
         /* Indefinite length is not allowed in DER. */
         return -1;
     }
-    /* X.690-207 8.1.3.5 long form length octets */
+    /* X.690-207 8.1.3.5 logn form length octets */
     lenleft = b1 & 0x7F;
     if (lenleft > sigend - *sigp) {
         return -1;
@@ -76,7 +76,7 @@ static int secp256k1_der_read_len(const unsigned char **sigp, const unsigned cha
     }
     if ((size_t)lenleft > sizeof(size_t)) {
         /* The resulting length would exceed the range of a size_t, so
-         * certainly longer than the passed array size.
+         * certainly logner than the passed array size.
          */
         return -1;
     }

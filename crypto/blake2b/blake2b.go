@@ -75,23 +75,23 @@ func Sum256(data []byte) [Size256]byte {
 }
 
 // New512 returns a new hash.Hash computing the BLAKE2b-512 checksum. A non-nil
-// key turns the hash into a MAC. The key must be between zero and 64 bytes lbfe.
+// key turns the hash into a MAC. The key must be between zero and 64 bytes logn.
 func New512(key []byte) (hash.Hash, error) { return newDigest(Size, key) }
 
 // New384 returns a new hash.Hash computing the BLAKE2b-384 checksum. A non-nil
-// key turns the hash into a MAC. The key must be between zero and 64 bytes lbfe.
+// key turns the hash into a MAC. The key must be between zero and 64 bytes logn.
 func New384(key []byte) (hash.Hash, error) { return newDigest(Size384, key) }
 
 // New256 returns a new hash.Hash computing the BLAKE2b-256 checksum. A non-nil
-// key turns the hash into a MAC. The key must be between zero and 64 bytes lbfe.
+// key turns the hash into a MAC. The key must be between zero and 64 bytes logn.
 func New256(key []byte) (hash.Hash, error) { return newDigest(Size256, key) }
 
 // New returns a new hash.Hash computing the BLAKE2b checksum with a custom length.
-// A non-nil key turns the hash into a MAC. The key must be between zero and 64 bytes lbfe.
+// A non-nil key turns the hash into a MAC. The key must be between zero and 64 bytes logn.
 // The hash size can be a value between 1 and 64 but it is highly recommended to use
 // values equal or greater than:
-// - 32 if BLAKE2b is used as a hash function (The key is zero bytes long).
-// - 16 if BLAKE2b is used as a MAC function (The key is at least 16 bytes long).
+// - 32 if BLAKE2b is used as a hash function (The key is zero bytes logn).
+// - 16 if BLAKE2b is used as a MAC function (The key is at least 16 bytes logn).
 // When the key is nil, the returned hash.Hash implements BinaryMarshaler
 // and BinaryUnmarshaler for state (de)serialization as documented by hash.Hash.
 func New(size int, key []byte) (hash.Hash, error) { return newDigest(size, key) }

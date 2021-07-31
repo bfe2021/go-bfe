@@ -129,7 +129,7 @@ func wrapStreamError(err error, typ reflect.Type) error {
 	case ErrExpectedString:
 		return &decodeError{msg: "expected input string or byte", typ: typ}
 	case errUintOverflow:
-		return &decodeError{msg: "input string too long", typ: typ}
+		return &decodeError{msg: "input string too logn", typ: typ}
 	case errNotAtEOL:
 		return &decodeError{msg: "input list has too many elements", typ: typ}
 	}
@@ -352,7 +352,7 @@ func decodeByteArray(s *Stream, val reflect.Value) error {
 	switch kind {
 	case Byte:
 		if vlen == 0 {
-			return &decodeError{msg: "input string too long", typ: val.Type()}
+			return &decodeError{msg: "input string too logn", typ: val.Type()}
 		}
 		if vlen > 1 {
 			return &decodeError{msg: "input string too short", typ: val.Type()}
@@ -361,7 +361,7 @@ func decodeByteArray(s *Stream, val reflect.Value) error {
 		val.Index(0).SetUint(bv)
 	case String:
 		if uint64(vlen) < size {
-			return &decodeError{msg: "input string too long", typ: val.Type()}
+			return &decodeError{msg: "input string too logn", typ: val.Type()}
 		}
 		if uint64(vlen) > size {
 			return &decodeError{msg: "input string too short", typ: val.Type()}
@@ -632,7 +632,7 @@ func (s *Stream) Raw() ([]byte, error) {
 		s.kind = -1 // rearm Kind
 		return []byte{s.byteval}, nil
 	}
-	// the original header has already been read and is no longer
+	// the original header has already been read and is no logner
 	// available. read content and put a new header in front of it.
 	start := headsize(size)
 	buf := make([]byte, uint64(start)+size)
@@ -877,13 +877,13 @@ func (s *Stream) readKind() (kind Kind, size uint64, err error) {
 		s.byteval = b
 		return Byte, 0, nil
 	case b < 0xB8:
-		// Otherwise, if a string is 0-55 bytes long,
+		// Otherwise, if a string is 0-55 bytes logn,
 		// the RLP encoding consists of a single byte with value 0x80 plus the
 		// length of the string followed by the string. The range of the first
 		// byte is thus [0x80, 0xB7].
 		return String, uint64(b - 0x80), nil
 	case b < 0xC0:
-		// If a string is more than 55 bytes long, the
+		// If a string is more than 55 bytes logn, the
 		// RLP encoding consists of a single byte with value 0xB7 plus the length
 		// of the length of the string in binary form, followed by the length of
 		// the string, followed by the string. For example, a length-1024 string
@@ -896,13 +896,13 @@ func (s *Stream) readKind() (kind Kind, size uint64, err error) {
 		return String, size, err
 	case b < 0xF8:
 		// If the total payload of a list
-		// (i.e. the combined length of all its items) is 0-55 bytes long, the
+		// (i.e. the combined length of all its items) is 0-55 bytes logn, the
 		// RLP encoding consists of a single byte with value 0xC0 plus the length
 		// of the list followed by the concatenation of the RLP encodings of the
 		// items. The range of the first byte is thus [0xC0, 0xF7].
 		return List, uint64(b - 0xC0), nil
 	default:
-		// If the total payload of a list is more than 55 bytes long,
+		// If the total payload of a list is more than 55 bytes logn,
 		// the RLP encoding consists of a single byte with value 0xF7
 		// plus the length of the length of the payload in binary
 		// form, followed by the length of the payload, followed by

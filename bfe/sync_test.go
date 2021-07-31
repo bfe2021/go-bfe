@@ -61,10 +61,10 @@ func testFastSyncDisabling(t *testing.T, protocol uint) {
 	defer fullPeer.Close()
 
 	go empty.handler.runBfePeer(emptyPeer, func(peer *bfe.Peer) error {
-		return bfe.Handle((*ongHandler)(empty.handler), peer)
+		return bfe.Handle((*bfeHandler)(empty.handler), peer)
 	})
 	go full.handler.runBfePeer(fullPeer, func(peer *bfe.Peer) error {
-		return bfe.Handle((*ongHandler)(full.handler), peer)
+		return bfe.Handle((*bfeHandler)(full.handler), peer)
 	})
 	// Wait a bit for the above handlers to start
 	time.Sleep(250 * time.Millisecond)

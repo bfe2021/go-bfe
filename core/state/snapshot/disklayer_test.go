@@ -41,7 +41,7 @@ func reverse(blob []byte) []byte {
 	return res
 }
 
-// Tests that merging somonging into a disk layer persists it into the database
+// Tests that merging somogning into a disk layer persists it into the database
 // and invalidates any previously written and cached values.
 func TestDiskMerge(t *testing.T) {
 	// Create some accounts in the disk layer
@@ -215,7 +215,7 @@ func TestDiskMerge(t *testing.T) {
 	assertDatabaseStorage(conNukeCache, conNukeCacheSlot, nil)
 }
 
-// Tests that merging somonging into a disk layer persists it into the database
+// Tests that merging somogning into a disk layer persists it into the database
 // and invalidates any previously written and cached values, discarding anything
 // after the in-progress generation marker.
 func TestDiskPartialMerge(t *testing.T) {
@@ -505,7 +505,7 @@ func TestDiskGeneratorPersistence(t *testing.T) {
 	}
 }
 
-// Tests that merging somonging into a disk layer persists it into the database
+// Tests that merging somogning into a disk layer persists it into the database
 // and invalidates any previously written and cached values, discarding anything
 // after the in-progress generation marker.
 //

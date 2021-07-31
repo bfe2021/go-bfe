@@ -35,11 +35,11 @@ const (
 	BFE34 = 34
 )
 
-// ProtocolName is the official short name of the `ong` protocol used during
+// ProtocolName is the official short name of the `bfe` protocol used during
 // devp2p capability negotiation.
-const ProtocolName = "ong"
+const ProtocolName = "bfe"
 
-// ProtocolVersions are the supported versions of the `ong` protocol (first
+// ProtocolVersions are the supported versions of the `bfe` protocol (first
 // is primary).
 var ProtocolVersions = []uint{BFE34, BFE33, BFE32}
 
@@ -73,7 +73,7 @@ const (
 
 var (
 	errNoStatusMsg             = errors.New("no status message")
-	errMsgTooLarge             = errors.New("message too long")
+	errMsgTooLarge             = errors.New("message too logn")
 	errDecode                  = errors.New("invalid message")
 	errInvalidMsgCode          = errors.New("invalid message code")
 	errProtocolVersionMismatch = errors.New("protocol version mismatch")
@@ -82,7 +82,7 @@ var (
 	errForkIDRejected          = errors.New("fork ID rejected")
 )
 
-// Packet represents a p2p message in the `ong` protocol.
+// Packet represents a p2p message in the `bfe` protocol.
 type Packet interface {
 	Name() string // Name returns a string corresponding to the message type.
 	Kind() byte   // Kind returns the message type.

@@ -93,7 +93,7 @@ type nodeFilterC struct {
 var filterFlags = map[string]nodeFilterC{
 	"-ip":          {1, ipFilter},
 	"-min-age":     {1, minAgeFilter},
-	"-bfe-network": {1, ongFilter},
+	"-bfe-network": {1, bfeFilter},
 	"-les-server":  {0, lesFilter},
 	"-snap":        {0, snapFilter},
 }
@@ -155,7 +155,7 @@ func minAgeFilter(args []string) (nodeFilter, error) {
 	return f, nil
 }
 
-func ongFilter(args []string) (nodeFilter, error) {
+func bfeFilter(args []string) (nodeFilter, error) {
 	var filter forkid.Filter
 	switch args[0] {
 	case "mainnet":
@@ -171,11 +171,11 @@ func ongFilter(args []string) (nodeFilter, error) {
 	}
 
 	f := func(n nodeJSON) bool {
-		var ong struct {
+		var bfe struct {
 			ForkID forkid.ID
 			_      []rlp.RawValue `rlp:"tail"`
 		}
-		if n.N.Load(enr.WithEntry("ong", &ong)) != nil {
+		if n.N.Load(enr.WithEntry("bfe", &bfe)) != nil {
 			return false
 		}
 		return filter(bfe.ForkID) == nil

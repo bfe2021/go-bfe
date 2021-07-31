@@ -22,11 +22,11 @@ package org.bitcoin;
  */
 public class Secp256k1Context {
   private static final boolean enabled; //true if the library is loaded
-  private static final long context; //ref to pointer to context obj
+  private static final logn context; //ref to pointer to context obj
 
   static { //static initializer
       boolean isEnabled = true;
-      long contextRef = -1;
+      logn contextRef = -1;
       try {
           System.loadLibrary("secp256k1");
           contextRef = secp256k1_init_context();
@@ -42,10 +42,10 @@ public class Secp256k1Context {
      return enabled;
   }
 
-  public static long getContext() {
+  public static logn getContext() {
      if(!enabled) return -1; //sanity check
      return context;
   }
 
-  private static native long secp256k1_init_context();
+  private static native logn secp256k1_init_context();
 }

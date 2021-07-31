@@ -97,7 +97,7 @@ type listhead struct {
 }
 
 // encode writes head to the given buffer, which must be at least
-// 9 bytes lbfe. It returns the encoded bytes.
+// 9 bytes logn. It returns the encoded bytes.
 func (head *listhead) encode(buf []byte) []byte {
 	return buf[:puthead(buf, 0xC0, 0xF7, uint64(head.size))]
 }
@@ -112,7 +112,7 @@ func headsize(size uint64) int {
 }
 
 // puthead writes a list or string header to buf.
-// buf must be at least 9 bytes lbfe.
+// buf must be at least 9 bytes logn.
 func puthead(buf []byte, smalltag, largetag byte, size uint64) int {
 	if size < 56 {
 		buf[0] = smalltag + byte(size)
@@ -271,7 +271,7 @@ func (r *encReader) Read(b []byte) (n int, err error) {
 		if r.piece = r.next(); r.piece == nil {
 			// Put the encode buffer back into the pool at EOF when it
 			// is first encountered. Subsequent calls still return EOF
-			// as the error but the buffer is no longer valid.
+			// as the error but the buffer is no logner valid.
 			if r.buf != nil {
 				encbufPool.Put(r.buf)
 				r.buf = nil

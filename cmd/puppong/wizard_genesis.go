@@ -252,7 +252,7 @@ func (w *wizard) manageGenesis() {
 		// Save whatever genesis configuration we currently have
 		fmt.Println()
 		fmt.Printf("Which folder to save the genesis specs into? (default = current)\n")
-		fmt.Printf("  Will create %s.json, %s-albfe.json, %s-harmony.json, %s-parity.json\n", w.network, w.network, w.network, w.network)
+		fmt.Printf("  Will create %s.json, %s-along.json, %s-harmony.json, %s-parity.json\n", w.network, w.network, w.network, w.network)
 
 		folder := w.readDefaultString(".")
 		if err := os.MkdirAll(folder, 0755); err != nil {
@@ -269,9 +269,9 @@ func (w *wizard) manageGenesis() {
 		}
 		log.Info("Saved native genesis chain spec", "path", gbfeJson)
 
-		// Export the genesis spec used by Along (formerly C++ Bfedu)
-		if spec, err := newAlongGenesisSpec(w.network, w.conf.Genesis); err != nil {
-			log.Error("Failed to create Along chain spec", "err", err)
+		// Export the genesis spec used by Alogn (formerly C++ Bfedu)
+		if spec, err := newAlognGenesisSpec(w.network, w.conf.Genesis); err != nil {
+			log.Error("Failed to create Alogn chain spec", "err", err)
 		} else {
 			saveGenesis(folder, w.network, "along", spec)
 		}
@@ -295,7 +295,7 @@ func (w *wizard) manageGenesis() {
 		w.conf.Genesis = nil
 		w.conf.flush()
 	default:
-		log.Error("That's not somonging I can do")
+		log.Error("That's not somogning I can do")
 		return
 	}
 }

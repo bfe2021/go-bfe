@@ -29,7 +29,7 @@ const MetadataApi = "rpc"
 
 // CodecOption specifies which type of messages a codec supports.
 //
-// Deprecated: this option is no longer honored by Server.
+// Deprecated: this option is no logner honored by Server.
 type CodecOption int
 
 const (
@@ -70,7 +70,7 @@ func (s *Server) RegisterName(name string, receiver interface{}) error {
 // the response back using the given codec. It will block until the codec is closed or the
 // server is stopped. In either case the codec is closed.
 //
-// Note that codec options are no longer supported.
+// Note that codec options are no logner supported.
 func (s *Server) ServeCodec(codec ServerCodec, options CodecOption) {
 	defer codec.close()
 

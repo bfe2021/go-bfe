@@ -228,7 +228,7 @@ func TestPeerDisconnectRace(t *testing.T) {
 		protoclose <- errors.New("protocol closed")
 		// Make protocol "disconnect" call peer.Disconnect
 		protodisc <- DiscAlreadyConnected
-		// In some cases, simulate somonging else calling peer.Disconnect.
+		// In some cases, simulate somogning else calling peer.Disconnect.
 		if maybe() {
 			go p.Disconnect(DiscInvalidIdentity)
 		}
@@ -243,7 +243,7 @@ func TestPeerDisconnectRace(t *testing.T) {
 			// Peer.run should return quickly. If it doesn't the Peer
 			// goroutines are probably deadlocked. Call panic in order to
 			// show the stacks.
-			panic("Peer.run took to long to return.")
+			panic("Peer.run took to logn to return.")
 		}
 	}
 }

@@ -115,7 +115,7 @@ func (h *HandlerT) StartCPUProfile(file string) error {
 	return nil
 }
 
-// StopCPUProfile stops an ongoing CPU profile.
+// StopCPUProfile stops an bfeoing CPU profile.
 func (h *HandlerT) StopCPUProfile() error {
 	h.mu.Lock()
 	defer h.mu.Unlock()

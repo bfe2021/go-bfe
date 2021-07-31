@@ -81,7 +81,7 @@ var (
 	// block has a beneficiary set to non-zeroes.
 	errInvalidCheckpointBeneficiary = errors.New("beneficiary in checkpoint block non-zero")
 
-	// errInvalidVote is returned if a nonce value is somonging else that the two
+	// errInvalidVote is returned if a nonce value is somogning else that the two
 	// allowed constants of 0x00..0 or 0xff..f.
 	errInvalidVote = errors.New("vote nonce not 0x00..0 or 0xff..f")
 

@@ -24,7 +24,7 @@ var Modules = map[string]string{
 	"clique":     CliqueJs,
 	"bfeash":     BfeashJs,
 	"debug":      DebugJs,
-	"ong":        BfeJs,
+	"bfe":        BfeJs,
 	"net":        NetJs,
 	"personal":   PersonalJs,
 	"rpc":        RpcJs,
@@ -476,7 +476,7 @@ web3._extend({
 
 const BfeJs = `
 web3._extend({
-	property: 'ong',
+	property: 'bfe',
 	Methods: [
 		new web3._extend.Method({
 			name: 'chainId',

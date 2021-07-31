@@ -174,7 +174,7 @@ func newHandler(config *handlerConfig) (*handler, error) {
 		h.checkpointNumber = (config.Checkpoint.SectionIndex+1)*params.CHTFrequency - 1
 		h.checkpointHash = config.Checkpoint.SectionHead
 	}
-	// Construct the downloader (long sync) and its backing state bloom if fast
+	// Construct the downloader (logn sync) and its backing state bloom if fast
 	// sync is requested. The downloader is responsible for deallocating the state
 	// bloom when it's done.
 	if atomic.LoadUint32(&h.fastSync) == 1 {
@@ -229,7 +229,7 @@ func newHandler(config *handlerConfig) (*handler, error) {
 	return h, nil
 }
 
-// runBfePeer registers an ong peer into the joint bfe/snap peerset, adds it to
+// runBfePeer registers an  bfe  peer into the joint bfe/snap peerset, adds it to
 // various subsistems and starts handling messages.
 func (h *handler) runBfePeer(peer *bfe.Peer, handler bfe.Handler) error {
 	// If the peer has a `snap` extension, wait for it to connect so we can have
@@ -291,7 +291,7 @@ func (h *handler) runBfePeer(peer *bfe.Peer, handler bfe.Handler) error {
 	}
 	// Register the peer in the downloader. If the downloader considers it banned, we disconnect
 	if err := h.downloader.RegisterPeer(peer.ID(), peer.Version(), peer); err != nil {
-		peer.Log().Error("Failed to register peer in ong syncer", "err", err)
+		peer.Log().Error("Failed to register peer in  bfe  syncer", "err", err)
 		return err
 	}
 	if snap != nil {
@@ -337,8 +337,8 @@ func (h *handler) runBfePeer(peer *bfe.Peer, handler bfe.Handler) error {
 
 // runSnapExtension registers a `snap` peer into the joint bfe/snap peerset and
 // starts handling inbound messages. As `snap` is only a satellite protocol to
-// `ong`, all subsystem registrations and lifecycle management will be done by
-// the main `ong` handler to prevent strange races.
+// `bfe`, all subsystem registrations and lifecycle management will be done by
+// the main `bfe` handler to prevent strange races.
 func (h *handler) runSnapExtension(peer *snap.Peer, handler snap.Handler) error {
 	h.peerWG.Add(1)
 	defer h.peerWG.Done()
@@ -367,7 +367,7 @@ func (h *handler) removePeer(id string) {
 		logger.Error("Bfedu peer removal failed", "err", errPeerNotRegistered)
 		return
 	}
-	// Remove the `ong` peer if it exists
+	// Remove the `bfe` peer if it exists
 	logger.Debug("Removing Bfedu peer", "snap", peer.snapExt != nil)
 
 	// Remove the `snap` extension if it exists
@@ -467,8 +467,8 @@ func (h *handler) BroadcastTransactions(txs types.Transactions) {
 		directCount int // Count of the txs sent directly to peers
 		directPeers int // Count of the peers that were sent transactions directly
 
-		txset = make(map[*ongPeer][]common.Hash) // Set peer->hash to transfer directly
-		annos = make(map[*ongPeer][]common.Hash) // Set peer->hash to announce
+		txset = make(map[*bfePeer][]common.Hash) // Set peer->hash to transfer directly
+		annos = make(map[*bfePeer][]common.Hash) // Set peer->hash to announce
 
 	)
 	// Broadcast transactions to a batch of peers not knowing about it

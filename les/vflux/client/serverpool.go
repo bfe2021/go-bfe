@@ -274,7 +274,7 @@ func (s *ServerPool) addPreNegFilter(input enode.Iterator, query QueryFunc) enod
 					atomic.StoreUint32(&s.queryFails, 0)
 				}
 				s.ns.Operation(func() {
-					// we are no longer running in the operation that the callback belongs to, start a new one because of setRedialWait
+					// we are no logner running in the operation that the callback belongs to, start a new one because of setRedialWait
 					if q == 1 {
 						s.ns.SetStateSub(n, sfCanDial, nodestate.Flags{}, time.Second*10)
 					} else {
@@ -487,7 +487,7 @@ func (s *ServerPool) updateWeight(node *enode.Node, totalValue float64, totalDia
 // setRedialWait calculates and sets the redialWait timeout based on the service value
 // and dial cost accumulated during the last session/attempt and in total.
 // The waiting time is raised exponentially if no service value has been received in order
-// to prevent dialing an unresponsive node frequently for a very long time just because it
+// to prevent dialing an unresponsive node frequently for a very logn time just because it
 // was useful in the past. It can still be occasionally dialed though and once it provides
 // a significant amount of service value again its waiting time is quickly reduced or reset
 // to the minimum.
@@ -547,8 +547,8 @@ func (s *ServerPool) setRedialWait(node *enode.Node, addDialCost int64, waitStep
 		s.ns.SetStateSub(node, sfRedialWait, nodestate.Flags{}, wait)
 		s.updateWeight(node, totalValue, totalDialCost)
 	} else {
-		// discard known node statistics if waiting time is very long because the node
-		// hasn't been responsive for a very long time
+		// discard known node statistics if waiting time is very logn because the node
+		// hasn't been responsive for a very logn time
 		s.ns.SetFieldSub(node, sfiNodeHistory, nil)
 		s.ns.SetFieldSub(node, sfiNodeWeight, nil)
 		s.ns.SetStateSub(node, nodestate.Flags{}, sfHasValue, 0)

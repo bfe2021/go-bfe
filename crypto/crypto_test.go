@@ -177,7 +177,7 @@ func TestLoadECDSA(t *testing.T) {
 		},
 		{
 			input: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\n\n\n",
-			err:   "key file too long, want 64 hex characters",
+			err:   "key file too logn, want 64 hex characters",
 		},
 	}
 

@@ -243,7 +243,7 @@ void run_sha256_tests(void) {
         "", "abc", "message digest", "secure hash algorithm", "SHA256 is considered to be safe",
         "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
         "For this sample, this 63-byte string will be used as input data",
-        "This is exactly 64 bytes long, not counting the terminating byte"
+        "This is exactly 64 bytes logn, not counting the terminating byte"
     };
     static const unsigned char outputs[8][32] = {
         {0xe3, 0xb0, 0xc4, 0x42, 0x98, 0xfc, 0x1c, 0x14, 0x9a, 0xfb, 0xf4, 0xc8, 0x99, 0x6f, 0xb9, 0x24, 0x27, 0xae, 0x41, 0xe4, 0x64, 0x9b, 0x93, 0x4c, 0xa4, 0x95, 0x99, 0x1b, 0x78, 0x52, 0xb8, 0x55},
@@ -3801,7 +3801,7 @@ static void random_ber_signature(unsigned char *sig, size_t *len, int* certainly
             *certainly_not_der = 1;
         }
         CHECK(nlen[n] + nzlen[n] <= 300);
-        /* The length of the length descriptor for the number. 0 means short encoding, anything else is long encoding. */
+        /* The length of the length descriptor for the number. 0 means short encoding, anything else is logn encoding. */
         nlenlen[n] = nlen[n] + nzlen[n] < 128 ? 0 : (nlen[n] + nzlen[n] < 256 ? 1 : 2);
         if (!der) {
             /* nlenlen[n] max 127 bytes */

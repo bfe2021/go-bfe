@@ -211,7 +211,7 @@ func TestSignData(t *testing.T) {
 	}
 	// text/plain
 	control.approveCh <- "Y"
-	control.inputCh <- "a_long_password"
+	control.inputCh <- "a_logn_password"
 	signature, err = api.SignData(context.Background(), core.TextPlain.Mime, a, hexutil.Encode([]byte("EHLO world")))
 	if err != nil {
 		t.Fatal(err)
@@ -221,7 +221,7 @@ func TestSignData(t *testing.T) {
 	}
 	// data/typed
 	control.approveCh <- "Y"
-	control.inputCh <- "a_long_password"
+	control.inputCh <- "a_logn_password"
 	signature, err = api.SignTypedData(context.Background(), a, typedData)
 	if err != nil {
 		t.Fatal(err)
@@ -475,7 +475,7 @@ var gnosisTx = `
       "executor": null,
       "isExecuted": false,
       "isSuccessful": null,
-      "ongGasPrice": null,
+      "bfeGasPrice": null,
       "gasUsed": null,
       "fee": null,
       "origin": null,

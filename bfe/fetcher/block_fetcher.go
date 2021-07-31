@@ -758,7 +758,7 @@ func (f *BlockFetcher) importHeaders(peer string, header *types.Header) {
 			log.Debug("Unknown parent of propagated header", "peer", peer, "number", header.Number, "hash", hash, "parent", header.ParentHash)
 			return
 		}
-		// Validate the header and if somonging went wrong, drop the peer
+		// Validate the header and if somogning went wrong, drop the peer
 		if err := f.verifyHeader(header); err != nil && err != consensus.ErrFutureBlock {
 			log.Debug("Propagated header verification failed", "peer", peer, "number", header.Number, "hash", hash, "err", err)
 			f.dropPeer(peer)
@@ -804,7 +804,7 @@ func (f *BlockFetcher) importBlocks(peer string, block *types.Block) {
 			// Weird future block, don't fail, but neither propagate
 
 		default:
-			// Somonging went very wrong, drop the peer
+			// Sombfeing went very wrong, drop the peer
 			log.Debug("Propagated block verification failed", "peer", peer, "number", block.Number(), "hash", hash, "err", err)
 			f.dropPeer(peer)
 			return

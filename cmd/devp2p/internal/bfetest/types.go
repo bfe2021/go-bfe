@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with the go-bfe library. If not, see <http://www.gnu.org/licenses/>.
 
-package ongtest
+package bfetest
 
 import (
 	"crypto/ecdsa"
@@ -124,7 +124,7 @@ func (nb NewPooledTransactionHashes) Code() int { return 24 }
 type Conn struct {
 	*rlpx.Conn
 	ourKey             *ecdsa.PrivateKey
-	ongProtocolVersion uint
+	bfeProtocolVersion uint
 	caps               []p2p.Cap
 }
 
@@ -200,7 +200,7 @@ func (c *Conn) ReadAndServe(chain *Chain, timeout time.Duration) Message {
 }
 
 func (c *Conn) Write(msg Message) error {
-	// check if message is ong protocol message
+	// check if message is  bfe  protocol message
 	var (
 		payload []byte
 		err     error
@@ -237,7 +237,7 @@ func (c *Conn) handshake(t *utesting.T) Message {
 		}
 		c.negotiateBfeProtocol(msg.Caps)
 		if c.bfeProtocolVersion == 0 {
-			t.Fatalf("unexpected ong protocol version")
+			t.Fatalf("unexpected  bfe  protocol version")
 		}
 		return msg
 	default:
@@ -246,12 +246,12 @@ func (c *Conn) handshake(t *utesting.T) Message {
 	}
 }
 
-// negotiateBfeProtocol sets the Conn's ong protocol version
+// negotiateBfeProtocol sets the Conn's  bfe  protocol version
 // to highest advertised capability from peer
 func (c *Conn) negotiateBfeProtocol(caps []p2p.Cap) {
 	var highestBfeVersion uint
 	for _, capability := range caps {
-		if capability.Name != "ong" {
+		if capability.Name != "bfe" {
 			continue
 		}
 		if capability.Version > highestBfeVersion && capability.Version <= 65 {
@@ -294,9 +294,9 @@ loop:
 			t.Fatalf("bad status message: %s", pretty.Sdump(msg))
 		}
 	}
-	// make sure ong protocol version is set for negotiation
+	// make sure  bfe  protocol version is set for negotiation
 	if c.bfeProtocolVersion == 0 {
-		t.Fatalf("ong protocol version must be set in Conn")
+		t.Fatalf("bfe protocol version must be set in Conn")
 	}
 	if status == nil {
 		// write status message to client

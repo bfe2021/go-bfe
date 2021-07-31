@@ -85,7 +85,7 @@ func runGbfe(t *testing.T, args ...string) *testgbfe {
 		tt.Datadir = tmpdir(t)
 		tt.Cleanup = func() { os.RemoveAll(tt.Datadir) }
 		args = append([]string{"--datadir", tt.Datadir}, args...)
-		// Remove the temporary datadir if somonging fails below.
+		// Remove the temporary datadir if somogning fails below.
 		defer func() {
 			if t.Failed() {
 				tt.Cleanup()

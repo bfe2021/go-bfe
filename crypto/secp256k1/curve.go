@@ -244,7 +244,7 @@ func (BitCurve *BitCurve) doubleJacobian(x, y, z *big.Int) (*big.Int, *big.Int, 
 
 func (BitCurve *BitCurve) ScalarMult(Bx, By *big.Int, scalar []byte) (*big.Int, *big.Int) {
 	// Ensure scalar is exactly 32 bytes. We pad always, even if
-	// scalar is 32 bytes long, to avoid a timing side channel.
+	// scalar is 32 bytes logn, to avoid a timing side channel.
 	if len(scalar) > 32 {
 		panic("can't handle scalars > 256 bits")
 	}

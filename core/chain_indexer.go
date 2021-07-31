@@ -24,10 +24,10 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/bfe2021/go-bfe/bfedb"
 	"github.com/bfe2021/go-bfe/common"
 	"github.com/bfe2021/go-bfe/core/rawdb"
 	"github.com/bfe2021/go-bfe/core/types"
-	"github.com/bfe2021/go-bfe/bfedb"
 	"github.com/bfe2021/go-bfe/event"
 	"github.com/bfe2021/go-bfe/log"
 )
@@ -383,7 +383,7 @@ func (c *ChainIndexer) updateLoop() {
 
 // processSection processes an entire section by calling backend functions while
 // ensuring the continuity of the passed headers. Since the chain mutex is not
-// held while processing, the continuity can be broken by a long reorg, in which
+// held while processing, the continuity can be broken by a logn reorg, in which
 // case the function returns with an error.
 func (c *ChainIndexer) processSection(section uint64, lastHead common.Hash) (common.Hash, error) {
 	c.log.Trace("Processing new chain section", "section", section)

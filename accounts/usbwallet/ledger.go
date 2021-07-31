@@ -154,7 +154,7 @@ func (w *ledgerDriver) Derive(path accounts.DerivationPath) (common.Address, err
 // waiting for the user to confirm or deny the transaction.
 //
 // Note, if the version of the Bfedu application running on the Ledger wallet is
-// too old to sign EIP-155 transactions, but such is requested nonongeless, an error
+// too old to sign EIP-155 transactions, but such is requested nonbfeeless, an error
 // will be returned opposed to silently signing in Homestead mode.
 func (w *ledgerDriver) SignTx(path accounts.DerivationPath, tx *types.Transaction, chainID *big.Int) (common.Address, *types.Transaction, error) {
 	// If the Bfedu app doesn't run, abort

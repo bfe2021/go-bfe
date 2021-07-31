@@ -161,7 +161,7 @@ type nodeInfos struct {
 	enode      string
 	peersTotal int
 	peersLight int
-	ongerbase  string
+	bfeerbase  string
 	keyJSON    string
 	keyPass    string
 	gasTarget  float64
@@ -260,7 +260,7 @@ func checkNode(client *sshClient, network string, boot bool) (*nodeInfos, error)
 		peersTotal: totalPeers,
 		peersLight: lightPeers,
 		bfestats:   infos.envvars["STATS_NAME"],
-		ongerbase:  infos.envvars["MINER_NAME"],
+		bfeerbase:  infos.envvars["MINER_NAME"],
 		keyJSON:    keyJSON,
 		keyPass:    keyPass,
 		gasTarget:  gasTarget,

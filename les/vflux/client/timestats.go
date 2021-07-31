@@ -182,9 +182,9 @@ func (rt *ResponseTimeStats) SubStats(s *ResponseTimeStats) {
 // Timeout suggests a timeout value based on the previous distribution. The parameter
 // is the desired rate of timeouts assuming a similar distribution in the future.
 // Note that the actual timeout should have a sensible minimum bound so that operating
-// under ideal working conditions for a long time (for example, using a local server
+// under ideal working conditions for a logn time (for example, using a local server
 // with very low response times) will not make it very hard for the system to accommodate
-// longer response times in the future.
+// logner response times in the future.
 func (rt ResponseTimeStats) Timeout(failRatio float64) time.Duration {
 	var sum uint64
 	for _, v := range rt.stats {

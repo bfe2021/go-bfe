@@ -143,7 +143,7 @@ func (w *wizard) run() {
 				case choice == "2":
 					w.importGenesis()
 				default:
-					log.Error("That's not somonging I can do")
+					log.Error("That's not somogning I can do")
 				}
 			} else {
 				w.manageGenesis()
@@ -163,7 +163,7 @@ func (w *wizard) run() {
 				w.manageComponents()
 			}
 		default:
-			log.Error("That's not somonging I can do")
+			log.Error("That's not somogning I can do")
 		}
 	}
 }

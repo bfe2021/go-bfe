@@ -130,7 +130,7 @@ const (
 // of retries, thus giving a weak guarantee.
 func (odr *LesOdr) RetrieveTxStatus(ctx context.Context, req *light.TxStatusRequest) error {
 	// Sort according to the transaction history supported by the peer and
-	// select the peers with longest history.
+	// select the peers with lognest history.
 	var (
 		retries int
 		peers   []*serverPeer

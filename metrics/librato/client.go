@@ -21,7 +21,7 @@ const (
 	Color             = "color"
 	DisplayMax        = "display_max"
 	DisplayMin        = "display_min"
-	DisplayUnitsLong  = "display_units_long"
+	DisplayUnitsLong  = "display_units_logn"
 	DisplayUnitsShort = "display_units_short"
 	DisplayStacked    = "display_stacked"
 	DisplayTransform  = "display_transform"

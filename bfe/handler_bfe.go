@@ -32,21 +32,21 @@ import (
 	"github.com/bfe2021/go-bfe/trie"
 )
 
-// ongHandler implements the bfe.Backend interface to handle the various network
+// bfeHandler implements the bfe.Backend interface to handle the various network
 // packets that are sent as replies or broadcasts.
-type ongHandler handler
+type bfeHandler handler
 
-func (h *ongHandler) Chain() *core.BlockChain     { return h.chain }
-func (h *ongHandler) StateBloom() *trie.SyncBloom { return h.stateBloom }
-func (h *ongHandler) TxPool() bfe.TxPool          { return h.txpool }
+func (h *bfeHandler) Chain() *core.BlockChain     { return h.chain }
+func (h *bfeHandler) StateBloom() *trie.SyncBloom { return h.stateBloom }
+func (h *bfeHandler) TxPool() bfe.TxPool          { return h.txpool }
 
-// RunPeer is invoked when a peer joins on the `ong` protocol.
-func (h *ongHandler) RunPeer(peer *bfe.Peer, hand bfe.Handler) error {
+// RunPeer is invoked when a peer joins on the `bfe` protocol.
+func (h *bfeHandler) RunPeer(peer *bfe.Peer, hand bfe.Handler) error {
 	return (*handler)(h).runBfePeer(peer, hand)
 }
 
-// PeerInfo retrieves all known `ong` information about a peer.
-func (h *ongHandler) PeerInfo(id enode.ID) interface{} {
+// PeerInfo retrieves all known `bfe` information about a peer.
+func (h *bfeHandler) PeerInfo(id enode.ID) interface{} {
 	if p := h.peers.peer(id.String()); p != nil {
 		return p.info()
 	}
@@ -55,13 +55,13 @@ func (h *ongHandler) PeerInfo(id enode.ID) interface{} {
 
 // AcceptTxs retrieves whether transaction processing is enabled on the node
 // or if inbound transactions should simply be dropped.
-func (h *ongHandler) AcceptTxs() bool {
+func (h *bfeHandler) AcceptTxs() bool {
 	return atomic.LoadUint32(&h.acceptTxs) == 1
 }
 
 // Handle is invoked from a peer's message handler when it receives a new remote
 // message that the handler couldn't consume and serve itself.
-func (h *ongHandler) Handle(peer *bfe.Peer, packet bfe.Packet) error {
+func (h *bfeHandler) Handle(peer *bfe.Peer, packet bfe.Packet) error {
 	// Consume any broadcasts and announces, forwarding the rest to the downloader
 	switch packet := packet.(type) {
 	case *bfe.BlockHeadersPacket:
@@ -100,13 +100,13 @@ func (h *ongHandler) Handle(peer *bfe.Peer, packet bfe.Packet) error {
 		return h.txFetcher.Enqueue(peer.ID(), *packet, true)
 
 	default:
-		return fmt.Errorf("unexpected ong packet type: %T", packet)
+		return fmt.Errorf("unexpected  bfe  packet type: %T", packet)
 	}
 }
 
 // handleHeaders is invoked from a peer's message handler when it transmits a batch
 // of headers for the local node to process.
-func (h *ongHandler) handleHeaders(peer *bfe.Peer, headers []*types.Header) error {
+func (h *bfeHandler) handleHeaders(peer *bfe.Peer, headers []*types.Header) error {
 	p := h.peers.peer(peer.ID())
 	if p == nil {
 		return errors.New("unregistered during callback")
@@ -162,7 +162,7 @@ func (h *ongHandler) handleHeaders(peer *bfe.Peer, headers []*types.Header) erro
 
 // handleBodies is invoked from a peer's message handler when it transmits a batch
 // of block bodies for the local node to process.
-func (h *ongHandler) handleBodies(peer *bfe.Peer, txs [][]*types.Transaction, uncles [][]*types.Header) error {
+func (h *bfeHandler) handleBodies(peer *bfe.Peer, txs [][]*types.Transaction, uncles [][]*types.Header) error {
 	// Filter out any explicitly requested bodies, deliver the rest to the downloader
 	filter := len(txs) > 0 || len(uncles) > 0
 	if filter {
@@ -179,7 +179,7 @@ func (h *ongHandler) handleBodies(peer *bfe.Peer, txs [][]*types.Transaction, un
 
 // handleBlockAnnounces is invoked from a peer's message handler when it transmits a
 // batch of block announcements for the local node to process.
-func (h *ongHandler) handleBlockAnnounces(peer *bfe.Peer, hashes []common.Hash, numbers []uint64) error {
+func (h *bfeHandler) handleBlockAnnounces(peer *bfe.Peer, hashes []common.Hash, numbers []uint64) error {
 	// Schedule all the unknown hashes for retrieval
 	var (
 		unknownHashes  = make([]common.Hash, 0, len(hashes))
@@ -199,7 +199,7 @@ func (h *ongHandler) handleBlockAnnounces(peer *bfe.Peer, hashes []common.Hash, 
 
 // handleBlockBroadcast is invoked from a peer's message handler when it transmits a
 // block broadcast for the local node to process.
-func (h *ongHandler) handleBlockBroadcast(peer *bfe.Peer, block *types.Block, td *big.Int) error {
+func (h *bfeHandler) handleBlockBroadcast(peer *bfe.Peer, block *types.Block, td *big.Int) error {
 	// Schedule the block for import
 	h.blockFetcher.Enqueue(peer.ID(), block)
 

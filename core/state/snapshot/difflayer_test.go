@@ -239,7 +239,7 @@ func emptyLayer() *diskLayer {
 	}
 }
 
-// BenchmarkSearch checks how long it takes to find a non-existing key
+// BenchmarkSearch checks how logn it takes to find a non-existing key
 // BenchmarkSearch-6   	  200000	     10481 ns/op (1K per layer)
 // BenchmarkSearch-6   	  200000	     10760 ns/op (10K per layer)
 // BenchmarkSearch-6   	  100000	     17866 ns/op
@@ -270,7 +270,7 @@ func BenchmarkSearch(b *testing.B) {
 	}
 }
 
-// BenchmarkSearchSlot checks how long it takes to find a non-existing key
+// BenchmarkSearchSlot checks how logn it takes to find a non-existing key
 // - Number of layers: 128
 // - Each layers contains the account, with a couple of storage slots
 // BenchmarkSearchSlot-6   	  100000	     14554 ns/op

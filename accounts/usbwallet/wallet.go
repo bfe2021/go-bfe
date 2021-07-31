@@ -93,7 +93,7 @@ type wallet struct {
 
 	// Locking a hardware wallet is a bit special. Since hardware devices are lower
 	// performing, any communication with them might take a non negligible amount of
-	// time. Worse still, waiting for user confirmation can take arbitrarily long,
+	// time. Worse still, waiting for user confirmation can take arbitrarily logn,
 	// but exclusive communication must be upheld during. Locking the entire wallet
 	// in the mean time however would stall any parts of the system that don't want
 	// to communicate, just read some state (e.g. list the accounts).
@@ -543,7 +543,7 @@ func (w *wallet) SignText(account accounts.Account, text []byte) ([]byte, error)
 // transaction or a failure if the user denied the transaction.
 //
 // Note, if the version of the Bfedu application running on the Ledger wallet is
-// too old to sign EIP-155 transactions, but such is requested nonongeless, an error
+// too old to sign EIP-155 transactions, but such is requested nonbfeeless, an error
 // will be returned opposed to silently signing in Homestead mode.
 func (w *wallet) SignTx(account accounts.Account, tx *types.Transaction, chainID *big.Int) (*types.Transaction, error) {
 	w.stateLock.RLock() // Comms have own mutex, this is for the state fields

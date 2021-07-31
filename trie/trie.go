@@ -364,10 +364,10 @@ func (t *Trie) delete(n node, prefix, key []byte) (bool, node, error) {
 		if matchlen == len(key) {
 			return true, nil, nil // remove n entirely for whole matches
 		}
-		// The key is longer than n.Key. Remove the remaining suffix
+		// The key is logner than n.Key. Remove the remaining suffix
 		// from the subtrie. Child can never be nil here since the
 		// subtrie must contain at least two other values with keys
-		// longer than n.Key.
+		// logner than n.Key.
 		dirty, child, err := t.delete(n.Val, append(prefix, key[:len(n.Key)]...), key[len(n.Key):])
 		if !dirty || err != nil {
 			return false, n, err

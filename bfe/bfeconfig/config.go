@@ -85,7 +85,7 @@ var Defaults = Config{
 	TxPool:      core.DefaultTxPoolConfig,
 	RPCGasCap:   25000000,
 	GPO:         FullNodeGPO,
-	RPCTxFeeCap: 1, // 1 onger
+	RPCTxFeeCap: 1, // 1 bfeer
 }
 
 func init() {
@@ -190,7 +190,7 @@ type Config struct {
 	RPCGasCap uint64 `toml:",omitempty"`
 
 	// RPCTxFeeCap is the global transaction fee(price * gaslimit) cap for
-	// send-transction variants. The unit is onger.
+	// send-transction variants. The unit is bfeer.
 	RPCTxFeeCap float64 `toml:",omitempty"`
 
 	// Checkpoint is a hardcoded checkpoint which can be nil.

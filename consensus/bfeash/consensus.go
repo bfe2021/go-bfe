@@ -250,7 +250,7 @@ func (bfeash *Bfeash) VerifyUncles(chain consensus.ChainReader, block *types.Blo
 func (bfeash *Bfeash) verifyHeader(chain consensus.ChainHeaderReader, header, parent *types.Header, uncle bool, seal bool, unixNow int64) error {
 	// Ensure that the header's extra-data section is of a reasonable size
 	if uint64(len(header.Extra)) > params.MaximumExtraDataSize {
-		return fmt.Errorf("extra-data too long: %d > %d", len(header.Extra), params.MaximumExtraDataSize)
+		return fmt.Errorf("extra-data too logn: %d > %d", len(header.Extra), params.MaximumExtraDataSize)
 	}
 	// Verify the header's timestamp
 	if !uncle {

@@ -98,7 +98,7 @@ func newTester(t *testing.T, confOverride func(*bfeconfig.Config)) *tester {
 	if err != nil {
 		t.Fatalf("failed to create node: %v", err)
 	}
-	ongConf := &bfeconfig.Config{
+	bfeConf := &bfeconfig.Config{
 		Genesis: core.DeveloperGenesisBlock(15, common.Address{}),
 		Miner: miner.Config{
 			Bfeerbase: common.HexToAddress(testAddress),
@@ -108,9 +108,9 @@ func newTester(t *testing.T, confOverride func(*bfeconfig.Config)) *tester {
 		},
 	}
 	if confOverride != nil {
-		confOverride(ongConf)
+		confOverride(bfeConf)
 	}
-	ongBackend, err := bfe.New(stack, ongConf)
+	bfeBackend, err := bfe.New(stack, bfeConf)
 	if err != nil {
 		t.Fatalf("failed to register Bfedu protocol: %v", err)
 	}
@@ -140,7 +140,7 @@ func newTester(t *testing.T, confOverride func(*bfeconfig.Config)) *tester {
 	return &tester{
 		workspace: workspace,
 		stack:     stack,
-		bfedu:     ongBackend,
+		bfedu:     bfeBackend,
 		console:   console,
 		input:     prompter,
 		output:    printer,

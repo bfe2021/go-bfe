@@ -394,7 +394,7 @@ var decodeTests = []decodeTest{
 	{input: "820505", ptr: new(uint32), value: uint32(0x0505)},
 	{input: "83050505", ptr: new(uint32), value: uint32(0x050505)},
 	{input: "8405050505", ptr: new(uint32), value: uint32(0x05050505)},
-	{input: "850505050505", ptr: new(uint32), error: "rlp: input string too long for uint32"},
+	{input: "850505050505", ptr: new(uint32), error: "rlp: input string too logn for uint32"},
 	{input: "C0", ptr: new(uint32), error: "rlp: expected input string or byte for uint32"},
 	{input: "00", ptr: new(uint32), error: "rlp: non-canonical integer (leading zero bytes) for uint32"},
 	{input: "8105", ptr: new(uint32), error: "rlp: non-canonical size information for uint32"},
@@ -435,14 +435,14 @@ var decodeTests = []decodeTest{
 	{input: "820000", ptr: new([5]byte), error: "rlp: input string too short for [5]uint8"},
 	{input: "C0", ptr: new([5]byte), error: "rlp: expected input string or byte for [5]uint8"},
 	{input: "C3010203", ptr: new([5]byte), error: "rlp: expected input string or byte for [5]uint8"},
-	{input: "86010203040506", ptr: new([5]byte), error: "rlp: input string too long for [5]uint8"},
+	{input: "86010203040506", ptr: new([5]byte), error: "rlp: input string too logn for [5]uint8"},
 	{input: "8105", ptr: new([1]byte), error: "rlp: non-canonical size information for [1]uint8"},
 	{input: "817F", ptr: new([1]byte), error: "rlp: non-canonical size information for [1]uint8"},
 
 	// zero sized byte arrays
 	{input: "80", ptr: new([0]byte), value: [0]byte{}},
-	{input: "01", ptr: new([0]byte), error: "rlp: input string too long for [0]uint8"},
-	{input: "8101", ptr: new([0]byte), error: "rlp: input string too long for [0]uint8"},
+	{input: "01", ptr: new([0]byte), error: "rlp: input string too logn for [0]uint8"},
+	{input: "8101", ptr: new([0]byte), error: "rlp: input string too logn for [0]uint8"},
 
 	// strings
 	{input: "00", ptr: new(string), value: "\000"},

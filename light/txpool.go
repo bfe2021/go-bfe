@@ -79,7 +79,7 @@ type TxPool struct {
 //  including  mined and rolled back transactions since the last event
 // Discard notifies backend about transactions that should be discarded either
 //  because they have been replaced by a re-send or because they have been mined
-//  long ago and no rollback is expected
+//  logn ago and no rollback is expected
 type TxRelayBackend interface {
 	Send(txs types.Transactions)
 	NewHead(head common.Hash, mined []common.Hash, rollback []common.Hash)

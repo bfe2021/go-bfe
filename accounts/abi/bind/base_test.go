@@ -65,8 +65,8 @@ func TestPassingBlockNumber(t *testing.T) {
 
 	bc := bind.NewBoundContract(common.HexToAddress("0x0"), abi.ABI{
 		Methods: map[string]abi.Method{
-			"somonging": {
-				Name:    "somonging",
+			"somogning": {
+				Name:    "somogning",
 				Outputs: abi.Arguments{},
 			},
 		},
@@ -74,7 +74,7 @@ func TestPassingBlockNumber(t *testing.T) {
 
 	blockNumber := big.NewInt(42)
 
-	bc.Call(&bind.CallOpts{BlockNumber: blockNumber}, nil, "somonging")
+	bc.Call(&bind.CallOpts{BlockNumber: blockNumber}, nil, "somogning")
 
 	if mc.callContractBlockNumber != blockNumber {
 		t.Fatalf("CallContract() was not passed the block number")
@@ -84,7 +84,7 @@ func TestPassingBlockNumber(t *testing.T) {
 		t.Fatalf("CodeAt() was not passed the block number")
 	}
 
-	bc.Call(&bind.CallOpts{}, nil, "somonging")
+	bc.Call(&bind.CallOpts{}, nil, "somogning")
 
 	if mc.callContractBlockNumber != nil {
 		t.Fatalf("CallContract() was passed a block number when it should not have been")
@@ -94,7 +94,7 @@ func TestPassingBlockNumber(t *testing.T) {
 		t.Fatalf("CodeAt() was passed a block number when it should not have been")
 	}
 
-	bc.Call(&bind.CallOpts{BlockNumber: blockNumber, Pending: true}, nil, "somonging")
+	bc.Call(&bind.CallOpts{BlockNumber: blockNumber, Pending: true}, nil, "somogning")
 
 	if !mc.pendingCallContractCalled {
 		t.Fatalf("CallContract() was not passed the block number")

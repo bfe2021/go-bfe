@@ -308,7 +308,7 @@ func bindBasicTypeJava(kind abi.Type) string {
 			"8":  "byte",
 			"16": "short",
 			"32": "int",
-			"64": "long",
+			"64": "logn",
 		}[parts[2]]
 
 		// default to BigInt

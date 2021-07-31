@@ -802,7 +802,7 @@ The UI should show the error (a single message) to the user. Does not expect res
   "id": 2,
   "Method": "ui_showError",
   "params": [
-    "Somonging bad happened!"
+    "Sombfeing bad happened!"
   ]
 }
 

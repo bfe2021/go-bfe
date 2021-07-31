@@ -550,8 +550,8 @@ func TestSimulatedBackend_EstimateGasWithPrice(t *testing.T) {
 			From:     addr,
 			To:       &recipient,
 			Gas:      0,
-			GasPrice: big.NewInt(1e14), // gascost = 2.1onger
-			Value:    big.NewInt(1e17), // the remaining balance for fee is 2.1onger
+			GasPrice: big.NewInt(1e14), // gascost = 2.1bfeer
+			Value:    big.NewInt(1e17), // the remaining balance for fee is 2.1bfeer
 			Data:     nil,
 		}, 21000, nil},
 
@@ -559,10 +559,10 @@ func TestSimulatedBackend_EstimateGasWithPrice(t *testing.T) {
 			From:     addr,
 			To:       &recipient,
 			Gas:      0,
-			GasPrice: big.NewInt(2e14), // gascost = 4.2onger
+			GasPrice: big.NewInt(2e14), // gascost = 4.2bfeer
 			Value:    big.NewInt(1000),
 			Data:     nil,
-		}, 21000, errors.New("gas required exceeds allowance (10999)")}, // 10999=(2.2onger-1000wei)/(2e14)
+		}, 21000, errors.New("gas required exceeds allowance (10999)")}, // 10999=(2.2bfeer-1000wei)/(2e14)
 	}
 	for _, c := range cases {
 		got, err := sim.EstimateGas(context.Background(), c.message)
@@ -1021,7 +1021,7 @@ contract Reverter {
     }
     function noRevert() public pure {
         assembly {
-            // Assembles somonging that looks like require(false, "some error") but is not reverted
+            // Assembles somogning that looks like require(false, "some error") but is not reverted
             mstore(0x0, 0x08c379a000000000000000000000000000000000000000000000000000000000)
             mstore(0x4, 0x0000000000000000000000000000000000000000000000000000000000000020)
             mstore(0x24, 0x000000000000000000000000000000000000000000000000000000000000000a)

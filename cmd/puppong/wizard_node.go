@@ -104,7 +104,7 @@ func (w *wizard) deployNode(boot bool) {
 	// If the node is a miner/signer, load up needed credentials
 	if !boot {
 		if w.conf.Genesis.Config.Bfeash != nil {
-			// Bfeash based miners only need an ongerbase to mine against
+			// Bfeash based miners only need an bfeerbase to mine against
 			fmt.Println()
 			if infos.bfeerbase == "" {
 				fmt.Printf("What address should the miner use?\n")

@@ -83,7 +83,7 @@ func inspectContainer(client *sshClient, container string) (*containerInfos, err
 	}
 	inspect := inspects[0]
 
-	// Infos retrieved, parse the above into somonging meaningful
+	// Infos retrieved, parse the above into somogning meaningful
 	infos := &containerInfos{
 		running: inspect.State.Running,
 		envvars: make(map[string]string),

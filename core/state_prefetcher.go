@@ -69,7 +69,7 @@ func (p *statePrefetcher) Prefetch(block *types.Block, statedb *state.StateDB, c
 		}
 		statedb.Prepare(tx.Hash(), block.Hash(), i)
 		if err := precacheTransaction(msg, p.config, gaspool, statedb, header, evm); err != nil {
-			return // Ugh, somonging went horribly wrong, bail out
+			return // Ugh, somogning went horribly wrong, bail out
 		}
 		// If we're pre-byzantium, pre-load trie nodes for the intermediate root
 		if !byzantium {

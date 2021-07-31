@@ -25,29 +25,29 @@ import (
 	"github.com/bfe2021/go-bfe/bfe/protocols/snap"
 )
 
-// ongPeerInfo represents a short summary of the `ong` sub-protocol metadata known
+// bfePeerInfo represents a short summary of the `bfe` sub-protocol metadata known
 // about a connected peer.
-type ongPeerInfo struct {
+type bfePeerInfo struct {
 	Version    uint     `json:"version"`    // Bfedu protocol version negotiated
 	Difficulty *big.Int `json:"difficulty"` // Total difficulty of the peer's blockchain
 	Head       string   `json:"head"`       // Hex hash of the peer's best owned block
 }
 
-// ongPeer is a wrapper around bfe.Peer to maintain a few extra metadata.
-type ongPeer struct {
+// bfePeer is a wrapper around bfe.Peer to maintain a few extra metadata.
+type bfePeer struct {
 	*bfe.Peer
 	snapExt *snapPeer // Satellite `snap` connection
 
-	syncDrop *time.Timer   // Connection dropper if `ong` sync progress isn't validated in time
+	syncDrop *time.Timer   // Connection dropper if `bfe` sync progress isn't validated in time
 	snapWait chan struct{} // Notification channel for snap connections
 	lock     sync.RWMutex  // Mutex protecting the internal fields
 }
 
-// info gathers and returns some `ong` protocol metadata known about a peer.
-func (p *ongPeer) info() *ongPeerInfo {
+// info gathers and returns some `bfe` protocol metadata known about a peer.
+func (p *bfePeer) info() *bfePeerInfo {
 	hash, td := p.Head()
 
-	return &ongPeerInfo{
+	return &bfePeerInfo{
 		Version:    p.Version(),
 		Difficulty: td,
 		Head:       hash.Hex(),

@@ -52,7 +52,7 @@ func (b *Long) UnmarshalGraphQL(input interface{}) error {
 	case string:
 		// uncomment to support hex values
 		//if strings.HasPrefix(input, "0x") {
-		//	// apply leniency and support hex representations of longs.
+		//	// apply leniency and support hex representations of logns.
 		//	value, err := hexutil.DecodeUint64(input)
 		//	*b = Long(value)
 		//	return err

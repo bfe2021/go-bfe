@@ -658,10 +658,10 @@ func (bfeash *Bfeash) Hashrate() float64 {
 // APIs implements consensus.Engine, returning the user facing RPC APIs.
 func (bfeash *Bfeash) APIs(chain consensus.ChainHeaderReader) []rpc.API {
 	// In order to ensure backward compatibility, we exposes bfeash RPC APIs
-	// to both ong and bfeash namespaces.
+	// to both bfe and bfeash namespaces.
 	return []rpc.API{
 		{
-			Namespace: "ong",
+			Namespace: "bfe",
 			Version:   "1.0",
 			Service:   &API{bfeash},
 			Public:    true,

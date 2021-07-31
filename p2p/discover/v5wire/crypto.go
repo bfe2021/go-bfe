@@ -149,7 +149,7 @@ func ecdh(privkey *ecdsa.PrivateKey, pubkey *ecdsa.PublicKey) []byte {
 
 // encryptGCM encrypts pt using AES-GCM with the given key and nonce. The ciphertext is
 // appended to dest, which must not overlap with plaintext. The resulting ciphertext is 16
-// bytes longer than plaintext because it contains an authentication tag.
+// bytes logner than plaintext because it contains an authentication tag.
 func encryptGCM(dest, key, nonce, plaintext, authData []byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {

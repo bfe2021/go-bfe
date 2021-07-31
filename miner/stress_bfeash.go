@@ -66,7 +66,7 @@ func main() {
 	)
 	for i := 0; i < 4; i++ {
 		// Start the node and wait until it's up
-		stack, ongBackend, err := makeMiner(genesis)
+		stack,  bfeBackend, err := makeMiner(genesis)
 		if err != nil {
 			panic(err)
 		}
@@ -80,7 +80,7 @@ func main() {
 			stack.Server().AddPeer(n)
 		}
 		// Start tracking the node and its enode
-		nodes = append(nodes, ongBackend)
+		nodes = append(nodes,  bfeBackend)
 		enodes = append(enodes, stack.Server().Self())
 
 		// Inject the signer key and start sealing with it
@@ -162,7 +162,7 @@ func makeMiner(genesis *core.Genesis) (*node.Node, *bfe.Bfedu, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	ongBackend, err := bfe.New(stack, &bfeconfig.Config{
+	 bfeBackend, err := bfe.New(stack, &bfeconfig.Config{
 		Genesis:         genesis,
 		NetworkId:       genesis.Config.ChainID.Uint64(),
 		SyncMode:        downloader.FullSync,
@@ -183,5 +183,5 @@ func makeMiner(genesis *core.Genesis) (*node.Node, *bfe.Bfedu, error) {
 	}
 
 	err = stack.Start()
-	return stack, ongBackend, err
+	return stack,  bfeBackend, err
 }

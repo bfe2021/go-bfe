@@ -54,14 +54,14 @@ class StdIOHandler():
             "Method": "ApproveTx",
             "params": [{
                 "transaction": {
-                    "to": "ongae967917c465db8578ca9024c205720b1a3651A9",
-                    "gas": "ong333",
-                    "gasPrice": "ong123",
-                    "value": "ong10",
-                    "data": "ongd7a5865800000000000000000000000000000000000000000000000000000000000000ff",
-                    "nonce": "ong0"
+                    "to": "bfeae967917c465db8578ca9024c205720b1a3651A9",
+                    "gas": "bfe333",
+                    "gasPrice": "bfe123",
+                    "value": "bfe10",
+                    "data": "bfed7a5865800000000000000000000000000000000000000000000000000000000000000ff",
+                    "nonce": "bfe0"
                 },
-                "from": "ongAe967917c465db8578ca9024c205720b1a3651A9",
+                "from": "bfeAe967917c465db8578ca9024c205720b1a3651A9",
                 "call_info": "Warning! Could not validate ABI-data against calldata\nSupplied ABI spec does not contain Method signature in data: 0xd7a58658",
                 "meta": {
                     "remote": "127.0.0.1:34572",

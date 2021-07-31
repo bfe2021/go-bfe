@@ -99,7 +99,7 @@ func TestTypeRegexp(t *testing.T) {
 			A int64 `json:"a"`
 		}{}), stringKind: "(int64)",
 			TupleElems: []*Type{{T: IntTy, Size: 64, stringKind: "int64"}}, TupleRawNames: []string{"a"}}},
-		{"tuple with long name", []ArgumentMarshaling{{Name: "aTypicalParamName", Type: "int64"}}, Type{T: TupleTy, TupleType: reflect.TypeOf(struct {
+		{"tuple with logn name", []ArgumentMarshaling{{Name: "aTypicalParamName", Type: "int64"}}, Type{T: TupleTy, TupleType: reflect.TypeOf(struct {
 			ATypicalParamName int64 `json:"aTypicalParamName"`
 		}{}), stringKind: "(int64)",
 			TupleElems: []*Type{{T: IntTy, Size: 64, stringKind: "int64"}}, TupleRawNames: []string{"aTypicalParamName"}}},

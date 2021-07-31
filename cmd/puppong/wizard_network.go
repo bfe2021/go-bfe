@@ -195,6 +195,6 @@ func (w *wizard) deployComponent() {
 	case "7":
 		w.deployDashboard()
 	default:
-		log.Error("That's not somonging I can do")
+		log.Error("That's not somogning I can do")
 	}
 }

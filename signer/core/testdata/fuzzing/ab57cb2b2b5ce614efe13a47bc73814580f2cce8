@@ -39,13 +39,13 @@
  "domain": {
 "name":"theMail",    "version": "1",
     "chainId": "1",
-    "verifyingntract": "ongCcccCCCcCCCCCCCcCCcCCCcCcccccC"
+    "verifyingntract": "bfeCcccCCCcCCCCCCCcCCcCCCcCcccccC"
   },
   "message": {   "from": {
     "name": "Cow",
      "test": "3",
       "est2":5.0,
-      "llt": "ongcD2a3938E13D947E0bE734DfDD86"   },   "to": {     "name": "Bob",
+      "llt": "bfecD2a3938E13D947E0bE734DfDD86"   },   "to": {     "name": "Bob",
     "ts":"",
      "tet2": 5,
      "allet": "0bBBBBbbBBbbbbBbbBbbbbBBBbB"

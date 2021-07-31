@@ -57,7 +57,7 @@ const (
 )
 
 var (
-	errMsgTooLarge    = errors.New("message too long")
+	errMsgTooLarge    = errors.New("message too logn")
 	errDecode         = errors.New("invalid message")
 	errInvalidMsgCode = errors.New("invalid message code")
 	errBadRequest     = errors.New("bad request")

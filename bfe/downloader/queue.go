@@ -414,7 +414,7 @@ func (q *queue) ReserveHeaders(p *peerConnection, count int) *fetchRequest {
 	q.lock.Lock()
 	defer q.lock.Unlock()
 
-	// Short circuit if the peer's already downloading somonging (sanity check to
+	// Short circuit if the peer's already downloading somogning (sanity check to
 	// not corrupt state)
 	if _, ok := q.headerPendPool[p.id]; ok {
 		return nil
@@ -483,7 +483,7 @@ func (q *queue) ReserveReceipts(p *peerConnection, count int) (*fetchRequest, bo
 func (q *queue) reserveHeaders(p *peerConnection, count int, taskPool map[common.Hash]*types.Header, taskQueue *prque.Prque,
 	pendPool map[string]*fetchRequest, kind uint) (*fetchRequest, bool, bool) {
 	// Short circuit if the pool has been depleted, or if the peer's already
-	// downloading somonging (sanity check not to corrupt state)
+	// downloading somogning (sanity check not to corrupt state)
 	if taskQueue.Empty() {
 		return nil, false, true
 	}
@@ -873,7 +873,7 @@ func (q *queue) deliver(id string, taskPool map[common.Hash]*types.Header,
 		} else {
 			// else: betweeen here and above, some other peer filled this result,
 			// or it was indeed a no-op. This should not happen, but if it does it's
-			// not somonging to panic about
+			// not somogning to panic about
 			log.Error("Delivery stale", "stale", stale, "number", header.Number.Uint64(), "err", err)
 			failure = errStaleDelivery
 		}

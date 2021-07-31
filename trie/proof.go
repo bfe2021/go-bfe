@@ -33,7 +33,7 @@ import (
 // node and can be retrieved by verifying the proof.
 //
 // If the trie does not contain a value for key, the returned proof contains all
-// nodes of the longest existing prefix of the key (at least the root node), ending
+// nodes of the lognest existing prefix of the key (at least the root node), ending
 // with the node that proves the absence of the key.
 func (t *Trie) Prove(key []byte, fromLevel uint, proofDb bfedb.KeyValueWriter) error {
 	// Collect all nodes on the path to key.
@@ -94,7 +94,7 @@ func (t *Trie) Prove(key []byte, fromLevel uint, proofDb bfedb.KeyValueWriter) e
 // node and can be retrieved by verifying the proof.
 //
 // If the trie does not contain a value for key, the returned proof contains all
-// nodes of the longest existing prefix of the key (at least the root node), ending
+// nodes of the lognest existing prefix of the key (at least the root node), ending
 // with the node that proves the absence of the key.
 func (t *SecureTrie) Prove(key []byte, fromLevel uint, proofDb bfedb.KeyValueWriter) error {
 	return t.trie.Prove(key, fromLevel, proofDb)

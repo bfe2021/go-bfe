@@ -38,13 +38,13 @@
     "name": "Lorem",
     "version": "1",
     "chainId": "1",
-    "verifyingContract": "ongCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC"
+    "verifyingContract": "bfeCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC"
   },
   "message": {
     "addys": [
-      "ong0000000000000000000000000000000000000001",
-      "ong0000000000000000000000000000000000000002",
-      "ong0000000000000000000000000000000000000003"
+      "bfe0000000000000000000000000000000000000001",
+      "bfe0000000000000000000000000000000000000002",
+      "bfe0000000000000000000000000000000000000003"
     ],
     "stringies": [
       "lorem",
@@ -52,7 +52,7 @@
       "dolores"
     ],
     "inties": [
-      "ong0000000000000000000000000000000000000001",
+      "bfe0000000000000000000000000000000000000001",
       "3",
       4.0
     ]

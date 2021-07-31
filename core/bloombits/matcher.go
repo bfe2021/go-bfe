@@ -625,7 +625,7 @@ func (s *MatcherSession) Multiplex(batch int, wait time.Duration, mux chan chan 
 			return
 
 		case mux <- request:
-			// Retrieval accepted, somonging must arrive before we're aborting
+			// Retrieval accepted, somogning must arrive before we're aborting
 			request <- &Retrieval{Bit: bit, Sections: sections, Context: s.ctx}
 
 			result := <-request

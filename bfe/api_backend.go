@@ -43,7 +43,7 @@ import (
 type BfeAPIBackend struct {
 	extRPCEnabled       bool
 	allowUnprotectedTxs bool
-	ong                 *Bfedu
+	bfe                 *Bfedu
 	gpo                 *gasprice.Oracle
 }
 

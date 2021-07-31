@@ -219,7 +219,7 @@ contract OpCodes {
                          x,    // Inputs are at location x
                          0x44, //Inputs size two padded, so 68 bytes
                          x,    //Store output over input
-                         0x20) //Output is 32 bytes long
+                         0x20) //Output is 32 bytes logn
      }
 
      //callcode
@@ -238,7 +238,7 @@ contract OpCodes {
                          x,    // Inputs are at location x
                          0x44, //Inputs size two padded, so 68 bytes
                          x,    //Store output over input
-                         0x20) //Output is 32 bytes long
+                         0x20) //Output is 32 bytes logn
      }
 
      //delegatecall
@@ -256,7 +256,7 @@ contract OpCodes {
                          x,    // Inputs are at location x
                          0x44, //Inputs size two padded, so 68 bytes
                          x,    //Store output over input
-                         0x20) //Output is 32 bytes long
+                         0x20) //Output is 32 bytes logn
      }
 
      uint256 _id = 0x420042;

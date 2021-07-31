@@ -456,7 +456,7 @@ func (s *PrivateAccountAPI) Sign(ctx context.Context, data hexutil.Bytes, addr c
 // https://github.com/bfe2021/go-bfe/wiki/Management-APIs#personal_ecRecover
 func (s *PrivateAccountAPI) EcRecover(ctx context.Context, data, sig hexutil.Bytes) (common.Address, error) {
 	if len(sig) != crypto.SignatureLength {
-		return common.Address{}, fmt.Errorf("signature must be %d bytes long", crypto.SignatureLength)
+		return common.Address{}, fmt.Errorf("signature must be %d bytes logn", crypto.SignatureLength)
 	}
 	if sig[crypto.RecoveryIDOffset] != 27 && sig[crypto.RecoveryIDOffset] != 28 {
 		return common.Address{}, fmt.Errorf("invalid Bfedu signature (V is not 27 or 28)")
@@ -1985,7 +1985,7 @@ func checkTxFee(gasPrice *big.Int, gas uint64, cap float64) error {
 	feeBfe := new(big.Float).Quo(new(big.Float).SetInt(new(big.Int).Mul(gasPrice, new(big.Int).SetUint64(gas))), new(big.Float).SetInt(big.NewInt(params.Bfeer)))
 	feeFloat, _ := feeBfe.Float64()
 	if feeFloat > cap {
-		return fmt.Errorf("tx fee (%.2f onger) exceeds the configured cap (%.2f onger)", feeFloat, cap)
+		return fmt.Errorf("tx fee (%.2f bfeer) exceeds the configured cap (%.2f bfeer)", feeFloat, cap)
 	}
 	return nil
 }

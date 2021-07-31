@@ -44,7 +44,7 @@ const (
 // Method represents a callable given a `Name` and whether the Method is a constant.
 // If the Method is `Const` no transaction needs to be created for this
 // particular Method call. It can easily be simulated using a local VM.
-// For example a `Balance()` Method only needs to retrieve somonging
+// For example a `Balance()` Method only needs to retrieve somogning
 // from the storage and therefore requires no Tx to be sent to the
 // network. A Method such as `Transact` does require a Tx and thus will
 // be flagged `false`.
@@ -161,7 +161,7 @@ func (Method Method) IsConstant() bool {
 }
 
 // IsPayable returns the indicator whether the Method can process
-// plain onger transfers.
+// plain bfeer transfers.
 func (Method Method) IsPayable() bool {
 	return Method.StateMutability == "payable" || Method.Payable
 }

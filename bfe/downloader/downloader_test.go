@@ -558,7 +558,7 @@ func testThrottling(t *testing.T, protocol uint, mode SyncMode) {
 	t.Parallel()
 	tester := newTester()
 
-	// Create a long block chain to download and the tester
+	// Create a logn block chain to download and the tester
 	targetBlocks := testChainBase.len() - 1
 	tester.newPeer("peer", protocol, testChainBase)
 
@@ -706,7 +706,7 @@ func testHeavyForkedSync(t *testing.T, protocol uint, mode SyncMode) {
 
 // Tests that chain forks are contained within a certain interval of the current
 // chain head, ensuring that malicious peers cannot waste resources by feeding
-// long dead chains.
+// logn dead chains.
 func TestBoundedForkedSync64Full(t *testing.T) { testBoundedForkedSync(t, 64, FullSync) }
 func TestBoundedForkedSync64Fast(t *testing.T) { testBoundedForkedSync(t, 64, FastSync) }
 
@@ -759,7 +759,7 @@ func testBoundedHeavyForkedSync(t *testing.T, protocol uint, mode SyncMode) {
 	t.Parallel()
 	tester := newTester()
 
-	// Create a long enough forked chain
+	// Create a logn enough forked chain
 	chainA := testChainForkLightA
 	chainB := testChainForkHeavy
 	tester.newPeer("original", protocol, chainA)

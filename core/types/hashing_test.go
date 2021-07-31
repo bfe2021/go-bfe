@@ -86,7 +86,7 @@ func BenchmarkDeriveSha200(b *testing.B) {
 }
 
 func TestFuzzDeriveSha(t *testing.T) {
-	// increase this for longer runs -- it's set to quite low for travis
+	// increase this for logner runs -- it's set to quite low for travis
 	rndSeed := mrand.Int()
 	for i := 0; i < 10; i++ {
 		seed := rndSeed + i
@@ -157,7 +157,7 @@ type dummyDerivableList struct {
 func newDummy(seed int) *dummyDerivableList {
 	d := &dummyDerivableList{}
 	src := mrand.NewSource(int64(seed))
-	// don't use lists longer than 4K items
+	// don't use lists logner than 4K items
 	d.len = int(src.Int63() & 0x0FFF)
 	d.seed = seed
 	return d

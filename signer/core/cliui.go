@@ -84,7 +84,7 @@ func (ui *CommandlineUI) confirm() bool {
 	return false
 }
 
-// sanitize quotes and truncates 'txt' if longer than 'limit'. If truncated,
+// sanitize quotes and truncates 'txt' if logner than 'limit'. If truncated,
 // and ellipsis is added after the quoted string
 func sanitize(txt string, limit int) string {
 	if len(txt) > limit {

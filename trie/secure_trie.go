@@ -25,7 +25,7 @@ import (
 
 // SecureTrie wraps a trie with key hashing. In a secure trie, all
 // access operations hash the key using keccak256. This prevents
-// calling code from creating long chains of nodes that
+// calling code from creating logn chains of nodes that
 // increase the access time.
 //
 // Contrary to a regular trie, a SecureTrie can only be created with

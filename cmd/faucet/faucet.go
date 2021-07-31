@@ -64,7 +64,7 @@ import (
 var (
 	genesisFlag = flag.String("genesis", "", "Genesis json file to seed the chain with")
 	apiPortFlag = flag.Int("apiport", 8080, "Listener port for the HTTP API connection")
-	ongPortFlag = flag.Int("ongport", 30303, "Listener port for the devp2p connection")
+	bfePortFlag = flag.Int("bfeport", 30303, "Listener port for the devp2p connection")
 	bootFlag    = flag.String("bootnodes", "", "Comma separated bootnode enode URLs to seed with")
 	netFlag     = flag.Uint64("network", 0, "Network ID to use for the Bfedu protocol")
 	statsFlag   = flag.String("bfestats", "", "Bfestats network monitoring auth string")
@@ -88,7 +88,7 @@ var (
 )
 
 var (
-	onger = new(big.Int).Exp(big.NewInt(10), big.NewInt(18), nil)
+	bfeer = new(big.Int).Exp(big.NewInt(10), big.NewInt(18), nil)
 )
 
 var (
@@ -179,7 +179,7 @@ func main() {
 		log.Crit("Failed to unlock faucet signer account", "err", err)
 	}
 	// Assemble and start the faucet light service
-	faucet, err := newFaucet(genesis, *ongPortFlag, enodes, *netFlag, *statsFlag, ks, website.Bytes())
+	faucet, err := newFaucet(genesis, *bfePortFlag, enodes, *netFlag, *statsFlag, ks, website.Bytes())
 	if err != nil {
 		log.Crit("Failed to start faucet", "err", err)
 	}
@@ -374,7 +374,7 @@ func (f *faucet) apiHandler(w http.ResponseWriter, r *http.Request) {
 	reqs := f.reqs
 	f.lock.RUnlock()
 	if err = send(wsconn, map[string]interface{}{
-		"funds":    new(big.Int).Div(balance, onger),
+		"funds":    new(big.Int).Div(balance, bfeer),
 		"funded":   nonce,
 		"peers":    f.stack.Server().PeerCount(),
 		"requests": reqs,
@@ -469,7 +469,7 @@ func (f *faucet) apiHandler(w http.ResponseWriter, r *http.Request) {
 			id = username
 		default:
 			//lint:ignore ST1005 This error is to be displayed in the browser
-			err = errors.New("Somonging funky happened, please open an issue at https://github.com/bfe2021/go-bfe/issues")
+			err = errors.New("Sombfeing funky happened, please open an issue at https://github.com/bfe2021/go-bfe/issues")
 		}
 		if err != nil {
 			if err = sendError(wsconn, err); err != nil {
@@ -488,7 +488,7 @@ func (f *faucet) apiHandler(w http.ResponseWriter, r *http.Request) {
 		)
 		if timeout = f.timeouts[id]; time.Now().After(timeout) {
 			// User wasn't funded recently, create the funding transaction
-			amount := new(big.Int).Mul(big.NewInt(int64(*payoutFlag)), onger)
+			amount := new(big.Int).Mul(big.NewInt(int64(*payoutFlag)), bfeer)
 			amount = new(big.Int).Mul(amount, new(big.Int).Exp(big.NewInt(5), big.NewInt(int64(msg.Tier)), nil))
 			amount = new(big.Int).Div(amount, new(big.Int).Exp(big.NewInt(2), big.NewInt(int64(msg.Tier)), nil))
 
@@ -547,7 +547,7 @@ func (f *faucet) apiHandler(w http.ResponseWriter, r *http.Request) {
 // refresh attempts to retrieve the latest header from the chain and extract the
 // associated faucet balance and nonce for connectivity caching.
 func (f *faucet) refresh(head *types.Header) error {
-	// Ensure a state update does not run for too long
+	// Ensure a state update does not run for too logn
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
@@ -615,7 +615,7 @@ func (f *faucet) loop() {
 			f.lock.RLock()
 			log.Info("Updated faucet state", "number", head.Number, "hash", head.Hash(), "age", common.PrettyAge(timestamp), "balance", f.balance, "nonce", f.nonce, "price", f.price)
 
-			balance := new(big.Int).Div(f.balance, onger)
+			balance := new(big.Int).Div(f.balance, bfeer)
 			peers := f.stack.Server().PeerCount()
 
 			for _, conn := range f.conns {

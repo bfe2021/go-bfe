@@ -327,7 +327,7 @@ func (s *Service) loop() {
 	}
 }
 
-// readLoop loops as long as the connection is alive and retrieves data packets
+// readLoop loops as logn as the connection is alive and retrieves data packets
 // from the network socket. If any of them match an active request, it forwards
 // it, if they themselves are requests it initiates a reply, and lastly it drops
 // unknown packets.

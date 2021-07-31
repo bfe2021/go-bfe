@@ -161,7 +161,7 @@ func (p *peerCommons) String() string {
 	return fmt.Sprintf("Peer %s [%s]", p.id, fmt.Sprintf("les/%d", p.version))
 }
 
-// PeerInfo represents a short summary of the `ong` sub-protocol metadata known
+// PeerInfo represents a short summary of the `bfe` sub-protocol metadata known
 // about a connected peer.
 type PeerInfo struct {
 	Version    int      `json:"version"`    // Bfedu protocol version negotiated

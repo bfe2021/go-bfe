@@ -72,7 +72,7 @@ func rlpxPing(ctx *cli.Context) error {
 	}
 	switch code {
 	case 0:
-		var h ongtest.Hello
+		var h bfetest.Hello
 		if err := rlp.DecodeBytes(data, &h); err != nil {
 			return fmt.Errorf("invalid handshake: %v", err)
 		}
@@ -89,12 +89,12 @@ func rlpxPing(ctx *cli.Context) error {
 	return nil
 }
 
-// rlpxBfeTest runs the ong protocol test suite.
+// rlpxBfeTest runs the  bfe  protocol test suite.
 func rlpxBfeTest(ctx *cli.Context) error {
 	if ctx.NArg() < 3 {
 		exit("missing path to chain.rlp as command-line argument")
 	}
-	suite, err := ongtest.NewSuite(getNodeArg(ctx), ctx.Args()[1], ctx.Args()[2])
+	suite, err := bfetest.NewSuite(getNodeArg(ctx), ctx.Args()[1], ctx.Args()[2])
 	if err != nil {
 		exit(err)
 	}

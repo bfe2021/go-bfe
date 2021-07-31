@@ -29,36 +29,36 @@ import (
 )
 
 // stateAtBlock retrieves the state database associated with a certain block.
-func (long *LightBfedu) stateAtBlock(ctx context.Context, block *types.Block, reexec uint64) (*state.StateDB, func(), error) {
-	return light.NewState(ctx, block.Header(), lbfe.odr), func() {}, nil
+func (logn *LightBfedu) stateAtBlock(ctx context.Context, block *types.Block, reexec uint64) (*state.StateDB, func(), error) {
+	return light.NewState(ctx, block.Header(), logn.odr), func() {}, nil
 }
 
 // statesInRange retrieves a batch of state databases associated with the specific
 // block ranges.
-func (long *LightBfedu) statesInRange(ctx context.Context, fromBlock *types.Block, toBlock *types.Block, reexec uint64) ([]*state.StateDB, func(), error) {
+func (logn *LightBfedu) statesInRange(ctx context.Context, fromBlock *types.Block, toBlock *types.Block, reexec uint64) ([]*state.StateDB, func(), error) {
 	var states []*state.StateDB
 	for number := fromBlock.NumberU64(); number <= toBlock.NumberU64(); number++ {
-		header, err := lbfe.blockchain.GetHeaderByNumberOdr(ctx, number)
+		header, err := logn.blockchain.GetHeaderByNumberOdr(ctx, number)
 		if err != nil {
 			return nil, nil, err
 		}
-		states = append(states, light.NewState(ctx, header, lbfe.odr))
+		states = append(states, light.NewState(ctx, header, logn.odr))
 	}
 	return states, nil, nil
 }
 
 // stateAtTransaction returns the execution environment of a certain transaction.
-func (long *LightBfedu) stateAtTransaction(ctx context.Context, block *types.Block, txIndex int, reexec uint64) (core.Message, vm.BlockContext, *state.StateDB, func(), error) {
+func (logn *LightBfedu) stateAtTransaction(ctx context.Context, block *types.Block, txIndex int, reexec uint64) (core.Message, vm.BlockContext, *state.StateDB, func(), error) {
 	// Short circuit if it's genesis block.
 	if block.NumberU64() == 0 {
 		return nil, vm.BlockContext{}, nil, nil, errors.New("no transaction in genesis")
 	}
 	// Create the parent state database
-	parent, err := lbfe.blockchain.GetBlock(ctx, block.ParentHash(), block.NumberU64()-1)
+	parent, err := logn.blockchain.GetBlock(ctx, block.ParentHash(), block.NumberU64()-1)
 	if err != nil {
 		return nil, vm.BlockContext{}, nil, nil, err
 	}
-	statedb, _, err := lbfe.stateAtBlock(ctx, parent, reexec)
+	statedb, _, err := logn.stateAtBlock(ctx, parent, reexec)
 	if err != nil {
 		return nil, vm.BlockContext{}, nil, nil, err
 	}
@@ -66,18 +66,18 @@ func (long *LightBfedu) stateAtTransaction(ctx context.Context, block *types.Blo
 		return nil, vm.BlockContext{}, statedb, func() {}, nil
 	}
 	// Recompute transactions up to the target index.
-	signer := types.MakeSigner(lbfe.blockchain.Config(), block.Number())
+	signer := types.MakeSigner(logn.blockchain.Config(), block.Number())
 	for idx, tx := range block.Transactions() {
 		// Assemble the transaction call message and return if the requested offset
 		msg, _ := tx.AsMessage(signer)
 		txContext := core.NewEVMTxContext(msg)
-		context := core.NewEVMBlockContext(block.Header(), lbfe.blockchain, nil)
+		context := core.NewEVMBlockContext(block.Header(), logn.blockchain, nil)
 		statedb.Prepare(tx.Hash(), block.Hash(), idx)
 		if idx == txIndex {
 			return msg, context, statedb, func() {}, nil
 		}
 		// Not yet the searched for transaction, execute on top of the current state
-		vmenv := vm.NewEVM(context, txContext, statedb, lbfe.blockchain.Config(), vm.Config{})
+		vmenv := vm.NewEVM(context, txContext, statedb, logn.blockchain.Config(), vm.Config{})
 		if _, err := core.ApplyMessage(vmenv, msg, new(core.GasPool).AddGas(tx.Gas())); err != nil {
 			return nil, vm.BlockContext{}, nil, nil, fmt.Errorf("transaction %#x failed: %v", tx.Hash(), err)
 		}

@@ -27,12 +27,12 @@ import (
 )
 
 const (
-	// handshakeTimeout is the maximum allowed time for the `ong` handshake to
+	// handshakeTimeout is the maximum allowed time for the `bfe` handshake to
 	// complete before dropping the connection.= as malicious.
 	handshakeTimeout = 5 * time.Second
 )
 
-// Handshake executes the ong protocol handshake, negotiating version number,
+// Handshake executes the  bfe  protocol handshake, negotiating version number,
 // network IDs, difficulties, head and genesis blocks.
 func (p *Peer) Handshake(network uint64, td *big.Int, head common.Hash, genesis common.Hash, forkID forkid.ID, forkFilter forkid.Filter) error {
 	// Send out own handshake in a new thread

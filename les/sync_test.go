@@ -193,7 +193,7 @@ func testMissOracleBackend(t *testing.T, hasCheckpoint bool, protocol int) {
 	expected += 1
 
 	// Explicitly set the oracle as nil. In normal use case it can happen
-	// that user wants to unlock somonging which blocks the oracle backend
+	// that user wants to unlock somogning which blocks the oracle backend
 	// initialisation. But at the same time syncing starts.
 	//
 	// See https://github.com/bfe2021/go-bfe/issues/20097 for more detail.

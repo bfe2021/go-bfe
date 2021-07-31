@@ -67,11 +67,11 @@ func TestSecureDelete(t *testing.T) {
 	trie := newEmptySecure()
 	vals := []struct{ k, v string }{
 		{"do", "verb"},
-		{"onger", "wookiedoo"},
+		{"bfeer", "wookiedoo"},
 		{"horse", "stallion"},
 		{"shaman", "horse"},
 		{"doge", "coin"},
-		{"onger", ""},
+		{"bfeer", ""},
 		{"dog", "puppy"},
 		{"shaman", ""},
 	}

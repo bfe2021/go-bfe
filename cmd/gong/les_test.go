@@ -77,7 +77,7 @@ func (g *gbferpc) waitSynced() {
 
 	// Actually wait, subscribe to the event
 	ch := make(chan interface{})
-	sub, err := g.rpc.Subscribe(context.Background(), "ong", ch, "syncing")
+	sub, err := g.rpc.Subscribe(context.Background(), "bfe", ch, "syncing")
 	if err != nil {
 		g.gbfe.Fatalf("%v syncing: %v", g.name, err)
 	}

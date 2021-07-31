@@ -29,17 +29,17 @@ type testBfekey struct {
 	*cmdtest.TestCmd
 }
 
-// spawns ongkey with the given command line args.
+// spawns bfekey with the given command line args.
 func runBfekey(t *testing.T, args ...string) *testBfekey {
 	tt := new(testBfekey)
 	tt.TestCmd = cmdtest.NewTestCmd(t, tt)
-	tt.Run("ongkey-test", args...)
+	tt.Run("bfekey-test", args...)
 	return tt
 }
 
 func TestMain(m *testing.M) {
-	// Run the app if we've been exec'd as "ongkey-test" in runBfekey.
-	reexec.Register("ongkey-test", func() {
+	// Run the app if we've been exec'd as "bfekey-test" in runBfekey.
+	reexec.Register("bfekey-test", func() {
 		if err := app.Run(os.Args); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)

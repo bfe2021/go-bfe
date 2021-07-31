@@ -455,7 +455,7 @@ func BenchmarkV5_DecodeHandshakePingSecp256k1(b *testing.B) {
 	}
 }
 
-// This benchmark checks how long it takes to decode an encrypted ping packet.
+// This benchmark checks how logn it takes to decode an encrypted ping packet.
 func BenchmarkV5_DecodePing(b *testing.B) {
 	net := newHandshakeTest()
 	defer net.close()

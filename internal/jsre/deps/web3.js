@@ -619,7 +619,7 @@ module.exports = SolidityTypeBytes;
 */
 /**
  * @file coder.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -906,7 +906,7 @@ module.exports = SolidityTypeDynamicBytes;
 */
 /**
  * @file formatters.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -1194,7 +1194,7 @@ module.exports = SolidityTypeInt;
 */
 /**
  * @file param.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -1424,7 +1424,7 @@ SolidityType.prototype.staticPartLength = function (name) {
         })
         .reduce(function (previous, current) {
             return previous * current;
-        // all basic types are 32 bytes long
+        // all basic types are 32 bytes logn
         }, 32);
 };
 
@@ -1740,7 +1740,7 @@ if (typeof XMLHttpRequest === 'undefined') {
 */
 /** @file config.js
  * @authors:
- *   Marek Kotewicz <marek@ongdev.com>
+ *   Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -1768,27 +1768,27 @@ var BFE_UNITS = [
     'Gwei',
     'szabo',
     'finney',
-    'femtoonger',
-    'picoonger',
-    'nanoonger',
-    'microonger',
-    'millionger',
+    'femtobfeer',
+    'picobfeer',
+    'nanobfeer',
+    'microbfeer',
+    'millibfeer',
     'nano',
     'micro',
     'milli',
-    'onger',
+    'bfeer',
     'grand',
-    'Monger',
+    'Mbfeer',
     'Gbfeer',
-    'Tonger',
+    'Tbfeer',
     'Ponger',
-    'Eonger',
-    'Zonger',
-    'Yonger',
-    'Nonger',
-    'Donger',
-    'Vonger',
-    'Uonger'
+    'Ebfeer',
+    'Zbfeer',
+    'Ybfeer',
+    'Nbfeer',
+    'Dbfeer',
+    'Vbfeer',
+    'Ubfeer'
 ];
 
 module.exports = {
@@ -1821,7 +1821,7 @@ module.exports = {
 */
 /**
  * @file sha3.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -1861,7 +1861,7 @@ module.exports = function (value, options) {
 */
 /**
  * @file utils.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -1884,33 +1884,33 @@ var sha3 = require('./sha3.js');
 var utf8 = require('utf8');
 
 var unitMap = {
-    'noonger':      '0',
+    'nobfeer':      '0',
     'wei':          '1',
     'kwei':         '1000',
     'Kwei':         '1000',
     'babbage':      '1000',
-    'femtoonger':   '1000',
+    'femtobfeer':   '1000',
     'mwei':         '1000000',
     'Mwei':         '1000000',
     'lovelace':     '1000000',
-    'picoonger':    '1000000',
+    'picobfeer':    '1000000',
     'gwei':         '1000000000',
     'Gwei':         '1000000000',
     'shannon':      '1000000000',
-    'nanoonger':    '1000000000',
+    'nanobfeer':    '1000000000',
     'nano':         '1000000000',
     'szabo':        '1000000000000',
-    'microonger':   '1000000000000',
+    'microbfeer':   '1000000000000',
     'micro':        '1000000000000',
     'finney':       '1000000000000000',
-    'millionger':    '1000000000000000',
+    'millibfeer':    '1000000000000000',
     'milli':         '1000000000000000',
-    'onger':        '1000000000000000000',
-    'konger':       '1000000000000000000000',
+    'bfeer':        '1000000000000000000',
+    'kbfeer':       '1000000000000000000000',
     'grand':        '1000000000000000000000',
-    'monger':       '1000000000000000000000000',
+    'mbfeer':       '1000000000000000000000000',
     'gbfeer':       '1000000000000000000000000000',
-    'tonger':       '1000000000000000000000000000000'
+    'tbfeer':       '1000000000000000000000000000000'
 };
 
 /**
@@ -2124,12 +2124,12 @@ var toHex = function (val) {
  * Returns value of unit in Wei
  *
  * @Method getValueOfUnit
- * @param {String} unit the unit to convert to, default onger
+ * @param {String} unit the unit to convert to, default bfeer
  * @returns {BigNumber} value of the unit (in Wei)
  * @throws error if the unit is not correct:w
  */
 var getValueOfUnit = function (unit) {
-    unit = unit ? unit.toLowerCase() : 'onger';
+    unit = unit ? unit.toLowerCase() : 'bfeer';
     var unitValue = unitMap[unit];
     if (unitValue === undefined) {
         throw new Error('This unit doesn\'t exists, please use the one of the following units' + JSON.stringify(unitMap, null, 2));
@@ -2138,24 +2138,24 @@ var getValueOfUnit = function (unit) {
 };
 
 /**
- * Takes a number of wei and converts it to any other onger unit.
+ * Takes a number of wei and converts it to any other bfeer unit.
  *
  * Possible units are:
  *   SI Short   SI Full        Effigy       Other
- * - kwei       femtoonger     babbage
- * - mwei       picoonger      lovelace
- * - gwei       nanoonger      shannon      nano
- * - --         microonger     szabo        micro
- * - --         millionger     finney       milli
- * - onger      --             --
- * - konger                    --           grand
- * - monger
+ * - kwei       femtobfeer     babbage
+ * - mwei       picobfeer      lovelace
+ * - gwei       nanobfeer      shannon      nano
+ * - --         microbfeer     szabo        micro
+ * - --         millibfeer     finney       milli
+ * - bfeer      --             --
+ * - kbfeer                    --           grand
+ * - mbfeer
  * - gbfeer
- * - tonger
+ * - tbfeer
  *
  * @Method fromWei
  * @param {Number|String} number can be a number, number string or a HEX of a decimal
- * @param {String} unit the unit to convert to, default onger
+ * @param {String} unit the unit to convert to, default bfeer
  * @return {String|Object} When given a BigNumber object it returns one as well, otherwise a number
 */
 var fromWei = function(number, unit) {
@@ -2169,21 +2169,21 @@ var fromWei = function(number, unit) {
  *
  * Possible units are:
  *   SI Short   SI Full        Effigy       Other
- * - kwei       femtoonger     babbage
- * - mwei       picoonger      lovelace
- * - gwei       nanoonger      shannon      nano
- * - --         microonger     szabo        micro
- * - --         microonger     szabo        micro
- * - --         millionger     finney       milli
- * - onger      --             --
- * - konger                    --           grand
- * - monger
+ * - kwei       femtobfeer     babbage
+ * - mwei       picobfeer      lovelace
+ * - gwei       nanobfeer      shannon      nano
+ * - --         microbfeer     szabo        micro
+ * - --         microbfeer     szabo        micro
+ * - --         millibfeer     finney       milli
+ * - bfeer      --             --
+ * - kbfeer                    --           grand
+ * - mbfeer
  * - gbfeer
- * - tonger
+ * - tbfeer
  *
  * @Method toWei
  * @param {Number|String|BigNumber} number can be a number, number string or a HEX of a decimal
- * @param {String} unit the unit to convert from, default onger
+ * @param {String} unit the unit to convert from, default bfeer
  * @return {String|Object} When given a BigNumber object it returns one as well, otherwise a number
 */
 var toWei = function(number, unit) {
@@ -2498,11 +2498,11 @@ module.exports={
 /**
  * @file web3.js
  * @authors:
- *   Jeffrey Wilcke <jeff@ongdev.com>
- *   Marek Kotewicz <marek@ongdev.com>
- *   Marian Oancea <marian@ongdev.com>
- *   Fabian Vogelsteller <fabian@ongdev.com>
- *   Gav Wood <g@ongdev.com>
+ *   Jeffrey Wilcke <jeff@bfedev.com>
+ *   Marek Kotewicz <marek@bfedev.com>
+ *   Marian Oancea <marian@bfedev.com>
+ *   Fabian Vogelsteller <fabian@bfedev.com>
+ *   Gav Wood <g@bfedev.com>
  * @date 2014
  */
 
@@ -2651,7 +2651,7 @@ module.exports = Web3;
 */
 /**
  * @file allevents.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2014
  */
 
@@ -2711,7 +2711,7 @@ AllSolidityEvents.prototype.execute = function (options, callback) {
 
     var o = this.encode(options);
     var formatter = this.decode.bind(this);
-    return new Filter(o, 'ong', this._requestManager, watches.bfe(), formatter, callback);
+    return new Filter(o, 'bfe', this._requestManager, watches.bfe(), formatter, callback);
 };
 
 AllSolidityEvents.prototype.attachToContract = function (contract) {
@@ -2741,7 +2741,7 @@ module.exports = AllSolidityEvents;
 */
 /**
  * @file batch.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -2809,7 +2809,7 @@ module.exports = Batch;
 */
 /**
  * @file contract.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2014
  */
 
@@ -2849,7 +2849,7 @@ var addFunctionsToContract = function (contract) {
     contract.abi.filter(function (json) {
         return json.type === 'function';
     }).map(function (json) {
-        return new SolidityFunction(contract._ong, json, contract.address);
+        return new SolidityFunction(contract._bfe, json, contract.address);
     }).forEach(function (f) {
         f.attachToContract(contract);
     });
@@ -2955,8 +2955,8 @@ var checkForContractAddress = function(contract, callback){
  * @Method ContractFactory
  * @param {Array} abi
  */
-var ContractFactory = function (ong, abi) {
-    this.bfe = ong;
+var ContractFactory = function (bfe, abi) {
+    this.bfe = bfe;
     this.abi = abi;
 
     /**
@@ -3093,8 +3093,8 @@ ContractFactory.prototype.getData = function () {
  * @param {Array} abi
  * @param {Address} contract address
  */
-var Contract = function (ong, abi, address) {
-    this._ong = ong;
+var Contract = function (bfe, abi, address) {
+    this._bfe = bfe;
     this.transactionHash = null;
     this.address = address;
     this.abi = abi;
@@ -3121,7 +3121,7 @@ module.exports = ContractFactory;
 */
 /**
  * @file errors.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -3166,7 +3166,7 @@ module.exports = {
 */
 /**
  * @file event.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2014
  */
 
@@ -3336,7 +3336,7 @@ SolidityEvent.prototype.execute = function (indexed, options, callback) {
 
     var o = this.encode(indexed, options);
     var formatter = this.decode.bind(this);
-    return new Filter(o, 'ong', this._requestManager, watches.bfe(), formatter, callback);
+    return new Filter(o, 'bfe', this._requestManager, watches.bfe(), formatter, callback);
 };
 
 /**
@@ -3426,11 +3426,11 @@ module.exports = extend;
 */
 /** @file filter.js
  * @authors:
- *   Jeffrey Wilcke <jeff@ongdev.com>
- *   Marek Kotewicz <marek@ongdev.com>
- *   Marian Oancea <marian@ongdev.com>
- *   Fabian Vogelsteller <fabian@ongdev.com>
- *   Gav Wood <g@ongdev.com>
+ *   Jeffrey Wilcke <jeff@bfedev.com>
+ *   Marek Kotewicz <marek@bfedev.com>
+ *   Marian Oancea <marian@bfedev.com>
+ *   Fabian Vogelsteller <fabian@bfedev.com>
+ *   Gav Wood <g@bfedev.com>
  * @date 2014
  */
 
@@ -3470,7 +3470,7 @@ var getOptions = function (options, type) {
 
 
     switch(type) {
-        case 'ong':
+        case 'bfe':
 
             // make sure topics, get converted to hex
             options.topics = options.topics || [];
@@ -3675,8 +3675,8 @@ module.exports = Filter;
 */
 /**
  * @file formatters.js
- * @author Marek Kotewicz <marek@ongdev.com>
- * @author Fabian Vogelsteller <fabian@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
+ * @author Fabian Vogelsteller <fabian@bfedev.com>
  * @date 2015
  */
 
@@ -3983,7 +3983,7 @@ module.exports = {
 */
 /**
  * @file function.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -3996,8 +3996,8 @@ var sha3 = require('../utils/sha3');
 /**
  * This prototype should be used to call/sendTransaction to solidity functions
  */
-var SolidityFunction = function (ong, json, address) {
-    this._ong = ong;
+var SolidityFunction = function (bfe, json, address) {
+    this._bfe = bfe;
     this._inputTypes = json.inputs.map(function (i) {
         return i.type;
     });
@@ -4268,9 +4268,9 @@ module.exports = SolidityFunction;
 */
 /** @file httpprovider.js
  * @authors:
- *   Marek Kotewicz <marek@ongdev.com>
- *   Marian Oancea <marian@ongdev.com>
- *   Fabian Vogelsteller <fabian@ongdev.com>
+ *   Marek Kotewicz <marek@bfedev.com>
+ *   Marian Oancea <marian@bfedev.com>
+ *   Fabian Vogelsteller <fabian@bfedev.com>
  * @date 2015
  */
 
@@ -4427,7 +4427,7 @@ module.exports = HttpProvider;
 */
 /**
  * @file iban.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -4656,7 +4656,7 @@ module.exports = Iban;
 */
 /** @file ipcprovider.js
  * @authors:
- *   Fabian Vogelsteller <fabian@ongdev.com>
+ *   Fabian Vogelsteller <fabian@bfedev.com>
  * @date 2015
  */
 
@@ -4865,7 +4865,7 @@ module.exports = IpcProvider;
 */
 /** @file jsonrpc.js
  * @authors:
- *   Marek Kotewicz <marek@ongdev.com>
+ *   Marek Kotewicz <marek@bfedev.com>
  *   Aaron Kumavis <aaron@kumavis.me>
  * @date 2015
  */
@@ -4952,7 +4952,7 @@ module.exports = Jsonrpc;
 */
 /**
  * @file Method.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -5118,7 +5118,7 @@ module.exports = Method;
 */
 /** @file db.js
  * @authors:
- *   Marek Kotewicz <marek@ongdev.com>
+ *   Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -5186,8 +5186,8 @@ module.exports = DB;
 */
 /**
  * @file bfe.js
- * @author Marek Kotewicz <marek@ongdev.com>
- * @author Fabian Vogelsteller <fabian@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
+ * @author Fabian Vogelsteller <fabian@bfedev.com>
  * @date 2015
  */
 
@@ -5506,7 +5506,7 @@ Bfe.prototype.contract = function (abi) {
 };
 
 Bfe.prototype.filter = function (options, callback, filterCreationErrorCallback) {
-    return new Filter(options, 'ong', this._requestManager, watches.bfe(), formatters.outputLogFormatter, callback, filterCreationErrorCallback);
+    return new Filter(options, 'bfe', this._requestManager, watches.bfe(), formatters.outputLogFormatter, callback, filterCreationErrorCallback);
 };
 
 Bfe.prototype.namereg = function () {
@@ -5542,7 +5542,7 @@ module.exports = Bfe;
 */
 /** @file bfe.js
  * @authors:
- *   Marek Kotewicz <marek@ongdev.com>
+ *   Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -5596,8 +5596,8 @@ module.exports = Net;
 */
 /**
  * @file bfe.js
- * @author Marek Kotewicz <marek@ongdev.com>
- * @author Fabian Vogelsteller <fabian@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
+ * @author Fabian Vogelsteller <fabian@bfedev.com>
  * @date 2015
  */
 
@@ -5714,7 +5714,7 @@ module.exports = Personal;
 /** @file shh.js
  * @authors:
  *   Fabian Vogelsteller <fabian@bfedu.io>
- *   Marek Kotewicz <marek@ongcore.io>
+ *   Marek Kotewicz <marek@bfecore.io>
  * @date 2017
  */
 
@@ -6006,14 +6006,14 @@ module.exports = Swarm;
 */
 /** @file watches.js
  * @authors:
- *   Marek Kotewicz <marek@ongdev.com>
+ *   Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
 var Method = require('../Method');
 
 /// @returns an array of objects describing web3.bfe.filter api Methods
-var ong = function () {
+var  bfe  = function () {
     var newFilterCall = function (args) {
         var type = args[0];
 
@@ -6091,7 +6091,7 @@ var shh = function () {
 };
 
 module.exports = {
-    ong: ong,
+    bfe: bfe,
     shh: shh
 };
 
@@ -6115,7 +6115,7 @@ module.exports = {
 */
 /**
  * @file namereg.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -6157,7 +6157,7 @@ module.exports = {
 /**
  * @file property.js
  * @author Fabian Vogelsteller <fabian@frozeman.de>
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -6302,11 +6302,11 @@ module.exports = Property;
 */
 /**
  * @file requestmanager.js
- * @author Jeffrey Wilcke <jeff@ongdev.com>
- * @author Marek Kotewicz <marek@ongdev.com>
- * @author Marian Oancea <marian@ongdev.com>
- * @author Fabian Vogelsteller <fabian@ongdev.com>
- * @author Gav Wood <g@ongdev.com>
+ * @author Jeffrey Wilcke <jeff@bfedev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
+ * @author Marian Oancea <marian@bfedev.com>
+ * @author Fabian Vogelsteller <fabian@bfedev.com>
+ * @author Gav Wood <g@bfedev.com>
  * @date 2014
  */
 
@@ -6580,7 +6580,7 @@ module.exports = Settings;
 */
 /** @file syncing.js
  * @authors:
- *   Fabian Vogelsteller <fabian@ongdev.com>
+ *   Fabian Vogelsteller <fabian@bfedev.com>
  * @date 2015
  */
 
@@ -6675,7 +6675,7 @@ module.exports = IsSyncing;
 */
 /**
  * @file transfer.js
- * @author Marek Kotewicz <marek@ongdev.com>
+ * @author Marek Kotewicz <marek@bfedev.com>
  * @date 2015
  */
 
@@ -6691,23 +6691,23 @@ var exchangeAbi = require('../contracts/SmartExchange.json');
  * @param {Value} value to be tranfered
  * @param {Function} callback, callback
  */
-var transfer = function (ong, from, to, value, callback) {
+var transfer = function (bfe, from, to, value, callback) {
     var iban = new Iban(to);
     if (!iban.isValid()) {
         throw new Error('invalid iban address');
     }
 
     if (iban.isDirect()) {
-        return transferToAddress(ong, from, iban.address(), value, callback);
+        return transferToAddress(bfe, from, iban.address(), value, callback);
     }
 
     if (!callback) {
         var address = bfe.icapNamereg().addr(iban.institution());
-        return deposit(ong, from, address, value, iban.client());
+        return deposit(bfe, from, address, value, iban.client());
     }
 
     bfe.icapNamereg().addr(iban.institution(), function (err, address) {
-        return deposit(ong, from, address, value, iban.client(), callback);
+        return deposit(bfe, from, address, value, iban.client(), callback);
     });
 
 };
@@ -6721,7 +6721,7 @@ var transfer = function (ong, from, to, value, callback) {
  * @param {Value} value to be tranfered
  * @param {Function} callback, callback
  */
-var transferToAddress = function (ong, from, to, value, callback) {
+var transferToAddress = function (bfe, from, to, value, callback) {
     return bfe.sendTransaction({
         address: to,
         from: from,
@@ -6739,7 +6739,7 @@ var transferToAddress = function (ong, from, to, value, callback) {
  * @param {String} client unique identifier
  * @param {Function} callback, callback
  */
-var deposit = function (ong, from, to, value, client, callback) {
+var deposit = function (bfe, from, to, value, client, callback) {
     var abi = exchangeAbi;
     return bfe.contract(abi).at(to).deposit(client, {
         from: from,

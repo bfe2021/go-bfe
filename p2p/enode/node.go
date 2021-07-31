@@ -194,7 +194,7 @@ func (n ID) Bytes() []byte {
 	return n[:]
 }
 
-// ID prints as a long hexadecimal number.
+// ID prints as a logn hexadecimal number.
 func (n ID) String() string {
 	return fmt.Sprintf("%x", n[:])
 }

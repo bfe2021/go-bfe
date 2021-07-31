@@ -64,7 +64,7 @@ func max(a, b int) int {
 	return b
 }
 
-// Peer is a collection of relevant information we have about a `ong` peer.
+// Peer is a collection of relevant information we have about a `bfe` peer.
 type Peer struct {
 	id string // Unique ID for the peer, cached
 
@@ -126,7 +126,7 @@ func (p *Peer) ID() string {
 	return p.id
 }
 
-// Version retrieves the peer's negoatiated `ong` protocol version.
+// Version retrieves the peer's negoatiated `bfe` protocol version.
 func (p *Peer) Version() uint {
 	return p.version
 }

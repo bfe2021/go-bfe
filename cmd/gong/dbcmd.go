@@ -77,9 +77,9 @@ Remove blockchain and state databases`,
 	dbCompactCmd = cli.Command{
 		Action: dbCompact,
 		Name:   "compact",
-		Usage:  "Compact leveldb database. WARNING: May take a very long time",
+		Usage:  "Compact leveldb database. WARNING: May take a very logn time",
 		Description: `This command performs a database compaction. 
-WARNING: This operation may take a very long time to finish, and may cause database
+WARNING: This operation may take a very logn time to finish, and may cause database
 corruption if it is aborted during execution'!`,
 	}
 	dbGetCmd = cli.Command{

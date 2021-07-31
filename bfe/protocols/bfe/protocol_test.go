@@ -70,7 +70,7 @@ func TestGetBlockHeadersDataEncodeDecode(t *testing.T) {
 	}
 }
 
-// TestBfe66EmptyMessages tests encoding of empty ong66 messages
+// TestBfe66EmptyMessages tests encoding of empty bfe66 messages
 func TestBfe66EmptyMessages(t *testing.T) {
 	// All empty messages encodes to the same format
 	want := common.FromHex("c4820457c0")
@@ -118,7 +118,7 @@ func TestBfe66EmptyMessages(t *testing.T) {
 
 }
 
-// TestBfe66Messages tests the encoding of all redefined ong66 messages
+// TestBfe66Messages tests the encoding of all redefined bfe66 messages
 func TestBfe66Messages(t *testing.T) {
 
 	// Some basic structs used during testing

@@ -14,7 +14,7 @@
 // parameters are chosen.
 //
 // (This package previously claimed to operate at a 128-bit security level.
-// However, recent improvements in attacks mean that is no longer true. See
+// However, recent improvements in attacks mean that is no logner true. See
 // https://moderncrypto.org/mail-archive/curves/2016/000740.html.)
 package bn256
 

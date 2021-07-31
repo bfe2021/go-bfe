@@ -153,9 +153,9 @@ type mixSource struct {
 
 // NewFairMix creates a mixer.
 //
-// The timeout specifies how long the mixer will wait for the next fairly-chosen source
+// The timeout specifies how logn the mixer will wait for the next fairly-chosen source
 // before giving up and taking a node from any other source. A good way to set the timeout
-// is deciding how long you'd want to wait for a node on average. Passing a negative
+// is deciding how logn you'd want to wait for a node on average. Passing a negative
 // timeout makes the mixer completely fair.
 func NewFairMix(timeout time.Duration) *FairMix {
 	m := &FairMix{

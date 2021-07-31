@@ -24,7 +24,6 @@ import (
 	"sync/atomic"
 	"time"
 
-	mapset "github.com/deckarep/golang-set"
 	"github.com/bfe2021/go-bfe/common"
 	"github.com/bfe2021/go-bfe/consensus"
 	"github.com/bfe2021/go-bfe/consensus/misc"
@@ -35,6 +34,7 @@ import (
 	"github.com/bfe2021/go-bfe/log"
 	"github.com/bfe2021/go-bfe/params"
 	"github.com/bfe2021/go-bfe/trie"
+	mapset "github.com/deckarep/golang-set"
 )
 
 const (
@@ -126,7 +126,7 @@ type worker struct {
 	config      *Config
 	chainConfig *params.ChainConfig
 	engine      consensus.Engine
-	ong         Backend
+	bfe         Backend
 	chain       *core.BlockChain
 
 	// Feeds
@@ -187,12 +187,12 @@ type worker struct {
 	resubmitHook func(time.Duration, time.Duration) // Method to call upon updating resubmitting interval.
 }
 
-func newWorker(config *Config, chainConfig *params.ChainConfig, engine consensus.Engine, ong Backend, mux *event.TypeMux, isLocalBlock func(*types.Block) bool, init bool) *worker {
+func newWorker(config *Config, chainConfig *params.ChainConfig, engine consensus.Engine,  bfe  Backend, mux *event.TypeMux, isLocalBlock func(*types.Block) bool, init bool) *worker {
 	worker := &worker{
 		config:             config,
 		chainConfig:        chainConfig,
 		engine:             engine,
-		ong:                ong,
+		bfe:                bfe,
 		mux:                mux,
 		chain:              bfe.BlockChain(),
 		isLocalBlock:       isLocalBlock,
@@ -236,7 +236,7 @@ func newWorker(config *Config, chainConfig *params.ChainConfig, engine consensus
 	return worker
 }
 
-// setBfeerbase sets the ongerbase used to initialize the block coinbase field.
+// setBfeerbase sets the bfeerbase used to initialize the block coinbase field.
 func (w *worker) setBfeerbase(addr common.Address) {
 	w.mu.Lock()
 	defer w.mu.Unlock()
@@ -887,7 +887,7 @@ func (w *worker) commitNewWork(interrupt *int32, noempty bool, timestamp int64) 
 	// Only set the coinbase if our consensus engine is running (avoid spurious block rewards)
 	if w.isRunning() {
 		if w.coinbase == (common.Address{}) {
-			log.Error("Refusing to mine without ongerbase")
+			log.Error("Refusing to mine without bfeerbase")
 			return
 		}
 		header.Coinbase = w.coinbase

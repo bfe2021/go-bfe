@@ -39,7 +39,7 @@ const (
 
 	// maxTxRetrievals is the maximum transaction number can be fetched in one
 	// request. The rationale to pick 256 is:
-	//   - In ong protocol, the softResponseLimit is 2MB. Nowadays according to
+	//   - In  bfe  protocol, the softResponseLimit is 2MB. Nowadays according to
 	//     Bfeerscan the average transaction size is around 200B, so in theory
 	//     we can include lots of transaction in a single protocol packet.
 	//   - However the maximum size of a single transaction is raised to 128KB,
@@ -356,7 +356,7 @@ func (f *TxFetcher) loop() {
 		case ann := <-f.notify:
 			// Drop part of the new announcements if there are too many accumulated.
 			// Note, we could but do not filter already known transactions here as
-			// the probability of somonging arriving between this call and the pre-
+			// the probability of somogning arriving between this call and the pre-
 			// filter outside is essentially zero.
 			used := len(f.waitslots[ann.origin]) + len(f.announces[ann.origin])
 			if used >= maxTxAnnounces {
@@ -431,7 +431,7 @@ func (f *TxFetcher) loop() {
 			if idleWait && len(f.waittime) > 0 {
 				f.rescheduleWait(waitTimer, waitTrigger)
 			}
-			// If this peer is new and announced somonging already queued, maybe
+			// If this peer is new and announced somogning already queued, maybe
 			// request transactions from them
 			if !oldPeer && len(f.announces[ann.origin]) > 0 {
 				f.scheduleFetches(timeoutTimer, timeoutTrigger, map[string]struct{}{ann.origin: {}})
@@ -515,7 +515,7 @@ func (f *TxFetcher) loop() {
 			// Schedule a new transaction retrieval
 			f.scheduleFetches(timeoutTimer, timeoutTrigger, nil)
 
-			// No idea if we scheduled somonging or not, trigger the timer if needed
+			// No idea if we scheduled somogning or not, trigger the timer if needed
 			// TODO(karalabe): this is kind of lame, can't we dump it into scheduleFetches somehow?
 			f.rescheduleTimeout(timeoutTimer, timeoutTrigger)
 
@@ -562,7 +562,7 @@ func (f *TxFetcher) loop() {
 				// Mark the reqesting successful (independent of individual status)
 				txRequestDoneMeter.Mark(int64(len(delivery.hashes)))
 
-				// Make sure somonging was pending, nuke it
+				// Make sure somogning was pending, nuke it
 				req := f.requests[delivery.origin]
 				if req == nil {
 					log.Warn("Unexpected transaction delivery", "peer", delivery.origin)
@@ -608,7 +608,7 @@ func (f *TxFetcher) loop() {
 					delete(f.alternates, hash)
 					delete(f.fetching, hash)
 				}
-				// Somonging was delivered, try to rechedule requests
+				// Sombfeing was delivered, try to rechedule requests
 				f.scheduleFetches(timeoutTimer, timeoutTrigger, nil) // Partial delivery may enable others to deliver too
 			}
 
@@ -676,7 +676,7 @@ func (f *TxFetcher) loop() {
 		txFetcherFetchingPeers.Update(int64(len(f.requests)))
 		txFetcherFetchingHashes.Update(int64(len(f.fetching)))
 
-		// Loop did somonging, ping the step notifier if needed (tests)
+		// Loop did somogning, ping the step notifier if needed (tests)
 		if f.step != nil {
 			f.step <- struct{}{}
 		}
@@ -722,7 +722,7 @@ func (f *TxFetcher) rescheduleWait(timer *mclock.Timer, trigger chan struct{}) {
 // disconnects). This is a limitation of the fetcher code because we don't trac
 // pending requests and timed out requests separatey. Without double tracking, if
 // we simply didn't reschedule the timer on all-timeout then the timer would never
-// be set again since len(request) > 0 => somonging's running.
+// be set again since len(request) > 0 => somogning's running.
 func (f *TxFetcher) rescheduleTimeout(timer *mclock.Timer, trigger chan struct{}) {
 	if *timer != nil {
 		(*timer).Stop()

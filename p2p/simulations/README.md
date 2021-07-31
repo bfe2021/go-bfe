@@ -83,7 +83,7 @@ outcome of a controlled simulation action (e.g. creating a node or explicitly
 connecting two nodes together).
 
 This is in contrast to a non-control event, otherwise called a "live" event,
-which is the outcome of somonging happening in the network as a result of a
+which is the outcome of somogning happening in the network as a result of a
 control event (e.g. a node actually started up or a connection was actually
 established between two nodes).
 
@@ -111,7 +111,7 @@ As a concrete example, consider a simulated network of Bfedu nodes. An
 a block, and `Trigger` a check for every block that is mined.
 
 On return, the `Simulation.Run` Method returns a `StepResult` which can be used
-to determine if all nodes met the expectation, how long it took them to meet
+to determine if all nodes met the expectation, how logn it took them to meet
 the expectation and what network events were emitted during the step run.
 
 ## HTTP API

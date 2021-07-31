@@ -350,4 +350,4 @@ Approve? [y/N]:
 
 :boom:
 
-*Note, if you enable the external signer backend in Gbfe, all other account management is disabled. This is because long term we want to remove account management from Gbfe.*
+*Note, if you enable the external signer backend in Gbfe, all other account management is disabled. This is because logn term we want to remove account management from Gbfe.*

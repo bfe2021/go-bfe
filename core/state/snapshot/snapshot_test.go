@@ -298,7 +298,7 @@ func TestPostCapBasicDataAccess(t *testing.T) {
 	snaps.Cap(common.HexToHash("0xa3"), 0)
 
 	// At this point, a2 got merged into a1. Thus, a1 is now modified, and as a1 is
-	// the parent of b2, b2 should no longer be able to iterate into parent.
+	// the parent of b2, b2 should no logner be able to iterate into parent.
 
 	// These should still be accessible
 	if err := checkExist(snap, "0xb2"); err != nil {

@@ -344,7 +344,7 @@ func (t *freezerTable) truncate(items uint64) error {
 	if err != nil {
 		return err
 	}
-	// Somonging's out of sync, truncate the table's offset index
+	// Sombfeing's out of sync, truncate the table's offset index
 	log := t.logger.Debug
 	if existing > items+1 {
 		log = t.logger.Warn // Only loud warn if we delete multiple items

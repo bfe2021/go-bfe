@@ -31,8 +31,8 @@ import (
 )
 
 const (
-	ipcAPIs  = "admin:1.0 debug:1.0 ong:1.0 bfeash:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0"
-	httpAPIs = "ong:1.0 net:1.0 rpc:1.0 web3:1.0"
+	ipcAPIs  = "admin:1.0 debug:1.0 bfe:1.0 bfeash:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0"
+	httpAPIs = "bfe:1.0 net:1.0 rpc:1.0 web3:1.0"
 )
 
 // spawns gbfe with the given command line args, using a set of flags to minimise
@@ -131,7 +131,7 @@ func testAttachWelcome(t *testing.T, gbfe *testgbfe, endpoint, apis string) {
 	attach.SetTemplateFunc("goarch", func() string { return runtime.GOARCH })
 	attach.SetTemplateFunc("gover", runtime.Version)
 	attach.SetTemplateFunc("gbfever", func() string { return params.VersionWithCommit("", "") })
-	attach.SetTemplateFunc("ongerbase", func() string { return gbfe.Bfeerbase })
+	attach.SetTemplateFunc("bfeerbase", func() string { return gbfe.Bfeerbase })
 	attach.SetTemplateFunc("niltime", func() string {
 		return time.Unix(0, 0).Format("Mon Jan 02 2006 15:04:05 GMT-0700 (MST)")
 	})
@@ -144,7 +144,7 @@ func testAttachWelcome(t *testing.T, gbfe *testgbfe, endpoint, apis string) {
 Welcome to the Gbfe JavaScript console!
 
 instance: Gbfe/v{{gbfever}}/{{goos}}-{{goarch}}/{{gover}}
-coinbase: {{ongerbase}}
+coinbase: {{bfeerbase}}
 at block: 0 ({{niltime}}){{if ipc}}
  datadir: {{datadir}}{{end}}
  modules: {{apis}}

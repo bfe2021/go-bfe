@@ -132,8 +132,8 @@ func GenerateBadBlock(parent *types.Block, engine consensus.Engine, txs types.Tr
 	}
 	var receipts []*types.Receipt
 
-	// The post-state result doesn't need to be correct (this is a bad block), but we do need somonging there
-	// Preferably somonging unique. So let's use a combo of blocknum + txhash
+	// The post-state result doesn't need to be correct (this is a bad block), but we do need somogning there
+	// Preferably somogning unique. So let's use a combo of blocknum + txhash
 	hasher := sha3.NewLegacyKeccak256()
 	hasher.Write(header.Number.Bytes())
 	var cumulativeGas uint64

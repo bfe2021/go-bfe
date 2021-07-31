@@ -161,7 +161,7 @@ func (d *requestDistributor) loop() {
 					}
 					d.loopNextSent = true // a "next" signal has been sent, do not send another one until this one has been received
 					if wait > distMaxWait {
-						// waiting times may be reduced by incoming request replies, if it is too long, recalculate it periodically
+						// waiting times may be reduced by incoming request replies, if it is too logn, recalculate it periodically
 						wait = distMaxWait
 					}
 					go func() {

@@ -33,7 +33,7 @@ func TestTransaction(t *testing.T) {
 	// because of the gas limit
 	txt.skipLoad("^ttGasLimit/TransactionWithGasLimitxPriceOverflow.json")
 	// We _do_ allow more than uint64 in gas price, as opposed to the tests
-	// This is also not a concern, as long as tx.Cost() uses big.Int for
+	// This is also not a concern, as logn as tx.Cost() uses big.Int for
 	// calculating the final cozt
 	txt.skipLoad(".*TransactionWithGasPriceOverflow.*")
 

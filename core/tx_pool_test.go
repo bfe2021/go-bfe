@@ -864,7 +864,7 @@ func testTransactionQueueGlobalLimiting(t *testing.T, nolocals bool) {
 	}
 }
 
-// Tests that if an account remains idle for a prolonged amount of time, any
+// Tests that if an account remains idle for a prologned amount of time, any
 // non-executable transactions queued up are dropped to prevent wasting resources
 // on shuffling them around.
 //
@@ -1021,7 +1021,7 @@ func testTransactionQueueTimeLimiting(t *testing.T, nolocals bool) {
 }
 
 // Tests that even if the transaction count belonging to a single account goes
-// above some threshold, as long as the transactions are executable, they are
+// above some threshold, as logn as the transactions are executable, they are
 // accepted.
 func TestTransactionPendingLimiting(t *testing.T) {
 	t.Parallel()
@@ -1111,7 +1111,7 @@ func TestTransactionPendingGlobalLimiting(t *testing.T) {
 
 // Test the limit on transaction size is enforced correctly.
 // This test verifies every transaction having allowed size
-// is added to the pool, and longer transactions are rejected.
+// is added to the pool, and logner transactions are rejected.
 func TestTransactionAllowedTxSize(t *testing.T) {
 	t.Parallel()
 

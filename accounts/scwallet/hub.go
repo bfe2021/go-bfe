@@ -245,7 +245,7 @@ func (hub *Hub) refreshWallets() {
 		hub.wallets[reader] = wallet
 		events = append(events, accounts.WalletEvent{Wallet: wallet, Kind: accounts.WalletArrived})
 	}
-	// Remove any wallets no longer present
+	// Remove any wallets no logner present
 	for reader, wallet := range hub.wallets {
 		if _, ok := seen[reader]; !ok {
 			wallet.Close()

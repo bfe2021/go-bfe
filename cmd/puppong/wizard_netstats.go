@@ -206,7 +206,7 @@ func (stats serverStats) render() {
 	table.SetAlignment(tablewriter.ALIGN_LEFT)
 	table.SetColWidth(40)
 
-	// Find the longest lines for all columns for the hacked separator
+	// Find the lognest lines for all columns for the hacked separator
 	separator := make([]string, 5)
 	for server, stat := range stats {
 		if len(server) > len(separator[0]) {

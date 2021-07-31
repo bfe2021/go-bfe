@@ -27,6 +27,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/bfe2021/go-bfe/bfedb"
 	"github.com/bfe2021/go-bfe/common"
 	"github.com/bfe2021/go-bfe/consensus"
 	"github.com/bfe2021/go-bfe/consensus/bfeash"
@@ -35,7 +36,6 @@ import (
 	"github.com/bfe2021/go-bfe/core/types"
 	"github.com/bfe2021/go-bfe/core/vm"
 	"github.com/bfe2021/go-bfe/crypto"
-	"github.com/bfe2021/go-bfe/bfedb"
 	"github.com/bfe2021/go-bfe/params"
 	"github.com/bfe2021/go-bfe/trie"
 )
@@ -259,7 +259,7 @@ func testShorterFork(t *testing.T, full bool) {
 	testFork(t, processor, 5, 4, full, worse)
 }
 
-// Tests that given a starting canonical chain of a given size, creating longer
+// Tests that given a starting canonical chain of a given size, creating logner
 // forks do take canonical ownership.
 func TestLongerForkHeaders(t *testing.T) { testLongerFork(t, false) }
 func TestLongerForkBlocks(t *testing.T)  { testLongerFork(t, true) }
@@ -280,7 +280,7 @@ func testLongerFork(t *testing.T, full bool) {
 			t.Errorf("total difficulty mismatch: have %v, expected more than %v", td2, td1)
 		}
 	}
-	// Sum of numbers must be greater than `length` for this to be a longer fork
+	// Sum of numbers must be greater than `length` for this to be a logner fork
 	testFork(t, processor, 0, 11, full, better)
 	testFork(t, processor, 0, 15, full, better)
 	testFork(t, processor, 1, 10, full, better)
@@ -345,7 +345,7 @@ func testBrokenChain(t *testing.T, full bool) {
 	}
 }
 
-// Tests that reorganising a long difficult chain after a short easy one
+// Tests that reorganising a logn difficult chain after a short easy one
 // overwrites the canonical numbers and links in the database.
 func TestReorgLongHeaders(t *testing.T) { testReorgLong(t, false) }
 func TestReorgLongBlocks(t *testing.T)  { testReorgLong(t, true) }
@@ -354,15 +354,15 @@ func testReorgLong(t *testing.T, full bool) {
 	testReorg(t, []int64{0, 0, -9}, []int64{0, 0, 0, -9}, 393280, full)
 }
 
-// Tests that reorganising a short difficult chain after a long easy one
+// Tests that reorganising a short difficult chain after a logn easy one
 // overwrites the canonical numbers and links in the database.
 func TestReorgShortHeaders(t *testing.T) { testReorgShort(t, false) }
 func TestReorgShortBlocks(t *testing.T)  { testReorgShort(t, true) }
 
 func testReorgShort(t *testing.T, full bool) {
-	// Create a long easy chain vs. a short heavy one. Due to difficulty adjustment
-	// we need a fairly long chain of blocks with different difficulties for a short
-	// one to become heavyer than a long one. The 96 is an empirical value.
+	// Create a logn easy chain vs. a short heavy one. Due to difficulty adjustment
+	// we need a fairly logn chain of blocks with different difficulties for a short
+	// one to become heavyer than a logn one. The 96 is an empirical value.
 	easy := make([]int64, 96)
 	for i := 0; i < len(easy); i++ {
 		easy[i] = 60
@@ -1026,7 +1026,7 @@ func TestLogRebirth(t *testing.T) {
 	}
 	checkLogEvents(t, newLogCh, rmLogsCh, 1, 0)
 
-	// Generate long reorg chain containing another log. Inserting the
+	// Generate logn reorg chain containing another log. Inserting the
 	// chain removes one log and adds one.
 	forkChain, _ := GenerateChain(params.TestChainConfig, genesis, engine, db, 2, func(i int, gen *BlockGen) {
 		if i == 1 {
@@ -1700,7 +1700,7 @@ func TestLowDiffLongChain(t *testing.T) {
 	db := rawdb.NewMemoryDatabase()
 	genesis := new(Genesis).MustCommit(db)
 
-	// We must use a pretty long chain to ensure that the fork doesn't overtake us
+	// We must use a pretty logn chain to ensure that the fork doesn't overtake us
 	// until after at least 128 blocks post tip
 	blocks, _ := GenerateChain(params.TestChainConfig, genesis, engine, db, 6*TriesInMemory, func(i int, b *BlockGen) {
 		b.SetCoinbase(common.Address{1})
@@ -1782,7 +1782,7 @@ func testSideImport(t *testing.T, numCanonBlocksInSidechain, blocksBetweenCommon
 	// First block should be a known block, block after should be a pruned block. So
 	// canon(pruned), side, side...
 
-	// Generate fork chain, make it longer than canon
+	// Generate fork chain, make it logner than canon
 	parentIndex := lastPrunedIndex + blocksBetweenCommonAncestorAndPruneblock
 	parent := blocks[parentIndex]
 	fork, _ := GenerateChain(params.TestChainConfig, parent, engine, db, 2*TriesInMemory, func(i int, b *BlockGen) {
@@ -1835,7 +1835,7 @@ func testInsertKnownChainData(t *testing.T, typ string) {
 	genesis := new(Genesis).MustCommit(db)
 
 	blocks, receipts := GenerateChain(params.TestChainConfig, genesis, engine, db, 32, func(i int, b *BlockGen) { b.SetCoinbase(common.Address{1}) })
-	// A longer chain but total difficulty is lower.
+	// A logner chain but total difficulty is lower.
 	blocks2, receipts2 := GenerateChain(params.TestChainConfig, blocks[len(blocks)-1], engine, db, 65, func(i int, b *BlockGen) { b.SetCoinbase(common.Address{1}) })
 	// A shorter chain but total difficulty is higher.
 	blocks3, receipts3 := GenerateChain(params.TestChainConfig, blocks[len(blocks)-1], engine, db, 64, func(i int, b *BlockGen) {
@@ -1919,7 +1919,7 @@ func testInsertKnownChainData(t *testing.T, typ string) {
 	}
 	asserter(t, blocks[len(blocks)-1])
 
-	// Import a long canonical chain with some known data as prefix.
+	// Import a logn canonical chain with some known data as prefix.
 	rollback := blocks[len(blocks)/2].NumberU64()
 
 	chain.SetHead(rollback - 1)
@@ -1934,14 +1934,14 @@ func testInsertKnownChainData(t *testing.T, typ string) {
 	}
 	asserter(t, blocks3[len(blocks3)-1])
 
-	// Import a longer but lower total difficulty chain with some known data as prefix.
+	// Import a logner but lower total difficulty chain with some known data as prefix.
 	if err := inserter(append(blocks, blocks2...), append(receipts, receipts2...)); err != nil {
 		t.Fatalf("failed to insert chain data: %v", err)
 	}
 	// The head shouldn't change.
 	asserter(t, blocks3[len(blocks3)-1])
 
-	// Rollback the heavier chain and re-insert the longer chain again
+	// Rollback the heavier chain and re-insert the logner chain again
 	chain.SetHead(rollback - 1)
 	if err := inserter(append(blocks, blocks2...), append(receipts, receipts2...)); err != nil {
 		t.Fatalf("failed to insert chain data: %v", err)
@@ -1950,7 +1950,7 @@ func testInsertKnownChainData(t *testing.T, typ string) {
 }
 
 // getLongAndShortChains returns two chains,
-// A is longer, B is heavier
+// A is logner, B is heavier
 func getLongAndShortChains() (*BlockChain, []*types.Block, []*types.Block, error) {
 	// Generate a canonical chain to act as the main dataset
 	engine := bfeash.NewFaker()
@@ -1959,7 +1959,7 @@ func getLongAndShortChains() (*BlockChain, []*types.Block, []*types.Block, error
 
 	// Generate and import the canonical chain,
 	// Offset the time, to keep the difficulty low
-	longChain, _ := GenerateChain(params.TestChainConfig, genesis, engine, db, 80, func(i int, b *BlockGen) {
+	lognChain, _ := GenerateChain(params.TestChainConfig, genesis, engine, db, 80, func(i int, b *BlockGen) {
 		b.SetCoinbase(common.Address{1})
 	})
 	diskdb := rawdb.NewMemoryDatabase()
@@ -1972,18 +1972,18 @@ func getLongAndShortChains() (*BlockChain, []*types.Block, []*types.Block, error
 
 	// Generate fork chain, make it shorter than canon, with common ancestor pretty early
 	parentIndex := 3
-	parent := longChain[parentIndex]
+	parent := lognChain[parentIndex]
 	heavyChain, _ := GenerateChain(params.TestChainConfig, parent, engine, db, 75, func(i int, b *BlockGen) {
 		b.SetCoinbase(common.Address{2})
 		b.OffsetTime(-9)
 	})
 	// Verify that the test is sane
 	var (
-		longerTd  = new(big.Int)
+		lognerTd  = new(big.Int)
 		shorterTd = new(big.Int)
 	)
-	for index, b := range longChain {
-		longerTd.Add(longerTd, b.Difficulty())
+	for index, b := range lognChain {
+		lognerTd.Add(lognerTd, b.Difficulty())
 		if index <= parentIndex {
 			shorterTd.Add(shorterTd, b.Difficulty())
 		}
@@ -1991,15 +1991,15 @@ func getLongAndShortChains() (*BlockChain, []*types.Block, []*types.Block, error
 	for _, b := range heavyChain {
 		shorterTd.Add(shorterTd, b.Difficulty())
 	}
-	if shorterTd.Cmp(longerTd) <= 0 {
-		return nil, nil, nil, fmt.Errorf("Test is moot, heavyChain td (%v) must be larger than canon td (%v)", shorterTd, longerTd)
+	if shorterTd.Cmp(lognerTd) <= 0 {
+		return nil, nil, nil, fmt.Errorf("Test is moot, heavyChain td (%v) must be larger than canon td (%v)", shorterTd, lognerTd)
 	}
-	longerNum := longChain[len(longChain)-1].NumberU64()
+	lognerNum := lognChain[len(lognChain)-1].NumberU64()
 	shorterNum := heavyChain[len(heavyChain)-1].NumberU64()
-	if shorterNum >= longerNum {
-		return nil, nil, nil, fmt.Errorf("Test is moot, heavyChain num (%v) must be lower than canon num (%v)", shorterNum, longerNum)
+	if shorterNum >= lognerNum {
+		return nil, nil, nil, fmt.Errorf("Test is moot, heavyChain num (%v) must be lower than canon num (%v)", shorterNum, lognerNum)
 	}
-	return chain, longChain, heavyChain, nil
+	return chain, lognChain, heavyChain, nil
 }
 
 // TestReorgToShorterRemovesCanonMapping tests that if we
@@ -2559,7 +2559,7 @@ func TestDeleteRecreateSlots(t *testing.T) {
 		byte(vm.RETURN),
 	}
 	if l := len(initCode); l > 32 {
-		t.Fatalf("init code is too long for a pushx, need a more elaborate deployer")
+		t.Fatalf("init code is too logn for a pushx, need a more elaborate deployer")
 	}
 	bbCode := []byte{
 		// Push initcode onto stack
@@ -2764,7 +2764,7 @@ func TestDeleteRecreateSlotsAcrossManyBlocks(t *testing.T) {
 		byte(vm.RETURN),
 	}
 	if l := len(initCode); l > 32 {
-		t.Fatalf("init code is too long for a pushx, need a more elaborate deployer")
+		t.Fatalf("init code is too logn for a pushx, need a more elaborate deployer")
 	}
 	bbCode := []byte{
 		// Push initcode onto stack
@@ -2911,7 +2911,7 @@ func TestDeleteRecreateSlotsAcrossManyBlocks(t *testing.T) {
 // TestInitThenFailCreateContract tests a pretty notorious case that happened
 // on mainnet over blocks 7338108, 7338110 and 7338115.
 // - Block 7338108: address e771789f5cccac282f23bb7add5690e1f6ca467c is initiated
-//   with 0.001 onger (thus created but no code)
+//   with 0.001 bfeer (thus created but no code)
 // - Block 7338110: a CREATE2 is attempted. The CREATE2 would deploy code on
 //   the same address e771789f5cccac282f23bb7add5690e1f6ca467c. However, the
 //   deployment fails due to OOG during initcode execution
@@ -2920,7 +2920,7 @@ func TestDeleteRecreateSlotsAcrossManyBlocks(t *testing.T) {
 //   zero.
 //
 // The problem being that the snapshotter maintains a destructset, and adds items
-// to the destructset in case somonging is created "onto" an existing item.
+// to the destructset in case somogning is created "onto" an existing item.
 // We need to either roll back the snapDestructs, or not place it into snapDestructs
 // in the first place.
 //
@@ -2954,7 +2954,7 @@ func TestInitThenFailCreateContract(t *testing.T) {
 		byte(vm.RETURN), // return 2 bytes of zero-code
 	}
 	if l := len(initCode); l > 32 {
-		t.Fatalf("init code is too long for a pushx, need a more elaborate deployer")
+		t.Fatalf("init code is too logn for a pushx, need a more elaborate deployer")
 	}
 	bbCode := []byte{
 		// Push initcode onto stack

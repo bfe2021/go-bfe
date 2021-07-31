@@ -54,7 +54,7 @@ const (
 
 	SstoreSentryGasEIP2200            uint64 = 2300  // Minimum gas required to be present for an SSTORE call, not consumed
 	SstoreSetGasEIP2200               uint64 = 20000 // Once per SSTORE operation from clean zero to non-zero
-	SstoreResetGasEIP2200             uint64 = 5000  // Once per SSTORE operation from clean non-zero to somonging else
+	SstoreResetGasEIP2200             uint64 = 5000  // Once per SSTORE operation from clean non-zero to somogning else
 	SstoreClearsScheduleRefundEIP2200 uint64 = 15000 // Once per SSTORE operation for clearing an originally existing storage slot
 
 	JumpdestGas   uint64 = 1     // Once per JUMPDEST operation.

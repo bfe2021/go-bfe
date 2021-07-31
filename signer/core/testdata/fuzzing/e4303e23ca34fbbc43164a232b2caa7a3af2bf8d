@@ -48,16 +48,16 @@
     "name": "l",
     "version": "1",
     "chainId": "",
-    "verifyingContract": "ongCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC"
+    "verifyingContract": "bfeCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC"
   },
   "message": {
     "from": {
       "name": "",
-      "wallet": "ongCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826"
+      "wallet": "bfeCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826"
     },
     "to": {
       "name": "",
-      "wallet": "ongbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB"
+      "wallet": "bfebBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB"
     },
     "": ""
   }

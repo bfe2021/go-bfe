@@ -17,7 +17,7 @@
 // parameters are chosen.
 //
 // (This package previously claimed to operate at a 128-bit security level.
-// However, recent improvements in attacks mean that is no longer true. See
+// However, recent improvements in attacks mean that is no logner true. See
 // https://moderncrypto.org/mail-archive/curves/2016/000740.html.)
 package bn256
 
@@ -29,7 +29,7 @@ import (
 )
 
 // BUG(agl): this implementation is not constant time.
-// TODO(agl): keep GF(p²) elements in Mongomery form.
+// TODO(agl): keep GF(p²) elements in Mbfeomery form.
 
 // G1 is an abstract cyclic group. The zero value is suitable for use as the
 // output of an operation, but cannot be used as an input.

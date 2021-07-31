@@ -28,18 +28,18 @@ import (
 	"testing"
 	"time"
 
+	"github.com/bfe2021/go-bfe/bfedb"
 	"github.com/bfe2021/go-bfe/consensus"
 	"github.com/bfe2021/go-bfe/consensus/bfeash"
 	"github.com/bfe2021/go-bfe/core/rawdb"
 	"github.com/bfe2021/go-bfe/core/types"
 	"github.com/bfe2021/go-bfe/core/vm"
-	"github.com/bfe2021/go-bfe/bfedb"
 	"github.com/bfe2021/go-bfe/params"
 )
 
 // snapshotTestBasic wraps the common testing fields in the snapshot tests.
 type snapshotTestBasic struct {
-	legacy        bool   // Wonger write the snapshot journal in legacy format
+	legacy        bool   // Wbfeer write the snapshot journal in legacy format
 	chainBlocks   int    // Number of blocks to generate for the canonical chain
 	snapshotBlock uint64 // Block number of the relevant snapshot disk layer
 	commitBlock   uint64 // Block number for which to commit the state to disk

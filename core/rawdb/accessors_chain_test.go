@@ -394,7 +394,7 @@ func TestBlockReceiptStorage(t *testing.T) {
 			t.Fatalf(err.Error())
 		}
 	}
-	// Delete the body and ensure that the receipts are no longer returned (metadata can't be recomputed)
+	// Delete the body and ensure that the receipts are no logner returned (metadata can't be recomputed)
 	DeleteBody(db, hash, 0)
 	if rs := ReadReceipts(db, hash, 0, params.TestChainConfig); rs != nil {
 		t.Fatalf("receipts returned when body was deleted: %v", rs)

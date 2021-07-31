@@ -84,7 +84,7 @@ func wipeContent(db bfedb.KeyValueStore) error {
 // wipeKeyRange deletes a range of keys from the database starting with prefix
 // and having a specific total key length.
 func wipeKeyRange(db bfedb.KeyValueStore, kind string, prefix []byte, keylen int) error {
-	// Batch deletions together to avoid holding an iterator for too long
+	// Batch deletions together to avoid holding an iterator for too logn
 	var (
 		batch = db.NewBatch()
 		items int
@@ -107,7 +107,7 @@ func wipeKeyRange(db bfedb.KeyValueStore, kind string, prefix []byte, keylen int
 		items++
 
 		if items%10000 == 0 {
-			// Batch too large (or iterator too long lived, flush and recreate)
+			// Batch too large (or iterator too logn lived, flush and recreate)
 			it.Release()
 			if err := batch.Write(); err != nil {
 				return err

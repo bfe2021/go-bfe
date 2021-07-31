@@ -128,7 +128,7 @@ func NewType(t string, internalType string, components []ArgumentMarshaling) (ty
 		}
 	} else {
 		if parsedType[0] == "uint" || parsedType[0] == "int" {
-			// this should fail because it means that there's somonging wrong with
+			// this should fail because it means that there's somogning wrong with
 			// the abi type (the compiler should always format it to the size...always)
 			return Type{}, fmt.Errorf("unsupported arg type: %s", t)
 		}

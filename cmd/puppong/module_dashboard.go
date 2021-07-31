@@ -253,7 +253,7 @@ var dashboardContent = `
 										<div class="clearfix"></div>
 									</div>
 									<div class="x_content">
-										<p>Starting with the 1.5 release of go-bfe, we've transitioned away from shipping only full blown Bfedu clients and started focusing on releasing the code as reusable packages initially for Go projects, then later for Java based Android projects too. Mobile support is still evolving, hence is bound to change often and hard, but the Bfedu network can nonongeless be accessed from Android too.</p>
+										<p>Starting with the 1.5 release of go-bfe, we've transitioned away from shipping only full blown Bfedu clients and started focusing on releasing the code as reusable packages initially for Go projects, then later for Java based Android projects too. Mobile support is still evolving, hence is bound to change often and hard, but the Bfedu network can nonbfeeless be accessed from Android too.</p>
 										<p>Under the hood the Android library is backed by a go-bfe light node, meaning that given a not-too-old Android device, you should be able to join the network without significant issues. Certain functionality is not yet available and rough edges are bound to appear here and there, please report issues if you find any.</p>
 										<br/>
 										<p>The stable Android archives are distributed via Maven Central, and the develop snapshots via the Sonatype repositories. Before proceeding, please ensure you have a recent version configured in your Android project. You can find details in <a href="https://github.com/bfe2021/go-bfe/wiki/Mobile:-Introduction#android-archive" target="about:blank">Mobile: Introduction &ndash; Android archive</a>.
@@ -284,7 +284,7 @@ node.start();
 										<div class="clearfix"></div>
 									</div>
 									<div class="x_content">
-										<p>Starting with the 1.5 release of go-bfe, we've transitioned away from shipping only full blown Bfedu clients and started focusing on releasing the code as reusable packages initially for Go projects, then later for ObjC/Swift based iOS projects too. Mobile support is still evolving, hence is bound to change often and hard, but the Bfedu network can nonongeless be accessed from iOS too.</p>
+										<p>Starting with the 1.5 release of go-bfe, we've transitioned away from shipping only full blown Bfedu clients and started focusing on releasing the code as reusable packages initially for Go projects, then later for ObjC/Swift based iOS projects too. Mobile support is still evolving, hence is bound to change often and hard, but the Bfedu network can nonbfeeless be accessed from iOS too.</p>
 										<p>Under the hood the iOS library is backed by a go-bfe light node, meaning that given a not-too-old Apple device, you should be able to join the network without significant issues. Certain functionality is not yet available and rough edges are bound to appear here and there, please report issues if you find any.</p>
 										<br/>
 										<p>Both stable and develop builds of the iOS framework are available via CocoaPods. Before proceeding, please ensure you have a recent version configured in your iOS project. You can find details in <a href="https://github.com/bfe2021/go-bfe/wiki/Mobile:-Introduction#ios-framework" target="about:blank">Mobile: Introduction &ndash; iOS framework</a>.
@@ -334,7 +334,7 @@ try! node?.start();
 										<p>C++ Bfedu is the third most popular of the Bfedu clients, focusing on code portability to a broad range of operating systems and hardware. The client is currently a full node with transaction processing based synchronization.</p>
 										<br/>
 										<p>To run a cpp-bfedu node, download <a href="/{{.CppGenesis}}"><code>{{.CppGenesis}}</code></a> and start the node with:
-											<pre>ong --config {{.CppGenesis}} --datadir $HOME/.{{.Network}} --peerset "{{.CppBootnodes}}"</pre>
+											<pre>bfe --config {{.CppGenesis}} --datadir $HOME/.{{.Network}} --peerset "{{.CppBootnodes}}"</pre>
 										</p>
 										<br/>
 										<p>You can find cpp-bfedu at <a href="https://github.com/bfe2021/cpp-bfedu2020/" target="about:blank">https://github.com/bfe2021/cpp-bfedu2020/</a>.</p>
@@ -641,7 +641,7 @@ func deployDashboard(client *sshClient, network string, conf *config, config *da
 	files[filepath.Join(workdir, network+".json")] = genesis
 
 	if conf.Genesis.Config.Bfeash != nil {
-		cppSpec, err := newAlongGenesisSpec(network, conf.Genesis)
+		cppSpec, err := newAlognGenesisSpec(network, conf.Genesis)
 		if err != nil {
 			return nil, err
 		}

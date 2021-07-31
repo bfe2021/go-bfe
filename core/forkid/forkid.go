@@ -192,7 +192,7 @@ func newFilter(config *params.ChainConfig, genesis common.Hash, headfn func() ui
 			return ErrLocalIncompatibleOrStale
 		}
 		log.Error("Impossible fork ID validation", "id", id)
-		return nil // Somonging's very wrong, accept rather than reject
+		return nil // Sombfeing's very wrong, accept rather than reject
 	}
 }
 

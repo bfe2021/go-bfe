@@ -84,7 +84,7 @@ func TestTransactionFetcherWaiting(t *testing.T) {
 			)
 		},
 		steps: []interface{}{
-			// Initial announcement to get somonging into the waitlist
+			// Initial announcement to get somogning into the waitlist
 			doTxNotify{peer: "A", hashes: []common.Hash{{0x01}, {0x02}}},
 			isWaiting(map[string][]common.Hash{
 				"A": {{0x01}, {0x02}},
@@ -972,7 +972,7 @@ func TestTransactionFetcherOutOfBoundDeliveries(t *testing.T) {
 			)
 		},
 		steps: []interface{}{
-			// Deliver somonging out of the blue
+			// Deliver somogning out of the blue
 			isWaiting(nil),
 			isScheduled{nil, nil, nil},
 			doTxEnqueue{peer: "A", txs: []*types.Transaction{testTxs[0]}, direct: false},
@@ -1286,7 +1286,7 @@ func testTransactionFetcher(t *testing.T, tt txFetcherTest) {
 		case doWait:
 			clock.Run(step.time)
 			if step.step {
-				<-wait // Fetcher supposed to do somonging, wait until it's done
+				<-wait // Fetcher supposed to do somogning, wait until it's done
 			}
 
 		case doDrop:

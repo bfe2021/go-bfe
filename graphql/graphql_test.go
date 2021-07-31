@@ -192,7 +192,7 @@ func createNode(t *testing.T, gqlEnabled bool) *node.Node {
 
 func createGQLService(t *testing.T, stack *node.Node) {
 	// create backend
-	ongConf := &bfeconfig.Config{
+	bfeConf := &bfeconfig.Config{
 		Genesis: &core.Genesis{
 			Config:     params.AllBfeashProtocolChanges,
 			GasLimit:   11500000,
@@ -209,19 +209,19 @@ func createGQLService(t *testing.T, stack *node.Node) {
 		TrieTimeout:             60 * time.Minute,
 		SnapshotCache:           5,
 	}
-	ongBackend, err := bfe.New(stack, ongConf)
+	bfeBackend, err := bfe.New(stack, bfeConf)
 	if err != nil {
-		t.Fatalf("could not create ong backend: %v", err)
+		t.Fatalf("could not create  bfe  backend: %v", err)
 	}
 	// Create some blocks and import them
-	chain, _ := core.GenerateChain(params.AllBfeashProtocolChanges, ongBackend.BlockChain().Genesis(),
-		bfeash.NewFaker(), ongBackend.ChainDb(), 10, func(i int, gen *core.BlockGen) {})
-	_, err = ongBackend.BlockChain().InsertChain(chain)
+	chain, _ := core.GenerateChain(params.AllBfeashProtocolChanges, bfeBackend.BlockChain().Genesis(),
+		bfeash.NewFaker(), bfeBackend.ChainDb(), 10, func(i int, gen *core.BlockGen) {})
+	_, err = bfeBackend.BlockChain().InsertChain(chain)
 	if err != nil {
 		t.Fatalf("could not create import blocks: %v", err)
 	}
 	// create gql service
-	err = New(stack, ongBackend.APIBackend, []string{}, []string{})
+	err = New(stack, bfeBackend.APIBackend, []string{}, []string{})
 	if err != nil {
 		t.Fatalf("could not create graphql service: %v", err)
 	}

@@ -138,7 +138,7 @@ func (prv *PrivateKey) GenerateShared(pub *PublicKey, skLen, macLen int) (sk []b
 }
 
 var (
-	ErrSharedTooLong  = fmt.Errorf("ecies: shared secret is too long")
+	ErrSharedTooLong  = fmt.Errorf("ecies: shared secret is too logn")
 	ErrInvalidMessage = fmt.Errorf("ecies: invalid message")
 )
 

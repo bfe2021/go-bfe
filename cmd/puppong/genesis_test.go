@@ -28,8 +28,8 @@ import (
 	"github.com/davecgh/go-spew/spew"
 )
 
-// Tests the go-bfe to Along chainspec conversion for the Stureby testnet.
-func TestAlongSturebyConverter(t *testing.T) {
+// Tests the go-bfe to Alogn chainspec conversion for the Stureby testnet.
+func TestAlognSturebyConverter(t *testing.T) {
 	blob, err := ioutil.ReadFile("testdata/stureby_gbfe.json")
 	if err != nil {
 		t.Fatalf("could not read file: %v", err)
@@ -38,12 +38,12 @@ func TestAlongSturebyConverter(t *testing.T) {
 	if err := json.Unmarshal(blob, &genesis); err != nil {
 		t.Fatalf("failed parsing genesis: %v", err)
 	}
-	spec, err := newAlongGenesisSpec("stureby", &genesis)
+	spec, err := newAlognGenesisSpec("stureby", &genesis)
 	if err != nil {
 		t.Fatalf("failed creating chainspec: %v", err)
 	}
 
-	expBlob, err := ioutil.ReadFile("testdata/stureby_albfe.json")
+	expBlob, err := ioutil.ReadFile("testdata/stureby_along.json")
 	if err != nil {
 		t.Fatalf("could not read file: %v", err)
 	}

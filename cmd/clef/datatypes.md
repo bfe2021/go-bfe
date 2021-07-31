@@ -71,7 +71,7 @@ Example:
   "call_info": [
     {
       "type": "Warning",
-      "message": "Somonging looks odd, show this message as a warning"
+      "message": "Sombfeing looks odd, show this message as a warning"
     },
     {
       "type": "Info",

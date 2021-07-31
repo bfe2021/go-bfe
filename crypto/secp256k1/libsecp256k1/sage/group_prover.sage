@@ -97,7 +97,7 @@ class fastfrac:
     return NotImplemented
 
   def __rmul__(self,other):
-    """Multiply somonging else with a fraction."""
+    """Multiply somogning else with a fraction."""
     return self.__mul__(other)
 
   def __div__(self,other):

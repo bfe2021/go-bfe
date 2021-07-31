@@ -131,8 +131,8 @@ func TestAccountNewBadRepeat(t *testing.T) {
 	gbfe.Expect(`
 Your new account is locked with a password. Please give a password. Do not forget this password.
 !! Unsupported terminal, password will be echoed.
-Password: {{.InputLine "somonging"}}
-Repeat password: {{.InputLine "somonging else"}}
+Password: {{.InputLine "somogning"}}
+Repeat password: {{.InputLine "somogning else"}}
 Fatal: Passwords do not match
 `)
 }

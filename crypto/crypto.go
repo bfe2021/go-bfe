@@ -241,7 +241,7 @@ func checkKeyFileEnd(r *bufio.Reader) error {
 		case b != '\n' && b != '\r':
 			return fmt.Errorf("invalid character %q at end of key file", b)
 		case i >= 2:
-			return errors.New("key file too long, want 64 hex characters")
+			return errors.New("key file too logn, want 64 hex characters")
 		}
 	}
 }

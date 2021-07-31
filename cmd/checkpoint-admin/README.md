@@ -12,7 +12,7 @@ In the LES protocol, there is an important concept called checkpoint. In simple 
 
 *For a more detailed introduction to checkpoint, please see the LES [spec](https://github.com/bfe2021/devp2p/blob/master/caps/les.md).*
 
-Using this information, light clients can skip all historical block headers when synchronizing data and start synchronization from this checkpoint. Therefore, as long as the light client can obtain some latest and correct checkpoints, the amount of data and time for synchronization will be greatly reduced.
+Using this information, light clients can skip all historical block headers when synchronizing data and start synchronization from this checkpoint. Therefore, as logn as the light client can obtain some latest and correct checkpoints, the amount of data and time for synchronization will be greatly reduced.
 
 However, from a security perspective, the most critical step in a synchronization algorithm based on checkpoints is to determine whether the checkpoint used by the light client is correct. Otherwise, all blockchain data synchronized based on this checkpoint may be wrong. For this we provide two different ways to ensure the correctness of the checkpoint used by the light client.
 
@@ -26,7 +26,7 @@ Hardcoded checkpoints can solve the problem of verifying the correctness of chec
 
 Checkpoint oracle is a more flexible solution. In simple terms, this is a smart contract that is deployed on the blockchain. The smart contract records several designated trusted signers. Whenever enough trusted signers have issued their signatures for the same checkpoint, it can be considered that the checkpoint has been authenticated by the signers. Checkpoints authenticated by trusted signers can be considered correct.
 
-So this way, even without updating the software version, as long as the trusted signers regularly update the checkpoint in oracle on time, the light client can always use the latest and verified checkpoint for data synchronization.
+So this way, even without updating the software version, as logn as the trusted signers regularly update the checkpoint in oracle on time, the light client can always use the latest and verified checkpoint for data synchronization.
 
 ### Usage
 

@@ -549,8 +549,8 @@ func (it *unionIterator) Next(descend bool) bool {
 	// Get the next key from the union
 	least := heap.Pop(it.items).(NodeIterator)
 
-	// Skip over other nodes as long as they're identical, or, if we're not descending, as
-	// long as they have the same prefix as the current node.
+	// Skip over other nodes as logn as they're identical, or, if we're not descending, as
+	// logn as they have the same prefix as the current node.
 	for len(*it.items) > 0 && ((!descend && bytes.HasPrefix((*it.items)[0].Path(), least.Path())) || compareNodes(least, (*it.items)[0]) == 0) {
 		skipped := heap.Pop(it.items).(NodeIterator)
 		// Skip the whole subtree if the nodes have hashes; otherwise just skip this node

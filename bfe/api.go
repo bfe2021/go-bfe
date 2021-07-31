@@ -138,9 +138,9 @@ func (api *PrivateMinerAPI) SetGasPrice(gasPrice hexutil.Big) bool {
 	return true
 }
 
-// SetBfeerbase sets the ongerbase of the miner
-func (api *PrivateMinerAPI) SetBfeerbase(ongerbase common.Address) bool {
-	api.e.SetBfeerbase(ongerbase)
+// SetBfeerbase sets the bfeerbase of the miner
+func (api *PrivateMinerAPI) SetBfeerbase(bfeerbase common.Address) bool {
+	api.e.SetBfeerbase(bfeerbase)
 	return true
 }
 
@@ -157,13 +157,13 @@ func (api *PrivateMinerAPI) GetHashrate() uint64 {
 // PrivateAdminAPI is the collection of Bfedu full node-related APIs
 // exposed over the private admin endpoint.
 type PrivateAdminAPI struct {
-	ong *Bfedu
+	bfe *Bfedu
 }
 
 // NewPrivateAdminAPI creates a new API definition for the full node private
 // admin Methods of the Bfedu service.
-func NewPrivateAdminAPI(ong *Bfedu) *PrivateAdminAPI {
-	return &PrivateAdminAPI{ong: ong}
+func NewPrivateAdminAPI(bfe *Bfedu) *PrivateAdminAPI {
+	return &PrivateAdminAPI{bfe: bfe}
 }
 
 // ExportChain exports the current blockchain into a local file,
@@ -267,13 +267,13 @@ func (api *PrivateAdminAPI) ImportChain(file string) (bool, error) {
 // PublicDebugAPI is the collection of Bfedu full node APIs exposed
 // over the public debugging endpoint.
 type PublicDebugAPI struct {
-	ong *Bfedu
+	bfe *Bfedu
 }
 
 // NewPublicDebugAPI creates a new API definition for the full node-
 // related public debug Methods of the Bfedu service.
-func NewPublicDebugAPI(ong *Bfedu) *PublicDebugAPI {
-	return &PublicDebugAPI{ong: ong}
+func NewPublicDebugAPI(bfe *Bfedu) *PublicDebugAPI {
+	return &PublicDebugAPI{bfe: bfe}
 }
 
 // DumpBlock retrieves the entire state of the database at a given block.
@@ -304,13 +304,13 @@ func (api *PublicDebugAPI) DumpBlock(blockNr rpc.BlockNumber) (state.Dump, error
 // PrivateDebugAPI is the collection of Bfedu full node APIs exposed over
 // the private debugging endpoint.
 type PrivateDebugAPI struct {
-	ong *Bfedu
+	bfe *Bfedu
 }
 
 // NewPrivateDebugAPI creates a new API definition for the full node-related
 // private debug Methods of the Bfedu service.
-func NewPrivateDebugAPI(ong *Bfedu) *PrivateDebugAPI {
-	return &PrivateDebugAPI{ong: ong}
+func NewPrivateDebugAPI(bfe *Bfedu) *PrivateDebugAPI {
+	return &PrivateDebugAPI{bfe: bfe}
 }
 
 // Preimage is a debug API function that returns the preimage for a sha3 hash, if known.

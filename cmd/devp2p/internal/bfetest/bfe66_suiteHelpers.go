@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with the go-bfe library. If not, see <http://www.gnu.org/licenses/>.
 
-package ongtest
+package bfetest
 
 import (
 	"fmt"
@@ -45,7 +45,7 @@ func (s *Suite) dial66(t *utesting.T) *Conn {
 	if err != nil {
 		t.Fatalf("could not dial: %v", err)
 	}
-	conn.caps = append(conn.caps, p2p.Cap{Name: "ong", Version: 66})
+	conn.caps = append(conn.caps, p2p.Cap{Name: "bfe", Version: 66})
 	return conn
 }
 
@@ -79,29 +79,29 @@ func (c *Conn) read66() (uint64, Message) {
 	case (Status{}).Code():
 		msg = new(Status)
 	case (GetBlockHeaders{}).Code():
-		ongMsg := new(bfe.GetBlockHeadersPacket66)
-		if err := rlp.DecodeBytes(rawData, ongMsg); err != nil {
+		bfeMsg := new(bfe.GetBlockHeadersPacket66)
+		if err := rlp.DecodeBytes(rawData, bfeMsg); err != nil {
 			return 0, errorf("could not rlp decode message: %v", err)
 		}
-		return ongMsg.RequestId, GetBlockHeaders(*ongMsg.GetBlockHeadersPacket)
+		return bfeMsg.RequestId, GetBlockHeaders(*bfeMsg.GetBlockHeadersPacket)
 	case (BlockHeaders{}).Code():
-		ongMsg := new(bfe.BlockHeadersPacket66)
-		if err := rlp.DecodeBytes(rawData, ongMsg); err != nil {
+		bfeMsg := new(bfe.BlockHeadersPacket66)
+		if err := rlp.DecodeBytes(rawData, bfeMsg); err != nil {
 			return 0, errorf("could not rlp decode message: %v", err)
 		}
-		return ongMsg.RequestId, BlockHeaders(ongMsg.BlockHeadersPacket)
+		return bfeMsg.RequestId, BlockHeaders(bfeMsg.BlockHeadersPacket)
 	case (GetBlockBodies{}).Code():
-		ongMsg := new(bfe.GetBlockBodiesPacket66)
-		if err := rlp.DecodeBytes(rawData, ongMsg); err != nil {
+		bfeMsg := new(bfe.GetBlockBodiesPacket66)
+		if err := rlp.DecodeBytes(rawData, bfeMsg); err != nil {
 			return 0, errorf("could not rlp decode message: %v", err)
 		}
-		return ongMsg.RequestId, GetBlockBodies(ongMsg.GetBlockBodiesPacket)
+		return bfeMsg.RequestId, GetBlockBodies(bfeMsg.GetBlockBodiesPacket)
 	case (BlockBodies{}).Code():
-		ongMsg := new(bfe.BlockBodiesPacket66)
-		if err := rlp.DecodeBytes(rawData, ongMsg); err != nil {
+		bfeMsg := new(bfe.BlockBodiesPacket66)
+		if err := rlp.DecodeBytes(rawData, bfeMsg); err != nil {
 			return 0, errorf("could not rlp decode message: %v", err)
 		}
-		return ongMsg.RequestId, BlockBodies(ongMsg.BlockBodiesPacket)
+		return bfeMsg.RequestId, BlockBodies(bfeMsg.BlockBodiesPacket)
 	case (NewBlock{}).Code():
 		msg = new(NewBlock)
 	case (NewBlockHashes{}).Code():

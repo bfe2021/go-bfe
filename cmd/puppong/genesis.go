@@ -93,14 +93,14 @@ type alongGenesisSpecLinearPricing struct {
 	Word uint64 `json:"word"`
 }
 
-// newAlongGenesisSpec converts a go-bfe genesis block into a Albfe-specific
+// newAlognGenesisSpec converts a go-bfe genesis block into a Alogn-specific
 // chain specification format.
-func newAlongGenesisSpec(network string, genesis *core.Genesis) (*alongGenesisSpec, error) {
+func newAlognGenesisSpec(network string, genesis *core.Genesis) (*alongGenesisSpec, error) {
 	// Only bfeash is currently supported between go-bfe and along
 	if genesis.Config.Bfeash == nil {
 		return nil, errors.New("unsupported consensus engine")
 	}
-	// Reconstruct the chain spec in Along format
+	// Reconstruct the chain spec in Alogn format
 	spec := &alongGenesisSpec{
 		SealEngine: "Bfeash",
 	}
@@ -186,11 +186,11 @@ func newAlongGenesisSpec(network string, genesis *core.Genesis) (*alongGenesisSp
 		spec.setPrecompile(6, &alongGenesisSpecBuiltin{
 			Name:          "alt_bn128_G1_add",
 			StartingBlock: (*hexutil.Big)(genesis.Config.ByzantiumBlock),
-		}) // Along hardcoded the gas policy
+		}) // Alogn hardcoded the gas policy
 		spec.setPrecompile(7, &alongGenesisSpecBuiltin{
 			Name:          "alt_bn128_G1_mul",
 			StartingBlock: (*hexutil.Big)(genesis.Config.ByzantiumBlock),
-		}) // Along hardcoded the gas policy
+		}) // Alogn hardcoded the gas policy
 		spec.setPrecompile(9, &alongGenesisSpecBuiltin{
 			Name:          "blake2_compression",
 			StartingBlock: (*hexutil.Big)(genesis.Config.IstanbulBlock),

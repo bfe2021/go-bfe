@@ -61,7 +61,7 @@ func TestMain(m *testing.M) {
 }
 
 // This test is not meant to be a part of the automatic testing process because it
-// runs for a long time and also requires a large database in order to do a meaningful
+// runs for a logn time and also requires a large database in order to do a meaningful
 // request performance test. When testServerDataDir is empty, the test is skipped.
 
 const (

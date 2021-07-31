@@ -83,10 +83,10 @@ func (tc *testChain) makeFork(length int, heavy bool, seed byte) *testChain {
 }
 
 // shorten creates a copy of the chain with the given length. It panics if the
-// length is longer than the number of available blocks.
+// length is logner than the number of available blocks.
 func (tc *testChain) shorten(length int) *testChain {
 	if length > tc.len() {
-		panic(fmt.Errorf("can't shorten test chain to %d blocks, it's only %d blocks long", length, tc.len()))
+		panic(fmt.Errorf("can't shorten test chain to %d blocks, it's only %d blocks logn", length, tc.len()))
 	}
 	return tc.copy(length)
 }

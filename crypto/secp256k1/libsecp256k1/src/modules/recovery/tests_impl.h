@@ -287,7 +287,7 @@ void test_ecdsa_recovery_edge_cases(void) {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04,
         };
         /* (order + r,4) encoded in DER. */
-        unsigned char sigbderlong[40] = {
+        unsigned char sigbderlogn[40] = {
             0x30, 0x26, 0x02, 0x21, 0x00, 0xFF, 0xFF, 0xFF,
             0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
             0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0xBA, 0xAE, 0xDC,
@@ -303,7 +303,7 @@ void test_ecdsa_recovery_edge_cases(void) {
             CHECK(secp256k1_ecdsa_recoverable_signature_parse_compact(ctx, &rsig, sigb64, recid2) == 1);
             CHECK(secp256k1_ecdsa_recover(ctx, &pubkey2b, &rsig, msg32) == 1);
             /* Verifying with (order + r,4) should always fail. */
-            CHECK(secp256k1_ecdsa_signature_parse_der(ctx, &sig, sigbderlong, sizeof(sigbderlong)) == 1);
+            CHECK(secp256k1_ecdsa_signature_parse_der(ctx, &sig, sigbderlogn, sizeof(sigbderlogn)) == 1);
             CHECK(secp256k1_ecdsa_verify(ctx, &sig, msg32, &pubkeyb) == 0);
         }
         /* DER parsing tests. */

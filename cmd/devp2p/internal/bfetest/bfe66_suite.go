@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with the go-bfe library. If not, see <http://www.gnu.org/licenses/>.
 
-package ongtest
+package bfetest
 
 import (
 	"time"
@@ -27,7 +27,7 @@ import (
 )
 
 // TestStatus_66 attempts to connect to the given node and exchange
-// a status message with it on the ong66 protocol, and then check to
+// a status message with it on the bfe66 protocol, and then check to
 // make sure the chain head is correct.
 func (s *Suite) TestStatus_66(t *utesting.T) {
 	conn := s.dial66(t)
@@ -47,7 +47,7 @@ func (s *Suite) TestStatus_66(t *utesting.T) {
 }
 
 // TestGetBlockHeaders_66 tests whether the given node can respond to
-// an ong66 `GetBlockHeaders` request and that the response is accurate.
+// an bfe66 `GetBlockHeaders` request and that the response is accurate.
 func (s *Suite) TestGetBlockHeaders_66(t *utesting.T) {
 	conn := s.setupConnection66(t)
 	// get block headers
@@ -109,7 +109,7 @@ func (s *Suite) TestSimultaneousRequests_66(t *utesting.T) {
 }
 
 // TestBroadcast_66 tests whether a block announcement is correctly
-// propagated to the given node's peer(s) on the ong66 protocol.
+// propagated to the given node's peer(s) on the bfe66 protocol.
 func (s *Suite) TestBroadcast_66(t *utesting.T) {
 	sendConn, receiveConn := s.setupConnection66(t), s.setupConnection66(t)
 	nextBlock := len(s.chain.blocks)
@@ -128,7 +128,7 @@ func (s *Suite) TestBroadcast_66(t *utesting.T) {
 
 // TestGetBlockBodies_66 tests whether the given node can respond to
 // a `GetBlockBodies` request and that the response is accurate over
-// the ong66 protocol.
+// the bfe66 protocol.
 func (s *Suite) TestGetBlockBodies_66(t *utesting.T) {
 	conn := s.setupConnection66(t)
 	// create block bodies request
@@ -221,27 +221,27 @@ func (s *Suite) TestMaliciousHandshake_66(t *utesting.T) {
 		{
 			Version: 5,
 			Caps: []p2p.Cap{
-				{Name: "ong", Version: 64},
-				{Name: "ong", Version: 65},
-				{Name: "ong", Version: 66},
+				{Name: "bfe", Version: 64},
+				{Name: "bfe", Version: 65},
+				{Name: "bfe", Version: 66},
 			},
 			ID: append(pub0, byte(0)),
 		},
 		{
 			Version: 5,
 			Caps: []p2p.Cap{
-				{Name: "ong", Version: 64},
-				{Name: "ong", Version: 65},
-				{Name: "ong", Version: 66},
+				{Name: "bfe", Version: 64},
+				{Name: "bfe", Version: 65},
+				{Name: "bfe", Version: 66},
 			},
 			ID: append(pub0, pub0...),
 		},
 		{
 			Version: 5,
 			Caps: []p2p.Cap{
-				{Name: "ong", Version: 64},
-				{Name: "ong", Version: 65},
-				{Name: "ong", Version: 66},
+				{Name: "bfe", Version: 64},
+				{Name: "bfe", Version: 65},
+				{Name: "bfe", Version: 66},
 			},
 			ID: largeBuffer(2),
 		},

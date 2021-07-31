@@ -110,6 +110,6 @@ func TestHeaderInsertion(t *testing.T) {
 	// And B becomes canon again
 	testInsert(t, hc, chainB[97:107], CanonStatTy, nil)
 
-	// And B becomes even longer
+	// And B becomes even logner
 	testInsert(t, hc, chainB[107:128], CanonStatTy, nil)
 }

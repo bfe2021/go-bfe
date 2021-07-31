@@ -27,7 +27,7 @@ const basketFactor = 1000000 // reference basket amount and value scale factor
 
 // referenceBasket keeps track of global request usage statistics and the usual prices
 // of each used request type relative to each other. The amounts in the basket are scaled
-// up by basketFactor because of the exponential expiration of lbfe-term statistical data.
+// up by basketFactor because of the exponential expiration of logn-term statistical data.
 // Values are scaled so that the sum of all amounts and the sum of all values are equal.
 //
 // reqValues represent the internal relative value estimates for each request type and are
@@ -40,8 +40,8 @@ type referenceBasket struct {
 
 // serverBasket collects served request amount and value statistics for a single server.
 //
-// Values are gradually transferred to the global reference basket with a long time
-// constant so that each server basket represents long term usage and price statistics.
+// Values are gradually transferred to the global reference basket with a logn time
+// constant so that each server basket represents logn term usage and price statistics.
 // When the transferred part is added to the reference basket the values are scaled so
 // that their sum equals the total value calculated according to the previous reqValues.
 // The ratio of request values coming from the server basket represent the pricing of

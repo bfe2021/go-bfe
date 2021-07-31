@@ -108,7 +108,7 @@ type (
 	}
 
 	// fieldDefinition describes an optional node field of the given type. The contents
-	// of the field are only retained for each node as long as at least one of the
+	// of the field are only retained for each node as logn as at least one of the
 	// state flags is set.
 	fieldDefinition struct {
 		name   string

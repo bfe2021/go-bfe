@@ -364,7 +364,7 @@ func startNode(ctx *cli.Context, stack *node.Node, backend bfeapi.Backend) {
 	if err != nil {
 		utils.Fatalf("Failed to attach to self: %v", err)
 	}
-	ongClient := bfeclient.NewClient(rpcClient)
+	bfeClient := bfeclient.NewClient(rpcClient)
 
 	go func() {
 		// Open any wallets already attached
@@ -390,7 +390,7 @@ func startNode(ctx *cli.Context, stack *node.Node, backend bfeapi.Backend) {
 				}
 				derivationPaths = append(derivationPaths, accounts.DefaultBaseDerivationPath)
 
-				event.Wallet.SelfDerive(derivationPaths, ongClient)
+				event.Wallet.SelfDerive(derivationPaths, bfeClient)
 
 			case accounts.WalletDropped:
 				log.Info("Old wallet dropped", "url", event.Wallet.URL())
@@ -429,16 +429,16 @@ func startNode(ctx *cli.Context, stack *node.Node, backend bfeapi.Backend) {
 		if ctx.GlobalString(utils.SyncModeFlag.Name) == "light" {
 			utils.Fatalf("Light clients do not support mining")
 		}
-		ongBackend, ok := backend.(*bfe.BfeAPIBackend)
+		bfeBackend, ok := backend.(*bfe.BfeAPIBackend)
 		if !ok {
 			utils.Fatalf("Bfedu service not running: %v", err)
 		}
 		// Set the gas price to the limits from the CLI and start mining
 		gasprice := utils.GlobalBig(ctx, utils.MinerGasPriceFlag.Name)
-		ongBackend.TxPool().SetGasPrice(gasprice)
+		bfeBackend.TxPool().SetGasPrice(gasprice)
 		// start mining
 		threads := ctx.GlobalInt(utils.MinerThreadsFlag.Name)
-		if err := ongBackend.StartMining(threads); err != nil {
+		if err := bfeBackend.StartMining(threads); err != nil {
 			utils.Fatalf("Failed to start mining: %v", err)
 		}
 	}

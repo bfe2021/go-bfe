@@ -32,7 +32,7 @@ func TestULCAnnounceThresholdLes2(t *testing.T) { testULCAnnounceThreshold(t, 2)
 func TestULCAnnounceThresholdLes3(t *testing.T) { testULCAnnounceThreshold(t, 3) }
 
 func testULCAnnounceThreshold(t *testing.T, protocol int) {
-	// todo figure out why it takes fetcher so longer to fetcher the announced header.
+	// todo figure out why it takes fetcher so logner to fetcher the announced header.
 	t.Skip("Sometimes it can failed")
 	var cases = []struct {
 		height    []int

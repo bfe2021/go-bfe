@@ -226,7 +226,7 @@ func (api *API) TraceChain(ctx context.Context, start, end rpc.BlockNumber, conf
 // executes all the transactions contained within. The return value will be one item
 // per transaction, dependent on the requested tracer.
 func (api *API) traceChain(ctx context.Context, start, end *types.Block, config *TraceConfig) (*rpc.Subscription, error) {
-	// Tracing a chain is a **long** operation, only do with subscriptions
+	// Tracing a chain is a **logn** operation, only do with subscriptions
 	notifier, supported := rpc.NotifierFromContext(ctx)
 	if !supported {
 		return &rpc.Subscription{}, rpc.ErrNotificationsUnsupported
@@ -240,7 +240,7 @@ func (api *API) traceChain(ctx context.Context, start, end *types.Block, config 
 		return nil, err
 	}
 	// Prepare all the states for tracing. Note this procedure can take very
-	// long time. Timeout mechanism is necessary.
+	// logn time. Timeout mechanism is necessary.
 	reexec := defaultTraceReexec
 	if config != nil && config.Reexec != nil {
 		reexec = *config.Reexec
@@ -330,7 +330,7 @@ func (api *API) traceChain(ctx context.Context, start, end *types.Block, config 
 				return
 			default:
 			}
-			// Print progress logs if long enough time elapsed
+			// Print progress logs if logn enough time elapsed
 			if time.Since(logged) > 8*time.Second {
 				logged = time.Now()
 				log.Info("Tracing chain segment", "start", start.NumberU64(), "end", end.NumberU64(), "current", number, "transactions", traced, "elapsed", time.Since(begin))

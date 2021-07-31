@@ -53,7 +53,7 @@ func init() {
 	priorityPoolSetup.Connect(balanceTrackerSetup.BalanceField, balanceTrackerSetup.UpdateFlag) // NodeBalance implements nodePriority
 }
 
-type ongBackend interface {
+type bfeBackend interface {
 	ArchiveMode() bool
 	BlockChain() *core.BlockChain
 	BloomIndexer() *core.ChainIndexer
@@ -86,7 +86,7 @@ type LesServer struct {
 	p2pSrv *p2p.Server
 }
 
-func NewLesServer(node *node.Node, e ongBackend, config *bfeconfig.Config) (*LesServer, error) {
+func NewLesServer(node *node.Node, e bfeBackend, config *bfeconfig.Config) (*LesServer, error) {
 	lesDb, err := node.OpenDatabase("les.server", 0, 0, "bfe/db/lesserver/")
 	if err != nil {
 		return nil, err

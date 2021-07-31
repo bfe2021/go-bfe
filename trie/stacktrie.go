@@ -47,7 +47,7 @@ func returnToPool(st *StackTrie) {
 }
 
 // StackTrie is a trie implementation that expects keys to be inserted
-// in order. Once it determines that a subtree will no longer be inserted
+// in order. Once it determines that a subtree will no logner be inserted
 // into, it will hash it and free up the memory it uses.
 type StackTrie struct {
 	nodeType  uint8                // node type (as in branch, ext, leaf)
@@ -190,7 +190,7 @@ func (st *StackTrie) insert(key, value []byte) {
 			st.nodeType = branchNode
 		} else {
 			// the common prefix is at least one byte
-			// long, insert a new intermediate branch
+			// logn, insert a new intermediate branch
 			// node.
 			st.children[0] = stackTrieFromPool(st.db)
 			st.children[0].nodeType = branchNode
@@ -382,7 +382,7 @@ func (st *StackTrie) hash() {
 func (st *StackTrie) Hash() (h common.Hash) {
 	st.hash()
 	if len(st.val) != 32 {
-		// If the node's RLP isn't 32 bytes long, the node will not
+		// If the node's RLP isn't 32 bytes logn, the node will not
 		// be hashed, and instead contain the  rlp-encoding of the
 		// node. For the top level node, we need to force the hashing.
 		ret := make([]byte, 32)
@@ -409,7 +409,7 @@ func (st *StackTrie) Commit() (common.Hash, error) {
 	}
 	st.hash()
 	if len(st.val) != 32 {
-		// If the node's RLP isn't 32 bytes long, the node will not
+		// If the node's RLP isn't 32 bytes logn, the node will not
 		// be hashed (and committed), and instead contain the  rlp-encoding of the
 		// node. For the top level node, we need to force the hashing+commit.
 		ret := make([]byte, 32)

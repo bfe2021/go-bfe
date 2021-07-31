@@ -471,7 +471,7 @@ func testPendingDeduplication(t *testing.T, light bool) {
 	headerWrapper := func(hash common.Hash) error {
 		atomic.AddUint32(&counter, 1)
 
-		// Simulate a long running fetch
+		// Simulate a logn running fetch
 		go func() {
 			time.Sleep(delay)
 			headerFetcher(hash)
@@ -612,7 +612,7 @@ func TestImportDeduplication(t *testing.T) {
 // Tests that blocks with numbers much lower or higher than out current head get
 // discarded to prevent wasting resources on useless blocks from faulty peers.
 func TestDistantPropagationDiscarding(t *testing.T) {
-	// Create a long chain to import and define the discard boundaries
+	// Create a logn chain to import and define the discard boundaries
 	hashes, blocks := makeChain(3*maxQueueDist, 0, genesis)
 	head := hashes[len(hashes)/2]
 
@@ -647,7 +647,7 @@ func TestFullDistantAnnouncementDiscarding(t *testing.T)  { testDistantAnnouncem
 func TestLightDistantAnnouncementDiscarding(t *testing.T) { testDistantAnnouncementDiscarding(t, true) }
 
 func testDistantAnnouncementDiscarding(t *testing.T, light bool) {
-	// Create a long chain to import and define the discard boundaries
+	// Create a logn chain to import and define the discard boundaries
 	hashes, blocks := makeChain(3*maxQueueDist, 0, genesis)
 	head := hashes[len(hashes)/2]
 

@@ -191,7 +191,7 @@ func TestCloseMiner(t *testing.T) {
 	waitForMiningState(t, miner, false)
 }
 
-// TestMinerSetBfeerbase checks that ongerbase becomes set even if mining isn't
+// TestMinerSetBfeerbase checks that bfeerbase becomes set even if mining isn't
 // possible at the moment
 func TestMinerSetBfeerbase(t *testing.T) {
 	miner, mux := createMiner(t)

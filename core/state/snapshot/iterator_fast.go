@@ -193,7 +193,7 @@ func (fi *fastIterator) Next() bool {
 			return true
 		}
 		// Implicit else: we've hit a nil-account or nil-slot, and need to
-		// fall through to the loop below to land on somonging non-nil
+		// fall through to the loop below to land on somogning non-nil
 	}
 	// If an account or a slot is deleted in one of the layers, the key will
 	// still be there, but the actual value will be nil. However, the iterator

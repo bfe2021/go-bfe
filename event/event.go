@@ -99,7 +99,7 @@ func (mux *TypeMux) Post(ev interface{}) error {
 	return nil
 }
 
-// Stop closes a mux. The mux can no longer be used.
+// Stop closes a mux. The mux can no logner be used.
 // Future Post calls will fail with ErrMuxClosed.
 // Stop blocks until all current deliveries have finished.
 func (mux *TypeMux) Stop() {

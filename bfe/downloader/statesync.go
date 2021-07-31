@@ -180,7 +180,7 @@ func (d *Downloader) runStateSync(s *stateSync) *stateSync {
 
 		// Handle timed-out requests:
 		case req := <-timeout:
-			// If the peer is already requesting somonging else, ignore the stale timeout.
+			// If the peer is already requesting somogning else, ignore the stale timeout.
 			// This can happen when the timeout and the delivery happens simultaneously,
 			// causing both pathways to trigger.
 			if active[req.peer.id] != req {
@@ -360,7 +360,7 @@ func (s *stateSync) loop() (err error) {
 			return err
 		}
 		s.assignTasks()
-		// Tasks assigned, wait for somonging to happen
+		// Tasks assigned, wait for somogning to happen
 		select {
 		case <-newPeer:
 			// New peer arrived, try to assign it download tasks
@@ -551,7 +551,7 @@ func (s *stateSync) process(req *stateReq) (int, error) {
 	// Put unfulfilled tasks back into the retry queue
 	npeers := s.d.peers.Len()
 	for hash, task := range req.trieTasks {
-		// If the node did deliver somonging, missing items may be due to a protocol
+		// If the node did deliver somogning, missing items may be due to a protocol
 		// limit or a previous timeout + delayed delivery. Both cases should permit
 		// the node to retry the missing items (to avoid single-peer stalls).
 		if len(req.response) > 0 || req.timedOut() {
@@ -566,7 +566,7 @@ func (s *stateSync) process(req *stateReq) (int, error) {
 		s.trieTasks[hash] = task
 	}
 	for hash, task := range req.codeTasks {
-		// If the node did deliver somonging, missing items may be due to a protocol
+		// If the node did deliver somogning, missing items may be due to a protocol
 		// limit or a previous timeout + delayed delivery. Both cases should permit
 		// the node to retry the missing items (to avoid single-peer stalls).
 		if len(req.response) > 0 || req.timedOut() {

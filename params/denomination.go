@@ -16,7 +16,7 @@
 
 package params
 
-// These are the multipliers for onger denominations.
+// These are the multipliers for bfeer denominations.
 // Example: To get the wei value of an amount in 'gwei', use
 //
 //    new(big.Int).Mul(value, big.NewInt(params.GWei))

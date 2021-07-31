@@ -28,6 +28,7 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/bfe2021/go-bfe/bfedb"
 	"github.com/bfe2021/go-bfe/common"
 	"github.com/bfe2021/go-bfe/common/mclock"
 	"github.com/bfe2021/go-bfe/common/prque"
@@ -37,7 +38,6 @@ import (
 	"github.com/bfe2021/go-bfe/core/state/snapshot"
 	"github.com/bfe2021/go-bfe/core/types"
 	"github.com/bfe2021/go-bfe/core/vm"
-	"github.com/bfe2021/go-bfe/bfedb"
 	"github.com/bfe2021/go-bfe/event"
 	"github.com/bfe2021/go-bfe/log"
 	"github.com/bfe2021/go-bfe/metrics"
@@ -102,7 +102,7 @@ const (
 	//   * the `BlockIndex` and `TxIndex` fields of txlookup are deleted
 	// - Version 5
 	//  The following incompatible database changes were added:
-	//    * the `TxHash`, `GasCost`, and `ContractAddress` fields are no longer stored for a receipt
+	//    * the `TxHash`, `GasCost`, and `ContractAddress` fields are no logner stored for a receipt
 	//    * the `TxHash`, `GasCost`, and `ContractAddress` fields are computed by looking up the
 	//      receipts' corresponding block
 	// - Version 6
@@ -1221,7 +1221,7 @@ func (bc *BlockChain) InsertReceiptChain(blockChain types.Blocks, receiptChain [
 			)
 			// Migrate all ancient blocks. This can happen if someone upgrades from Gbfe
 			// 1.8.x to 1.9.x mid-fast-sync. Perhaps we can get rid of this path in the
-			// long term.
+			// logn term.
 			for {
 				// We can ignore the error here since light client won't hit this code path.
 				frozen, _ := bc.db.Ancients()
@@ -1566,7 +1566,7 @@ func (bc *BlockChain) writeBlockWithState(block *types.Block, receipts []*types.
 					// If we're exceeding limits but haven't reached a large enough memory gap,
 					// warn the user that the system is becoming unstable.
 					if chosen < lastWrite+TriesInMemory && bc.gcproc >= 2*bc.cacheConfig.TrieTimeLimit {
-						log.Info("State in memory for too long, committing", "time", bc.gcproc, "allowance", bc.cacheConfig.TrieTimeLimit, "optimum", float64(chosen-lastWrite)/TriesInMemory)
+						log.Info("State in memory for too logn, committing", "time", bc.gcproc, "allowance", bc.cacheConfig.TrieTimeLimit, "optimum", float64(chosen-lastWrite)/TriesInMemory)
 					}
 					// Flush an entire trie and restart the counters
 					triedb.Commit(header.Root, true, nil)
@@ -1658,7 +1658,7 @@ func (bc *BlockChain) addFutureBlock(block *types.Block) error {
 //
 // After insertion is done, all accumulated events will be fired.
 func (bc *BlockChain) InsertChain(chain types.Blocks) (int, error) {
-	// Sanity check that we have somonging meaningful to import
+	// Sanity check that we have somogning meaningful to import
 	if len(chain) == 0 {
 		return 0, nil
 	}
@@ -2181,16 +2181,16 @@ func (bc *BlockChain) reorg(oldBlock, newBlock *types.Block) error {
 			return ret
 		}
 	)
-	// Reduce the longer chain to the same number as the shorter one
+	// Reduce the logner chain to the same number as the shorter one
 	if oldBlock.NumberU64() > newBlock.NumberU64() {
-		// Old chain is longer, gather all transactions and logs as deleted ones
+		// Old chain is logner, gather all transactions and logs as deleted ones
 		for ; oldBlock != nil && oldBlock.NumberU64() != newBlock.NumberU64(); oldBlock = bc.GetBlock(oldBlock.ParentHash(), oldBlock.NumberU64()-1) {
 			oldChain = append(oldChain, oldBlock)
 			deletedTxs = append(deletedTxs, oldBlock.Transactions()...)
 			collectLogs(oldBlock.Hash(), true)
 		}
 	} else {
-		// New chain is longer, stash all blocks away for subsequent insertion
+		// New chain is logner, stash all blocks away for subsequent insertion
 		for ; newBlock != nil && newBlock.NumberU64() != oldBlock.NumberU64(); newBlock = bc.GetBlock(newBlock.ParentHash(), newBlock.NumberU64()-1) {
 			newChain = append(newChain, newBlock)
 		}

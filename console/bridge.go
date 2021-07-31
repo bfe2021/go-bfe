@@ -55,12 +55,12 @@ func getJong(vm *goja.Runtime) *goja.Object {
 	if jong == nil {
 		panic(vm.ToValue("jong object does not exist"))
 	}
-	return jbfe.ToObject(vm)
+	return jong.ToObject(vm)
 }
 
 // NewAccount is a wrapper around the personal.newAccount RPC Method that uses a
 // non-echoing password prompt to acquire the passphrase and executes the original
-// RPC Method (saved in jbfe.newAccount) with it to actually execute the RPC call.
+// RPC Method (saved in jong.newAccount) with it to actually execute the RPC call.
 func (b *bridge) NewAccount(call jsre.Call) (goja.Value, error) {
 	var (
 		password string
@@ -88,7 +88,7 @@ func (b *bridge) NewAccount(call jsre.Call) (goja.Value, error) {
 	// Password acquired, execute the call and return
 	newAccount, callable := goja.AssertFunction(getJong(call.VM).Get("newAccount"))
 	if !callable {
-		return nil, fmt.Errorf("jbfe.newAccount is not callable")
+		return nil, fmt.Errorf("jong.newAccount is not callable")
 	}
 	ret, err := newAccount(goja.Null(), call.VM.ToValue(password))
 	if err != nil {
@@ -115,7 +115,7 @@ func (b *bridge) OpenWallet(call jsre.Call) (goja.Value, error) {
 	// Open the wallet and return if successful in itself
 	openWallet, callable := goja.AssertFunction(getJong(call.VM).Get("openWallet"))
 	if !callable {
-		return nil, fmt.Errorf("jbfe.openWallet is not callable")
+		return nil, fmt.Errorf("jong.openWallet is not callable")
 	}
 	val, err := openWallet(goja.Null(), wallet, passwd)
 	if err == nil {
@@ -198,7 +198,7 @@ func (b *bridge) readPassphraseAndReopenWallet(call jsre.Call) (goja.Value, erro
 	}
 	openWallet, callable := goja.AssertFunction(getJong(call.VM).Get("openWallet"))
 	if !callable {
-		return nil, fmt.Errorf("jbfe.openWallet is not callable")
+		return nil, fmt.Errorf("jong.openWallet is not callable")
 	}
 	return openWallet(goja.Null(), wallet, call.VM.ToValue(input))
 }
@@ -219,14 +219,14 @@ func (b *bridge) readPinAndReopenWallet(call jsre.Call) (goja.Value, error) {
 	}
 	openWallet, callable := goja.AssertFunction(getJong(call.VM).Get("openWallet"))
 	if !callable {
-		return nil, fmt.Errorf("jbfe.openWallet is not callable")
+		return nil, fmt.Errorf("jong.openWallet is not callable")
 	}
 	return openWallet(goja.Null(), wallet, call.VM.ToValue(input))
 }
 
 // UnlockAccount is a wrapper around the personal.unlockAccount RPC Method that
 // uses a non-echoing password prompt to acquire the passphrase and executes the
-// original RPC Method (saved in jbfe.unlockAccount) with it to actually execute
+// original RPC Method (saved in jong.unlockAccount) with it to actually execute
 // the RPC call.
 func (b *bridge) UnlockAccount(call jsre.Call) (goja.Value, error) {
 	if len(call.Arguments) < 1 {
@@ -255,7 +255,7 @@ func (b *bridge) UnlockAccount(call jsre.Call) (goja.Value, error) {
 		passwd = call.Argument(1)
 	}
 
-	// Third argument is the duration how long the account should be unlocked.
+	// Third argument is the duration how logn the account should be unlocked.
 	duration := goja.Null()
 	if !goja.IsUndefined(call.Argument(2)) && !goja.IsNull(call.Argument(2)) {
 		if !isNumber(call.Argument(2)) {
@@ -267,14 +267,14 @@ func (b *bridge) UnlockAccount(call jsre.Call) (goja.Value, error) {
 	// Send the request to the backend and return.
 	unlockAccount, callable := goja.AssertFunction(getJong(call.VM).Get("unlockAccount"))
 	if !callable {
-		return nil, fmt.Errorf("jbfe.unlockAccount is not callable")
+		return nil, fmt.Errorf("jong.unlockAccount is not callable")
 	}
 	return unlockAccount(goja.Null(), account, passwd, duration)
 }
 
 // Sign is a wrapper around the personal.sign RPC Method that uses a non-echoing password
 // prompt to acquire the passphrase and executes the original RPC Method (saved in
-// jbfe.sign) with it to actually execute the RPC call.
+// jong.sign) with it to actually execute the RPC call.
 func (b *bridge) Sign(call jsre.Call) (goja.Value, error) {
 	if nArgs := len(call.Arguments); nArgs < 2 {
 		return nil, fmt.Errorf("usage: sign(message, account, [ password ])")
@@ -307,7 +307,7 @@ func (b *bridge) Sign(call jsre.Call) (goja.Value, error) {
 	// Send the request to the backend and return
 	sign, callable := goja.AssertFunction(getJong(call.VM).Get("sign"))
 	if !callable {
-		return nil, fmt.Errorf("jbfe.sign is not callable")
+		return nil, fmt.Errorf("jong.sign is not callable")
 	}
 	return sign(goja.Null(), message, account, passwd)
 }

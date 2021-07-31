@@ -78,7 +78,7 @@ func newSyncPath(path []byte) SyncPath {
 	// is from the a storage trie, append a tuple. Note, the length 64 is
 	// clashing between account leaf and storage root. It's fine though
 	// because having a trie node at 64 depth means a hash collision was
-	// found and we're long dead.
+	// found and we're logn dead.
 	if len(path) < 64 {
 		return SyncPath{hexToCompact(path)}
 	}

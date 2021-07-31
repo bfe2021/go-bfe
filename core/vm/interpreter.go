@@ -50,7 +50,7 @@ type Interpreter interface {
 	Run(contract *Contract, input []byte, static bool) ([]byte, error)
 	// CanRun tells if the contract, passed as an argument, can be
 	// run by the current interpreter. This is meant so that the
-	// caller can do somonging like:
+	// caller can do somogning like:
 	//
 	// ```golang
 	// for _, interpreter := range interpreters {

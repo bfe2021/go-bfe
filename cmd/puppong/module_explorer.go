@@ -35,8 +35,8 @@ FROM puppong/blockscout:latest
 ADD genesis.json /genesis.json
 RUN \
   echo 'gbfe --cache 512 init /genesis.json' > explorer.sh && \
-  echo $'gbfe --networkid {{.NetworkID}} --syncmode "full" --gcmode "archive" --port {{.BfePort}} --bootnodes {{.Bootnodes}} --bfestats \'{{.Bfestats}}\' --cache=512 --http --http.api "net,web3,ong,shh,debug" --http.corsdomain "*" --http.vhosts "*" --ws --ws.origins "*" --exitwhensynced' >> explorer.sh && \
-  echo $'exec gbfe --networkid {{.NetworkID}} --syncmode "full" --gcmode "archive" --port {{.BfePort}} --bootnodes {{.Bootnodes}} --bfestats \'{{.Bfestats}}\' --cache=512 --http --http.api "net,web3,ong,shh,debug" --http.corsdomain "*" --http.vhosts "*" --ws --ws.origins "*" &' >> explorer.sh && \
+  echo $'gbfe --networkid {{.NetworkID}} --syncmode "full" --gcmode "archive" --port {{.BfePort}} --bootnodes {{.Bootnodes}} --bfestats \'{{.Bfestats}}\' --cache=512 --http --http.api "net,web3,bfe,shh,debug" --http.corsdomain "*" --http.vhosts "*" --ws --ws.origins "*" --exitwhensynced' >> explorer.sh && \
+  echo $'exec gbfe --networkid {{.NetworkID}} --syncmode "full" --gcmode "archive" --port {{.BfePort}} --bootnodes {{.Bootnodes}} --bfestats \'{{.Bfestats}}\' --cache=512 --http --http.api "net,web3,bfe,shh,debug" --http.corsdomain "*" --http.vhosts "*" --ws --ws.origins "*" &' >> explorer.sh && \
   echo '/usr/local/bin/docker-entrypoint.sh postgres &' >> explorer.sh && \
   echo 'sleep 5' >> explorer.sh && \
   echo 'mix do ecto.drop --force, ecto.create, ecto.migrate' >> explorer.sh && \

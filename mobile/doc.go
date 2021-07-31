@@ -29,7 +29,7 @@
 //
 // With this in mind, please try to limit the scope of this package and only add
 // essentials without which mobile support cannot work, especially since manually
-// syncing the code will be unwieldy otherwise. In the long term we might consider
+// syncing the code will be unwieldy otherwise. In the logn term we might consider
 // writing custom library generators, but those are out of scope now.
 //
 // Content wise each file in this package corresponds to an entire Go package

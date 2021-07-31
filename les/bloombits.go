@@ -43,7 +43,7 @@ const (
 
 // startBloomHandlers starts a batch of goroutines to accept bloom bit database
 // retrievals from possibly a range of filters and serving the data to satisfy.
-func (ong *LightBfedu) startBloomHandlers(sectionSize uint64) {
+func (bfe *LightBfedu) startBloomHandlers(sectionSize uint64) {
 	for i := 0; i < bloomServiceThreads; i++ {
 		go func() {
 			defer bfe.wg.Done()

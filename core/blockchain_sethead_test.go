@@ -574,7 +574,7 @@ func testShortNewlyForkedFastSyncingSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a short canonical chain and a longer side chain, where a
+// Tests a songead for a short canonical chain and a logner side chain, where a
 // recent block was already committed to disk and then songead was called. In this
 // case we expect the canonical full chain to be rolled back to the committed block.
 // All data above the songead point should be deleted. In between the committed
@@ -623,7 +623,7 @@ func testShortReorgedSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a short canonical chain and a longer side chain, where
+// Tests a songead for a short canonical chain and a logner side chain, where
 // the fast sync pivot point was already committed to disk and then songead was
 // called. In this case we expect the canonical full chain to be rolled back to
 // the committed block. All data above the songead point should be deleted. In
@@ -677,7 +677,7 @@ func testShortReorgedFastSyncedSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a short canonical chain and a longer side chain, where
+// Tests a songead for a short canonical chain and a logner side chain, where
 // the fast sync pivot point was not yet committed, but songead was called. In
 // this case we expect the chain to detect that it was fast syncing and delete
 // everything from the new head, since we can just pick up fast syncing from
@@ -729,7 +729,7 @@ func testShortReorgedFastSyncingSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks where a recent
+// Tests a songead for a logn canonical chain with frozen blocks where a recent
 // block - newer than the ancient limit - was already committed to disk and then
 // songead was called. In this case we expect the full chain to be rolled back
 // to the committed block. Everything above the songead point should be deleted.
@@ -777,7 +777,7 @@ func testLongShallowSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks where a recent
+// Tests a songead for a logn canonical chain with frozen blocks where a recent
 // block - older than the ancient limit - was already committed to disk and then
 // songead was called. In this case we expect the full chain to be rolled back
 // to the committed block. Since the ancient limit was underflown, everything
@@ -823,7 +823,7 @@ func testLongDeepSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks where the fast
+// Tests a songead for a logn canonical chain with frozen blocks where the fast
 // sync pivot point - newer than the ancient limit - was already committed, after
 // which songead was called. In this case we expect the full chain to be rolled
 // back to the committed block. Everything above the songead point should be
@@ -875,7 +875,7 @@ func testLongFastSyncedShallowSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks where the fast
+// Tests a songead for a logn canonical chain with frozen blocks where the fast
 // sync pivot point - older than the ancient limit - was already committed, after
 // which songead was called. In this case we expect the full chain to be rolled
 // back to the committed block. Since the ancient limit was underflown, everything
@@ -921,7 +921,7 @@ func testLongFastSyncedDeepSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks where the fast
+// Tests a songead for a logn canonical chain with frozen blocks where the fast
 // sync pivot point - newer than the ancient limit - was not yet committed, but
 // songead was called. In this case we expect the chain to detect that it was fast
 // syncing and delete everything from the new head, since we can just pick up fast
@@ -972,7 +972,7 @@ func testLongFastSyncingShallowSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks where the fast
+// Tests a songead for a logn canonical chain with frozen blocks where the fast
 // sync pivot point - older than the ancient limit - was not yet committed, but
 // songead was called. In this case we expect the chain to detect that it was fast
 // syncing and delete everything from the new head, since we can just pick up fast
@@ -1022,7 +1022,7 @@ func testLongFastSyncingDeepSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a shorter side
+// Tests a songead for a logn canonical chain with frozen blocks and a shorter side
 // chain, where a recent block - newer than the ancient limit - was already committed
 // to disk and then songead was called. In this case we expect the canonical full
 // chain to be rolled back to the committed block. Everything above the songead point
@@ -1076,7 +1076,7 @@ func testLongOldForkedShallowSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a shorter side
+// Tests a songead for a logn canonical chain with frozen blocks and a shorter side
 // chain, where a recent block - older than the ancient limit - was already committed
 // to disk and then songead was called. In this case we expect the canonical full
 // chain to be rolled back to the committed block. Since the ancient limit was
@@ -1124,7 +1124,7 @@ func testLongOldForkedDeepSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a shorter
+// Tests a songead for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - newer than the ancient limit -
 // was already committed to disk and then songead was called. In this test scenario
 // the side chain is below the committed block. In this case we expect the canonical
@@ -1179,7 +1179,7 @@ func testLongOldForkedFastSyncedShallowSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a shorter
+// Tests a songead for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - older than the ancient limit -
 // was already committed to disk and then songead was called. In this test scenario
 // the side chain is below the committed block. In this case we expect the canonical
@@ -1232,7 +1232,7 @@ func testLongOldForkedFastSyncedDeepSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a shorter
+// Tests a songead for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - newer than the ancient limit -
 // was not yet committed, but songead was called. In this test scenario the side
 // chain is below the committed block. In this case we expect the chain to detect
@@ -1286,7 +1286,7 @@ func testLongOldForkedFastSyncingShallowSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a shorter
+// Tests a songead for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - older than the ancient limit -
 // was not yet committed, but songead was called. In this test scenario the side
 // chain is below the committed block. In this case we expect the chain to detect
@@ -1339,7 +1339,7 @@ func testLongOldForkedFastSyncingDeepSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a shorter
+// Tests a songead for a logn canonical chain with frozen blocks and a shorter
 // side chain, where a recent block - newer than the ancient limit - was already
 // committed to disk and then songead was called. In this test scenario the side
 // chain is above the committed block. In this case the freezer will delete the
@@ -1391,7 +1391,7 @@ func testLongNewerForkedShallowSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a shorter
+// Tests a songead for a logn canonical chain with frozen blocks and a shorter
 // side chain, where a recent block - older than the ancient limit - was already
 // committed to disk and then songead was called. In this test scenario the side
 // chain is above the committed block. In this case the freezer will delete the
@@ -1442,7 +1442,7 @@ func testLongNewerForkedDeepSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a shorter
+// Tests a songead for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - newer than the ancient limit -
 // was already committed to disk and then songead was called. In this test scenario
 // the side chain is above the committed block. In this case the freezer will delete
@@ -1494,7 +1494,7 @@ func testLongNewerForkedFastSyncedShallowSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a shorter
+// Tests a songead for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - older than the ancient limit -
 // was already committed to disk and then songead was called. In this test scenario
 // the side chain is above the committed block. In this case the freezer will delete
@@ -1545,7 +1545,7 @@ func testLongNewerForkedFastSyncedDeepSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a shorter
+// Tests a songead for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - newer than the ancient limit -
 // was not yet committed, but songead was called. In this test scenario the side
 // chain is above the committed block. In this case the freezer will delete the
@@ -1597,7 +1597,7 @@ func testLongNewerForkedFastSyncingShallowSetHead(t *testing.T, snapshots bool) 
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a shorter
+// Tests a songead for a logn canonical chain with frozen blocks and a shorter
 // side chain, where the fast sync pivot point - older than the ancient limit -
 // was not yet committed, but songead was called. In this test scenario the side
 // chain is above the committed block. In this case the freezer will delete the
@@ -1648,7 +1648,7 @@ func testLongNewerForkedFastSyncingDeepSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a longer side
+// Tests a songead for a logn canonical chain with frozen blocks and a logner side
 // chain, where a recent block - newer than the ancient limit - was already committed
 // to disk and then songead was called. In this case the freezer will delete the
 // sidechain since it's dangling, reverting to TestLongShallowSetHead.
@@ -1695,7 +1695,7 @@ func testLongReorgedShallowSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a longer side
+// Tests a songead for a logn canonical chain with frozen blocks and a logner side
 // chain, where a recent block - older than the ancient limit - was already committed
 // to disk and then songead was called. In this case the freezer will delete the
 // sidechain since it's dangling, reverting to TestLongDeepSetHead.
@@ -1741,7 +1741,7 @@ func testLongReorgedDeepSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a longer
+// Tests a songead for a logn canonical chain with frozen blocks and a logner
 // side chain, where the fast sync pivot point - newer than the ancient limit -
 // was already committed to disk and then songead was called. In this case the
 // freezer will delete the sidechain since it's dangling, reverting to
@@ -1793,7 +1793,7 @@ func testLongReorgedFastSyncedShallowSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a longer
+// Tests a songead for a logn canonical chain with frozen blocks and a logner
 // side chain, where the fast sync pivot point - older than the ancient limit -
 // was already committed to disk and then songead was called. In this case the
 // freezer will delete the sidechain since it's dangling, reverting to
@@ -1844,7 +1844,7 @@ func testLongReorgedFastSyncedDeepSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a longer
+// Tests a songead for a logn canonical chain with frozen blocks and a logner
 // side chain, where the fast sync pivot point - newer than the ancient limit -
 // was not yet committed, but songead was called. In this case we expect the
 // chain to detect that it was fast syncing and delete everything from the new
@@ -1897,7 +1897,7 @@ func testLongReorgedFastSyncingShallowSetHead(t *testing.T, snapshots bool) {
 	}, snapshots)
 }
 
-// Tests a songead for a long canonical chain with frozen blocks and a longer
+// Tests a songead for a logn canonical chain with frozen blocks and a logner
 // side chain, where the fast sync pivot point - older than the ancient limit -
 // was not yet committed, but songead was called. In this case we expect the
 // chain to detect that it was fast syncing and delete everything from the new

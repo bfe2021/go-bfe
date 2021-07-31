@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with the go-bfe library. If not, see <http://www.gnu.org/licenses/>.
 
-// Package ong implements the Bfedu protocol.
+// Package  bfe  implements the Bfedu protocol.
 package bfe
 
 import (
@@ -68,7 +68,7 @@ type Bfedu struct {
 	txPool             *core.TxPool
 	blockchain         *core.BlockChain
 	handler            *handler
-	ongDialCandidates  enode.Iterator
+	bfeDialCandidates  enode.Iterator
 	snapDialCandidates enode.Iterator
 
 	// DB interfaces
@@ -86,14 +86,14 @@ type Bfedu struct {
 
 	miner     *miner.Miner
 	gasPrice  *big.Int
-	ongerbase common.Address
+	bfeerbase common.Address
 
 	networkID     uint64
 	netRPCService *bfeapi.PublicNetAPI
 
 	p2pServer *p2p.Server
 
-	lock sync.RWMutex // Protects the variadic fields (e.g. gas price and ongerbase)
+	lock sync.RWMutex // Protects the variadic fields (e.g. gas price and bfeerbase)
 }
 
 // New creates a new Bfedu object (including the
@@ -135,7 +135,7 @@ func New(stack *node.Node, config *bfeconfig.Config) (*Bfedu, error) {
 	if err := pruner.RecoverPruning(stack.ResolvePath(""), chainDb, stack.ResolvePath(config.TrieCleanCacheJournal)); err != nil {
 		log.Error("Failed to recover state", "error", err)
 	}
-	ong := &Bfedu{
+	bfe := &Bfedu{
 		config:            config,
 		chainDb:           chainDb,
 		eventMux:          stack.EventMux(),
@@ -144,7 +144,7 @@ func New(stack *node.Node, config *bfeconfig.Config) (*Bfedu, error) {
 		closeBloomHandler: make(chan struct{}),
 		networkID:         config.NetworkId,
 		gasPrice:          config.Miner.GasPrice,
-		ongerbase:         config.Miner.Bfeerbase,
+		bfeerbase:         config.Miner.Bfeerbase,
 		bloomRequests:     make(chan chan *bloombits.Retrieval),
 		bloomIndexer:      core.NewBloomIndexer(chainDb, params.BloomBitsBlocks, params.BloomConfirms),
 		p2pServer:         stack.Server(),
@@ -219,10 +219,10 @@ func New(stack *node.Node, config *bfeconfig.Config) (*Bfedu, error) {
 	}); err != nil {
 		return nil, err
 	}
-	bfe.miner = miner.New(ong, &config.Miner, chainConfig, bfe.EventMux(), bfe.engine, bfe.isLocalBlock)
+	bfe.miner = miner.New(bfe, &config.Miner, chainConfig, bfe.EventMux(), bfe.engine, bfe.isLocalBlock)
 	bfe.miner.SetExtra(makeExtraData(config.Miner.ExtraData))
 
-	bfe.APIBackend = &BfeAPIBackend{stack.Config().ExtRPCEnabled(), stack.Config().AllowUnprotectedTxs, ong, nil}
+	bfe.APIBackend = &BfeAPIBackend{stack.Config().ExtRPCEnabled(), stack.Config().AllowUnprotectedTxs, bfe, nil}
 	if bfe.APIBackend.allowUnprotectedTxs {
 		log.Info("Unprotected transactions allowed")
 	}
@@ -246,7 +246,7 @@ func New(stack *node.Node, config *bfeconfig.Config) (*Bfedu, error) {
 	// Register the backend on the node
 	stack.RegisterAPIs(bfe.APIs())
 	stack.RegisterProtocols(bfe.Protocols())
-	stack.RegisterLifecycle(ong)
+	stack.RegisterLifecycle(bfe)
 	// Check for unclean shutdown
 	if uncleanShutdowns, discards, err := rawdb.PushUncleanShutdownMarker(chainDb); err != nil {
 		log.Error("Could not update unclean-shutdown-marker list", "error", err)
@@ -260,7 +260,7 @@ func New(stack *node.Node, config *bfeconfig.Config) (*Bfedu, error) {
 				"age", common.PrettyAge(t))
 		}
 	}
-	return ong, nil
+	return bfe, nil
 }
 
 func makeExtraData(extra []byte) []byte {
@@ -291,22 +291,22 @@ func (s *Bfedu) APIs() []rpc.API {
 	// Append all the local APIs and return
 	return append(apis, []rpc.API{
 		{
-			Namespace: "ong",
+			Namespace: "bfe",
 			Version:   "1.0",
 			Service:   NewPublicBfeduAPI(s),
 			Public:    true,
 		}, {
-			Namespace: "ong",
+			Namespace: "bfe",
 			Version:   "1.0",
 			Service:   NewPublicMinerAPI(s),
 			Public:    true,
 		}, {
-			Namespace: "ong",
+			Namespace: "bfe",
 			Version:   "1.0",
 			Service:   downloader.NewPublicDownloaderAPI(s.handler.downloader, s.eventMux),
 			Public:    true,
 		}, {
-			Namespace: "ong",
+			Namespace: "bfe",
 			Version:   "1.0",
 			Service:   filters.NewPublicFilterAPI(s.APIBackend, false, 5*time.Minute),
 			Public:    true,
@@ -338,31 +338,31 @@ func (s *Bfedu) ResetWithGenesisBlock(gb *types.Block) {
 
 func (s *Bfedu) Bfeerbase() (eb common.Address, err error) {
 	s.lock.RLock()
-	ongerbase := s.bfeerbase
+	bfeerbase := s.bfeerbase
 	s.lock.RUnlock()
 
-	if ongerbase != (common.Address{}) {
-		return ongerbase, nil
+	if bfeerbase != (common.Address{}) {
+		return bfeerbase, nil
 	}
 	if wallets := s.AccountManager().Wallets(); len(wallets) > 0 {
 		if accounts := wallets[0].Accounts(); len(accounts) > 0 {
-			ongerbase := accounts[0].Address
+			bfeerbase := accounts[0].Address
 
 			s.lock.Lock()
-			s.bfeerbase = ongerbase
+			s.bfeerbase = bfeerbase
 			s.lock.Unlock()
 
-			log.Info("Bfeerbase automatically configured", "address", ongerbase)
-			return ongerbase, nil
+			log.Info("Bfeerbase automatically configured", "address", bfeerbase)
+			return bfeerbase, nil
 		}
 	}
-	return common.Address{}, fmt.Errorf("ongerbase must be explicitly specified")
+	return common.Address{}, fmt.Errorf("bfeerbase must be explicitly specified")
 }
 
 // isLocalBlock checks whether the specified block is mined
 // by local miner accounts.
 //
-// We regard two types of accounts as local miner account: ongerbase
+// We regard two types of accounts as local miner account: bfeerbase
 // and accounts specified via `txpool.locals` flag.
 func (s *Bfedu) isLocalBlock(block *types.Block) bool {
 	author, err := s.engine.Author(block.Header())
@@ -370,11 +370,11 @@ func (s *Bfedu) isLocalBlock(block *types.Block) bool {
 		log.Warn("Failed to retrieve block author", "number", block.NumberU64(), "hash", block.Hash(), "err", err)
 		return false
 	}
-	// Check whether the given address is ongerbase.
+	// Check whether the given address is bfeerbase.
 	s.lock.RLock()
-	ongerbase := s.bfeerbase
+	bfeerbase := s.bfeerbase
 	s.lock.RUnlock()
-	if author == ongerbase {
+	if author == bfeerbase {
 		return true
 	}
 	// Check whether the given address is specified by `txpool.local`
@@ -414,12 +414,12 @@ func (s *Bfedu) shouldPreserve(block *types.Block) bool {
 }
 
 // SetBfeerbase sets the mining reward address.
-func (s *Bfedu) SetBfeerbase(ongerbase common.Address) {
+func (s *Bfedu) SetBfeerbase(bfeerbase common.Address) {
 	s.lock.Lock()
-	s.bfeerbase = ongerbase
+	s.bfeerbase = bfeerbase
 	s.lock.Unlock()
 
-	s.miner.SetBfeerbase(ongerbase)
+	s.miner.SetBfeerbase(bfeerbase)
 }
 
 // StartMining starts the miner with the given number of CPU threads. If mining
@@ -452,7 +452,7 @@ func (s *Bfedu) BloomIndexer() *core.ChainIndexer   { return s.bloomIndexer }
 // Protocols returns all the currently configured
 // network protocols to start.
 func (s *Bfedu) Protocols() []p2p.Protocol {
-	protos := bfe.MakeProtocols((*ongHandler)(s.handler), s.networkID, s.bfeDialCandidates)
+	protos := bfe.MakeProtocols((*bfeHandler)(s.handler), s.networkID, s.bfeDialCandidates)
 	if s.config.SnapshotCache > 0 {
 		protos = append(protos, snap.MakeProtocols((*snapHandler)(s.handler), s.snapDialCandidates)...)
 	}

@@ -126,7 +126,7 @@ func bitsetDecodeBytes(data []byte, target int) ([]byte, error) {
 // bitsetDecodePartialBytes decompresses data with a known target size, but does
 // not enforce consuming all the input bytes. In addition to the decompressed
 // output, the function returns the length of compressed input data corresponding
-// to the output as the input slice may be longer.
+// to the output as the input slice may be logner.
 func bitsetDecodePartialBytes(data []byte, target int) ([]byte, int, error) {
 	// Sanity check 0 targets to avoid infinite recursion
 	if target == 0 {

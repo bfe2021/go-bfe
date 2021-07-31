@@ -140,7 +140,7 @@ func forEachUnpack(t Type, output []byte, start, size int) (interface{}, error) 
 		return nil, fmt.Errorf("abi: invalid type in array/slice unpacking stage")
 	}
 
-	// Arrays have packed elements, resulting in longer unpack steps.
+	// Arrays have packed elements, resulting in logner unpack steps.
 	// Slices have just 32 bytes per element (pointing to the contents).
 	elemSize := getTypeSize(*t.Elem)
 

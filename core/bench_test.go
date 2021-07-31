@@ -23,6 +23,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/bfe2021/go-bfe/bfedb"
 	"github.com/bfe2021/go-bfe/common"
 	"github.com/bfe2021/go-bfe/common/math"
 	"github.com/bfe2021/go-bfe/consensus/bfeash"
@@ -30,7 +31,6 @@ import (
 	"github.com/bfe2021/go-bfe/core/types"
 	"github.com/bfe2021/go-bfe/core/vm"
 	"github.com/bfe2021/go-bfe/crypto"
-	"github.com/bfe2021/go-bfe/bfedb"
 	"github.com/bfe2021/go-bfe/params"
 )
 
@@ -105,7 +105,7 @@ func init() {
 	}
 }
 
-// genTxRing returns a block generator that sends onger in a ring
+// genTxRing returns a block generator that sends bfeer in a ring
 // among n accounts. This is creates n entries in the state database
 // and fills the blocks with many small transactions.
 func genTxRing(naccounts int) func(int, *BlockGen) {

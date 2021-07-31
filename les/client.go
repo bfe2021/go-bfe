@@ -94,7 +94,7 @@ func New(stack *node.Node, config *bfeconfig.Config) (*LightBfedu, error) {
 	log.Info("Initialised chain configuration", "config", chainConfig)
 
 	peers := newServerPeerSet()
-	long := &LightBfedu{
+	logn := &LightBfedu{
 		lesCommons: lesCommons{
 			genesis:     genesisHash,
 			config:      config,
@@ -116,19 +116,19 @@ func New(stack *node.Node, config *bfeconfig.Config) (*LightBfedu, error) {
 	}
 
 	var prenegQuery vfc.QueryFunc
-	if lbfe.p2pServer.DiscV5 != nil {
-		prenegQuery = lbfe.prenegQuery
+	if logn.p2pServer.DiscV5 != nil {
+		prenegQuery = logn.prenegQuery
 	}
-	lbfe.serverPool, lbfe.serverPoolIterator = vfc.NewServerPool(lesDb, []byte("serverpool:"), time.Second, prenegQuery, &mclock.System{}, config.UltraLightServers, requestList)
-	lbfe.serverPool.AddMetrics(suggestedTimeoutGauge, totalValueGauge, serverSelectableGauge, serverConnectedGauge, sessionValueMeter, serverDialedMeter)
+	logn.serverPool, logn.serverPoolIterator = vfc.NewServerPool(lesDb, []byte("serverpool:"), time.Second, prenegQuery, &mclock.System{}, config.UltraLightServers, requestList)
+	logn.serverPool.AddMetrics(suggestedTimeoutGauge, totalValueGauge, serverSelectableGauge, serverConnectedGauge, sessionValueMeter, serverDialedMeter)
 
-	lbfe.retriever = newRetrieveManager(peers, lbfe.reqDist, lbfe.serverPool.GetTimeout)
-	lbfe.relay = newLesTxRelay(peers, lbfe.retriever)
+	logn.retriever = newRetrieveManager(peers, logn.reqDist, logn.serverPool.GetTimeout)
+	logn.relay = newLesTxRelay(peers, logn.retriever)
 
-	lbfe.odr = NewLesOdr(chainDb, light.DefaultClientIndexerConfig, lbfe.peers, lbfe.retriever)
-	lbfe.chtIndexer = light.NewChtIndexer(chainDb, lbfe.odr, params.CHTFrequency, params.HelperTrieConfirmations, config.LightNoPrune)
-	lbfe.bloomTrieIndexer = light.NewBloomTrieIndexer(chainDb, lbfe.odr, params.BloomBitsBlocksClient, params.BloomTrieFrequency, config.LightNoPrune)
-	lbfe.odr.SetIndexers(lbfe.chtIndexer, lbfe.bloomTrieIndexer, lbfe.bloomIndexer)
+	logn.odr = NewLesOdr(chainDb, light.DefaultClientIndexerConfig, logn.peers, logn.retriever)
+	logn.chtIndexer = light.NewChtIndexer(chainDb, logn.odr, params.CHTFrequency, params.HelperTrieConfirmations, config.LightNoPrune)
+	logn.bloomTrieIndexer = light.NewBloomTrieIndexer(chainDb, logn.odr, params.BloomBitsBlocksClient, params.BloomTrieFrequency, config.LightNoPrune)
+	logn.odr.SetIndexers(logn.chtIndexer, logn.bloomTrieIndexer, logn.bloomIndexer)
 
 	checkpoint := config.Checkpoint
 	if checkpoint == nil {
@@ -136,49 +136,49 @@ func New(stack *node.Node, config *bfeconfig.Config) (*LightBfedu, error) {
 	}
 	// Note: NewLightChain adds the trusted checkpoint so it needs an ODR with
 	// indexers already set but not started yet
-	if lbfe.blockchain, err = light.NewLightChain(lbfe.odr, lbfe.chainConfig, lbfe.engine, checkpoint); err != nil {
+	if logn.blockchain, err = light.NewLightChain(logn.odr, logn.chainConfig, logn.engine, checkpoint); err != nil {
 		return nil, err
 	}
-	lbfe.chainReader = lbfe.blockchain
-	lbfe.txPool = light.NewTxPool(lbfe.chainConfig, lbfe.blockchain, lbfe.relay)
+	logn.chainReader = logn.blockchain
+	logn.txPool = light.NewTxPool(logn.chainConfig, logn.blockchain, logn.relay)
 
 	// Set up checkpoint oracle.
-	lbfe.oracle = lbfe.setupOracle(stack, genesisHash, config)
+	logn.oracle = logn.setupOracle(stack, genesisHash, config)
 
 	// Note: AddChildIndexer starts the update process for the child
-	lbfe.bloomIndexer.AddChildIndexer(lbfe.bloomTrieIndexer)
-	lbfe.chtIndexer.Start(lbfe.blockchain)
-	lbfe.bloomIndexer.Start(lbfe.blockchain)
+	logn.bloomIndexer.AddChildIndexer(logn.bloomTrieIndexer)
+	logn.chtIndexer.Start(logn.blockchain)
+	logn.bloomIndexer.Start(logn.blockchain)
 
 	// Start a light chain pruner to delete useless historical data.
-	lbfe.pruner = newPruner(chainDb, lbfe.chtIndexer, lbfe.bloomTrieIndexer)
+	logn.pruner = newPruner(chainDb, logn.chtIndexer, logn.bloomTrieIndexer)
 
 	// Rewind the chain in case of an incompatible config upgrade.
 	if compat, ok := genesisErr.(*params.ConfigCompatError); ok {
 		log.Warn("Rewinding chain to upgrade configuration", "err", compat)
-		lbfe.blockchain.SetHead(compat.RewindTo)
+		logn.blockchain.SetHead(compat.RewindTo)
 		rawdb.WriteChainConfig(chainDb, genesisHash, chainConfig)
 	}
 
-	lbfe.ApiBackend = &LesApiBackend{stack.Config().ExtRPCEnabled(), stack.Config().AllowUnprotectedTxs, long, nil}
+	logn.ApiBackend = &LesApiBackend{stack.Config().ExtRPCEnabled(), stack.Config().AllowUnprotectedTxs, logn, nil}
 	gpoParams := config.GPO
 	if gpoParams.Default == nil {
 		gpoParams.Default = config.Miner.GasPrice
 	}
-	lbfe.ApiBackend.gpo = gasprice.NewOracle(lbfe.ApiBackend, gpoParams)
+	logn.ApiBackend.gpo = gasprice.NewOracle(logn.ApiBackend, gpoParams)
 
-	lbfe.handler = newClientHandler(config.UltraLightServers, config.UltraLightFraction, checkpoint, long)
-	if lbfe.handler.ulc != nil {
-		log.Warn("Ultra light client is enabled", "trustedNodes", len(lbfe.handler.ulc.keys), "minTrustedFraction", lbfe.handler.ulc.fraction)
-		lbfe.blockchain.DisableCheckFreq()
+	logn.handler = newClientHandler(config.UltraLightServers, config.UltraLightFraction, checkpoint, logn)
+	if logn.handler.ulc != nil {
+		log.Warn("Ultra light client is enabled", "trustedNodes", len(logn.handler.ulc.keys), "minTrustedFraction", logn.handler.ulc.fraction)
+		logn.blockchain.DisableCheckFreq()
 	}
 
-	lbfe.netRPCService = bfeapi.NewPublicNetAPI(lbfe.p2pServer, lbfe.config.NetworkId)
+	logn.netRPCService = bfeapi.NewPublicNetAPI(logn.p2pServer, logn.config.NetworkId)
 
 	// Register the backend on the node
-	stack.RegisterAPIs(lbfe.APIs())
-	stack.RegisterProtocols(lbfe.Protocols())
-	stack.RegisterLifecycle(long)
+	stack.RegisterAPIs(logn.APIs())
+	stack.RegisterProtocols(logn.Protocols())
+	stack.RegisterLifecycle(logn)
 
 	// Check for unclean shutdown
 	if uncleanShutdowns, discards, err := rawdb.PushUncleanShutdownMarker(chainDb); err != nil {
@@ -193,7 +193,7 @@ func New(stack *node.Node, config *bfeconfig.Config) (*LightBfedu, error) {
 				"age", common.PrettyAge(t))
 		}
 	}
-	return long, nil
+	return logn, nil
 }
 
 // VfluxRequest sends a batch of requests to the given node through discv5 UDP TalkRequest and returns the responses
@@ -287,17 +287,17 @@ func (s *LightBfedu) APIs() []rpc.API {
 	apis = append(apis, s.engine.APIs(s.BlockChain().HeaderChain())...)
 	return append(apis, []rpc.API{
 		{
-			Namespace: "ong",
+			Namespace: "bfe",
 			Version:   "1.0",
 			Service:   &LightDummyAPI{},
 			Public:    true,
 		}, {
-			Namespace: "ong",
+			Namespace: "bfe",
 			Version:   "1.0",
 			Service:   downloader.NewPublicDownloaderAPI(s.handler.downloader, s.eventMux),
 			Public:    true,
 		}, {
-			Namespace: "ong",
+			Namespace: "bfe",
 			Version:   "1.0",
 			Service:   filters.NewPublicFilterAPI(s.ApiBackend, true, 5*time.Minute),
 			Public:    true,

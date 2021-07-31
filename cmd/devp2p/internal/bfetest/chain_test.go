@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with the go-bfe library. If not, see <http://www.gnu.org/licenses/>.
 
-package ongtest
+package bfetest
 
 import (
 	"path/filepath"
@@ -27,7 +27,7 @@ import (
 )
 
 // TestBfeProtocolNegotiation tests whether the test suite
-// can negotiate the highest ong protocol in a status message exchange
+// can negotiate the highest  bfe  protocol in a status message exchange
 func TestBfeProtocolNegotiation(t *testing.T) {
 	var tests = []struct {
 		conn     *Conn
@@ -37,26 +37,26 @@ func TestBfeProtocolNegotiation(t *testing.T) {
 		{
 			conn: &Conn{},
 			caps: []p2p.Cap{
-				{Name: "ong", Version: 63},
-				{Name: "ong", Version: 64},
-				{Name: "ong", Version: 65},
+				{Name: "bfe", Version: 63},
+				{Name: "bfe", Version: 64},
+				{Name: "bfe", Version: 65},
 			},
 			expected: uint32(65),
 		},
 		{
 			conn: &Conn{},
 			caps: []p2p.Cap{
-				{Name: "ong", Version: 0},
-				{Name: "ong", Version: 89},
-				{Name: "ong", Version: 65},
+				{Name: "bfe", Version: 0},
+				{Name: "bfe", Version: 89},
+				{Name: "bfe", Version: 65},
 			},
 			expected: uint32(65),
 		},
 		{
 			conn: &Conn{},
 			caps: []p2p.Cap{
-				{Name: "ong", Version: 63},
-				{Name: "ong", Version: 64},
+				{Name: "bfe", Version: 63},
+				{Name: "bfe", Version: 64},
 				{Name: "wrongProto", Version: 65},
 			},
 			expected: uint32(64),

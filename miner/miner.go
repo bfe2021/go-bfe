@@ -57,22 +57,22 @@ type Miner struct {
 	mux      *event.TypeMux
 	worker   *worker
 	coinbase common.Address
-	ong      Backend
+	bfe      Backend
 	engine   consensus.Engine
 	exitCh   chan struct{}
 	startCh  chan common.Address
 	stopCh   chan struct{}
 }
 
-func New(ong Backend, config *Config, chainConfig *params.ChainConfig, mux *event.TypeMux, engine consensus.Engine, isLocalBlock func(block *types.Block) bool) *Miner {
+func New(bfe Backend, config *Config, chainConfig *params.ChainConfig, mux *event.TypeMux, engine consensus.Engine, isLocalBlock func(block *types.Block) bool) *Miner {
 	miner := &Miner{
-		ong:     ong,
+		bfe:     bfe,
 		mux:     mux,
 		engine:  engine,
 		exitCh:  make(chan struct{}),
 		startCh: make(chan common.Address),
 		stopCh:  make(chan struct{}),
-		worker:  newWorker(config, chainConfig, engine, ong, mux, isLocalBlock, true),
+		worker:  newWorker(config, chainConfig, engine, bfe, mux, isLocalBlock, true),
 	}
 	go miner.update()
 
@@ -82,7 +82,7 @@ func New(ong Backend, config *Config, chainConfig *params.ChainConfig, mux *even
 // update keeps track of the downloader events. Please be aware that this is a one shot type of update loop.
 // It's entered once and as soon as `Done` or `Failed` has been broadcasted the events are unregistered and
 // the loop is exited. This to prevent a major security vuln where external parties can DOS you with blocks
-// and halt your mining operation for as long as the DOS continues.
+// and halt your mining operation for as logn as the DOS continues.
 func (miner *Miner) update() {
 	events := miner.mux.Subscribe(downloader.StartEvent{}, downloader.DoneEvent{}, downloader.FailedEvent{})
 	defer func() {

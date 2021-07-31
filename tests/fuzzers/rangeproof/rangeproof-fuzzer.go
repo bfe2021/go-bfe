@@ -160,7 +160,7 @@ func (f *fuzzer) fuzz() int {
 			vals[index%len(vals)] = nil
 
 			// Other cases:
-			// Modify somonging in the proof db
+			// Modify somogning in the proof db
 			// add stuff to proof db
 			// drop stuff from proof db
 

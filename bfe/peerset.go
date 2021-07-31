@@ -41,18 +41,18 @@ var (
 	errPeerNotRegistered = errors.New("peer not registered")
 
 	// errSnapWithoutBfe is returned if a peer attempts to connect only on the
-	// snap protocol without advertizing the ong main protocol.
-	errSnapWithoutBfe = errors.New("peer connected on snap without compatible ong support")
+	// snap protocol without advertizing the  bfe  main protocol.
+	errSnapWithoutBfe = errors.New("peer connected on snap without compatible  bfe  support")
 )
 
 // peerSet represents the collection of active peers currently participating in
-// the `ong` protocol, with or without the `snap` extension.
+// the `bfe` protocol, with or without the `snap` extension.
 type peerSet struct {
-	peers     map[string]*ongPeer // Peers connected on the `ong` protocol
+	peers     map[string]*bfePeer // Peers connected on the `bfe` protocol
 	snapPeers int                 // Number of `snap` compatible peers for connection prioritization
 
-	snapWait map[string]chan *snap.Peer // Peers connected on `ong` waiting for their snap extension
-	snapPend map[string]*snap.Peer      // Peers connected on the `snap` protocol, but not yet on `ong`
+	snapWait map[string]chan *snap.Peer // Peers connected on `bfe` waiting for their snap extension
+	snapPend map[string]*snap.Peer      // Peers connected on the `snap` protocol, but not yet on `bfe`
 
 	lock   sync.RWMutex
 	closed bool
@@ -61,18 +61,18 @@ type peerSet struct {
 // newPeerSet creates a new peer set to track the active participants.
 func newPeerSet() *peerSet {
 	return &peerSet{
-		peers:    make(map[string]*ongPeer),
+		peers:    make(map[string]*bfePeer),
 		snapWait: make(map[string]chan *snap.Peer),
 		snapPend: make(map[string]*snap.Peer),
 	}
 }
 
-// registerSnapExtension unblocks an already connected `ong` peer waiting for its
+// registerSnapExtension unblocks an already connected `bfe` peer waiting for its
 // `snap` extension, or if no such peer exists, tracks the extension for the time
-// being until the `ong` main protocol starts looking for it.
+// being until the `bfe` main protocol starts looking for it.
 func (ps *peerSet) registerSnapExtension(peer *snap.Peer) error {
-	// Reject the peer if it advertises `snap` without `ong` as `snap` is only a
-	// satellite protocol meaningful with the chain selection of `ong`
+	// Reject the peer if it advertises `snap` without `bfe` as `snap` is only a
+	// satellite protocol meaningful with the chain selection of `bfe`
 	if !peer.RunningCap(bfe.ProtocolName, bfe.ProtocolVersions) {
 		return errSnapWithoutBfe
 	}
@@ -87,7 +87,7 @@ func (ps *peerSet) registerSnapExtension(peer *snap.Peer) error {
 	if _, ok := ps.snapPend[id]; ok {
 		return errPeerAlreadyRegistered // avoid connections with the same id as pending ones
 	}
-	// Inject the peer into an `ong` counterpart is available, otherwise save for later
+	// Inject the peer into an `bfe` counterpart is available, otherwise save for later
 	if wait, ok := ps.snapWait[id]; ok {
 		delete(ps.snapWait, id)
 		wait <- peer
@@ -131,7 +131,7 @@ func (ps *peerSet) waitSnapExtension(peer *bfe.Peer) (*snap.Peer, error) {
 	return <-wait, nil
 }
 
-// registerPeer injects a new `ong` peer into the working set, or returns an error
+// registerPeer injects a new `bfe` peer into the working set, or returns an error
 // if the peer is already known.
 func (ps *peerSet) registerPeer(peer *bfe.Peer, ext *snap.Peer) error {
 	// Start tracking the new peer
@@ -145,14 +145,14 @@ func (ps *peerSet) registerPeer(peer *bfe.Peer, ext *snap.Peer) error {
 	if _, ok := ps.peers[id]; ok {
 		return errPeerAlreadyRegistered
 	}
-	ong := &ongPeer{
+	bfe := &bfePeer{
 		Peer: peer,
 	}
 	if ext != nil {
 		bfe.snapExt = &snapPeer{ext}
 		ps.snapPeers++
 	}
-	ps.peers[id] = ong
+	ps.peers[id] = bfe
 	return nil
 }
 
@@ -174,7 +174,7 @@ func (ps *peerSet) unregisterPeer(id string) error {
 }
 
 // peer retrieves the registered peer with the given id.
-func (ps *peerSet) peer(id string) *ongPeer {
+func (ps *peerSet) peer(id string) *bfePeer {
 	ps.lock.RLock()
 	defer ps.lock.RUnlock()
 
@@ -183,11 +183,11 @@ func (ps *peerSet) peer(id string) *ongPeer {
 
 // peersWithoutBlock retrieves a list of peers that do not have a given block in
 // their set of known hashes so it might be propagated to them.
-func (ps *peerSet) peersWithoutBlock(hash common.Hash) []*ongPeer {
+func (ps *peerSet) peersWithoutBlock(hash common.Hash) []*bfePeer {
 	ps.lock.RLock()
 	defer ps.lock.RUnlock()
 
-	list := make([]*ongPeer, 0, len(ps.peers))
+	list := make([]*bfePeer, 0, len(ps.peers))
 	for _, p := range ps.peers {
 		if !p.KnownBlock(hash) {
 			list = append(list, p)
@@ -198,11 +198,11 @@ func (ps *peerSet) peersWithoutBlock(hash common.Hash) []*ongPeer {
 
 // peersWithoutTransaction retrieves a list of peers that do not have a given
 // transaction in their set of known hashes.
-func (ps *peerSet) peersWithoutTransaction(hash common.Hash) []*ongPeer {
+func (ps *peerSet) peersWithoutTransaction(hash common.Hash) []*bfePeer {
 	ps.lock.RLock()
 	defer ps.lock.RUnlock()
 
-	list := make([]*ongPeer, 0, len(ps.peers))
+	list := make([]*bfePeer, 0, len(ps.peers))
 	for _, p := range ps.peers {
 		if !p.KnownTransaction(hash) {
 			list = append(list, p)
@@ -211,9 +211,9 @@ func (ps *peerSet) peersWithoutTransaction(hash common.Hash) []*ongPeer {
 	return list
 }
 
-// len returns if the current number of `ong` peers in the set. Since the `snap`
-// peers are tied to the existence of an `ong` connection, that will always be a
-// subset of `ong`.
+// len returns if the current number of `bfe` peers in the set. Since the `snap`
+// peers are tied to the existence of an `bfe` connection, that will always be a
+// subset of `bfe`.
 func (ps *peerSet) len() int {
 	ps.lock.RLock()
 	defer ps.lock.RUnlock()

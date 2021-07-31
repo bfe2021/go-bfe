@@ -185,15 +185,15 @@ HTTP based JSON-RPC API options:
   * `--http` Enable the HTTP-RPC server
   * `--http.addr` HTTP-RPC server listening interface (default: `localhost`)
   * `--http.port` HTTP-RPC server listening port (default: `8545`)
-  * `--http.api` API's offered over the HTTP-RPC interface (default: `ong,net,web3`)
+  * `--http.api` API's offered over the HTTP-RPC interface (default: `bfe,net,web3`)
   * `--http.corsdomain` Comma separated list of domains from which to accept cross origin requests (browser enforced)
   * `--ws` Enable the WS-RPC server
   * `--ws.addr` WS-RPC server listening interface (default: `localhost`)
   * `--ws.port` WS-RPC server listening port (default: `8546`)
-  * `--ws.api` API's offered over the WS-RPC interface (default: `ong,net,web3`)
+  * `--ws.api` API's offered over the WS-RPC interface (default: `bfe,net,web3`)
   * `--ws.origins` Origins from which to accept websockets requests
   * `--ipcdisable` Disable the IPC-RPC server
-  * `--ipcapi` API's offered over the IPC-RPC interface (default: `admin,debug,ong,miner,net,personal,shh,txpool,web3`)
+  * `--ipcapi` API's offered over the IPC-RPC interface (default: `admin,debug,bfe,miner,net,personal,shh,txpool,web3`)
   * `--ipcpath` Filename for IPC socket/pipe within the datadir (explicit paths escape it)
 
 You'll need to use your own programming environments' capabilities (libraries, tools, etc) to
@@ -303,9 +303,9 @@ also need to configure a miner to process transactions and create new blocks for
 #### Running a private miner
 
 Mining on the public Bfedu network is a complex task as it's only feasible using GPUs,
-requiring an OpenCL or CUDA enabled `ongminer` instance. For information on such a
+requiring an OpenCL or CUDA enabled `bfeminer` instance. For information on such a
 setup, please consult the [BfeerMining subreddit](https://www.reddit.com/r/BfeerMining/)
-and the [ongminer](https://github.com/bfedu-mining/bfeminer) repository.
+and the [bfeminer](https://github.com/bfedu-mining/bfeminer) repository.
 
 In a private network setting, however a single CPU miner instance is more than enough for
 practical purposes as it can produce a stable stream of blocks at the correct intervals
@@ -342,7 +342,7 @@ Please make sure your contributions adhere to our coding guidelines:
    guidelines.
  * Pull requests need to be based on and opened against the `master` branch.
  * Commit messages should be prefixed with the package(s) they modify.
-   * E.g. "ong, rpc: make trace configs optional"
+   * E.g. "bfe, rpc: make trace configs optional"
 
 Please see the [Developers' Guide](https://gbfe.bfedu.io/docs/developers/devguide)
 for more details on configuring your environment, managing project dependencies, and

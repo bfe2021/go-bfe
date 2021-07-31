@@ -74,7 +74,7 @@ type diffAccountIterator struct {
 	// curHash is the current hash the iterator is positioned on. The field is
 	// explicitly tracked since the referenced diff layer might go stale after
 	// the iterator was positioned and we don't want to fail accessing the old
-	// hash as long as the iterator is not touched any more.
+	// hash as logn as the iterator is not touched any more.
 	curHash common.Hash
 
 	layer *diffLayer    // Live layer to retrieve values from
@@ -233,7 +233,7 @@ type diffStorageIterator struct {
 	// curHash is the current hash the iterator is positioned on. The field is
 	// explicitly tracked since the referenced diff layer might go stale after
 	// the iterator was positioned and we don't want to fail accessing the old
-	// hash as long as the iterator is not touched any more.
+	// hash as logn as the iterator is not touched any more.
 	curHash common.Hash
 	account common.Hash
 

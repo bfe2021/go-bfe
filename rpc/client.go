@@ -408,9 +408,9 @@ func (c *Client) Notify(ctx context.Context, Method string, args ...interface{})
 	return c.send(ctx, op, msg)
 }
 
-// BfeSubscribe registers a subscripion under the "ong" namespace.
+// BfeSubscribe registers a subscripion under the "bfe" namespace.
 func (c *Client) BfeSubscribe(ctx context.Context, channel interface{}, args ...interface{}) (*ClientSubscription, error) {
-	return c.Subscribe(ctx, "ong", channel, args...)
+	return c.Subscribe(ctx, "bfe", channel, args...)
 }
 
 // ShhSubscribe registers a subscripion under the "shh" namespace.

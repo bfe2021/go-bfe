@@ -228,7 +228,7 @@ func (dl *diskLayer) generate(stats *generatorStats) {
 		default:
 		}
 		if batch.ValueSize() > bfedb.IdealBatchSize || abort != nil {
-			// Only write and set the marker if we actually did somonging useful
+			// Only write and set the marker if we actually did somogning useful
 			if batch.ValueSize() > 0 {
 				// Ensure the generator entry is in sync with the data
 				marker := accountHash[:]
@@ -273,7 +273,7 @@ func (dl *diskLayer) generate(stats *generatorStats) {
 				default:
 				}
 				if batch.ValueSize() > bfedb.IdealBatchSize || abort != nil {
-					// Only write and set the marker if we actually did somonging useful
+					// Only write and set the marker if we actually did somogning useful
 					if batch.ValueSize() > 0 {
 						// Ensure the generator entry is in sync with the data
 						marker := append(accountHash[:], storeIt.Key...)

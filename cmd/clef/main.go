@@ -1056,7 +1056,7 @@ func GenDoc(ctx *cli.Context) {
 		add("SignTxRequest", desc, &core.SignTxRequest{
 			Meta: meta,
 			Callinfo: []core.ValidationInfo{
-				{Typ: "Warning", Message: "Somonging looks odd, show this message as a warning"},
+				{Typ: "Warning", Message: "Sombfeing looks odd, show this message as a warning"},
 				{Typ: "Info", Message: "User should see this as well"},
 			},
 			Transaction: core.SendTxArgs{

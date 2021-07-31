@@ -191,7 +191,7 @@ func (c *Console) initExtensions() error {
 	if err != nil {
 		return fmt.Errorf("api modules: %v", err)
 	}
-	aliases := map[string]struct{}{"ong": {}, "personal": {}}
+	aliases := map[string]struct{}{"bfe": {}, "personal": {}}
 	for api := range apis {
 		if api == "web3" {
 			continue
@@ -238,10 +238,10 @@ func (c *Console) initPersonal(vm *goja.Runtime, bridge *bridge) {
 	}
 	jong := vm.NewObject()
 	vm.Set("jong", jong)
-	jbfe.Set("openWallet", personal.Get("openWallet"))
-	jbfe.Set("unlockAccount", personal.Get("unlockAccount"))
-	jbfe.Set("newAccount", personal.Get("newAccount"))
-	jbfe.Set("sign", personal.Get("sign"))
+	jong.Set("openWallet", personal.Get("openWallet"))
+	jong.Set("unlockAccount", personal.Get("unlockAccount"))
+	jong.Set("newAccount", personal.Get("newAccount"))
+	jong.Set("sign", personal.Get("sign"))
 	personal.Set("openWallet", jsre.MakeCallback(vm, bridge.OpenWallet))
 	personal.Set("unlockAccount", jsre.MakeCallback(vm, bridge.UnlockAccount))
 	personal.Set("newAccount", jsre.MakeCallback(vm, bridge.NewAccount))

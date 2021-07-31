@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with the go-bfe library. If not, see <http://www.gnu.org/licenses/>.
 
-package ongtest
+package bfetest
 
 import (
 	"fmt"
@@ -41,7 +41,7 @@ var pretty = spew.ConfigState{
 
 var timeout = 20 * time.Second
 
-// Suite represents a structure used to test the ong
+// Suite represents a structure used to test the bfe
 // protocol of a node(s).
 type Suite struct {
 	Dest *enode.Node
@@ -251,24 +251,24 @@ func (s *Suite) TestMaliciousHandshake(t *utesting.T) {
 		{
 			Version: 5,
 			Caps: []p2p.Cap{
-				{Name: "ong", Version: 64},
-				{Name: "ong", Version: 65},
+				{Name: "bfe", Version: 64},
+				{Name: "bfe", Version: 65},
 			},
 			ID: append(pub0, byte(0)),
 		},
 		{
 			Version: 5,
 			Caps: []p2p.Cap{
-				{Name: "ong", Version: 64},
-				{Name: "ong", Version: 65},
+				{Name: "bfe", Version: 64},
+				{Name: "bfe", Version: 65},
 			},
 			ID: append(pub0, pub0...),
 		},
 		{
 			Version: 5,
 			Caps: []p2p.Cap{
-				{Name: "ong", Version: 64},
-				{Name: "ong", Version: 65},
+				{Name: "bfe", Version: 64},
+				{Name: "bfe", Version: 65},
 			},
 			ID: largeBuffer(2),
 		},
@@ -418,8 +418,8 @@ func (s *Suite) dial() (*Conn, error) {
 	}
 	// set default p2p capabilities
 	conn.caps = []p2p.Cap{
-		{Name: "ong", Version: 64},
-		{Name: "ong", Version: 65},
+		{Name: "bfe", Version: 64},
+		{Name: "bfe", Version: 65},
 	}
 	return &conn, nil
 }

@@ -24,9 +24,9 @@ import (
 	"github.com/bfe2021/go-bfe/rlp"
 )
 
-// ongEntry is the "ong" ENR entry which advertises ong protocol
+// bfeEntry is the "bfe" ENR entry which advertises  bfe  protocol
 // on the discovery network.
-type ongEntry struct {
+type bfeEntry struct {
 	ForkID forkid.ID // Fork identifier per EIP-2124
 
 	// Ignore additional fields (for forward compatibility).
@@ -34,12 +34,12 @@ type ongEntry struct {
 }
 
 // ENRKey implements enr.Entry.
-func (e ongEntry) ENRKey() string {
-	return "ong"
+func (e bfeEntry) ENRKey() string {
+	return "bfe"
 }
 
 // startBfeEntryUpdate starts the ENR updater loop.
-func (ong *Bfedu) startBfeEntryUpdate(ln *enode.LocalNode) {
+func (bfe *Bfedu) startBfeEntryUpdate(ln *enode.LocalNode) {
 	var newHead = make(chan core.ChainHeadEvent, 10)
 	sub := bfe.blockchain.SubscribeChainHeadEvent(newHead)
 
@@ -58,12 +58,12 @@ func (ong *Bfedu) startBfeEntryUpdate(ln *enode.LocalNode) {
 	}()
 }
 
-func (ong *Bfedu) currentBfeEntry() *ongEntry {
-	return &ongEntry{ForkID: forkid.NewID(bfe.blockchain.Config(), bfe.blockchain.Genesis().Hash(),
+func (bfe *Bfedu) currentBfeEntry() *bfeEntry {
+	return &bfeEntry{ForkID: forkid.NewID(bfe.blockchain.Config(), bfe.blockchain.Genesis().Hash(),
 		bfe.blockchain.CurrentHeader().Number.Uint64())}
 }
 
-// setupDiscovery creates the node discovery source for the `ong` and `snap`
+// setupDiscovery creates the node discovery source for the `bfe` and `snap`
 // protocols.
 func setupDiscovery(urls []string) (enode.Iterator, error) {
 	if len(urls) == 0 {

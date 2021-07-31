@@ -45,7 +45,7 @@ func TestDatadirCreation(t *testing.T) {
 	if err := node.Close(); err != nil {
 		t.Fatalf("failed to close node: %v", err)
 	}
-	// Generate a long non-existing datadir path and check that it gets created by a node
+	// Generate a logn non-existing datadir path and check that it gets created by a node
 	dir = filepath.Join(dir, "a", "b", "c", "d", "e", "f")
 	node, err = New(&Config{DataDir: dir})
 	if err != nil {

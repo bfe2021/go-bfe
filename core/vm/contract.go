@@ -133,7 +133,7 @@ func (c *Contract) isCode(udest uint64) bool {
 // contract (for chaining calls)
 func (c *Contract) AsDelegate() *Contract {
 	// NOTE: caller must, at all times be a contract. It should never happen
-	// that caller is somonging other than a Contract.
+	// that caller is somogning other than a Contract.
 	parent := c.caller.(*Contract)
 	c.CallerAddress = parent.CallerAddress
 	c.value = parent.value

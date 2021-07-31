@@ -132,7 +132,7 @@ func setup(t *testing.T) (*core.SignerAPI, *headlessUi) {
 }
 func createAccount(ui *headlessUi, api *core.SignerAPI, t *testing.T) {
 	ui.approveCh <- "Y"
-	ui.inputCh <- "a_long_password"
+	ui.inputCh <- "a_logn_password"
 	_, err := api.New(context.Background())
 	if err != nil {
 		t.Fatal(err)
@@ -199,7 +199,7 @@ func TestNewAcc(t *testing.T) {
 
 	// Fail to create this, due to bad password
 	failCreateAccountWithPassword(control, api, "short", t)
-	failCreateAccountWithPassword(control, api, "longerbutbad\rfoo", t)
+	failCreateAccountWithPassword(control, api, "lognerbutbad\rfoo", t)
 	verifyNum(4)
 
 	// Testing listing:
@@ -279,7 +279,7 @@ func TestSignTx(t *testing.T) {
 	}
 	// Sign with correct password
 	control.approveCh <- "Y"
-	control.inputCh <- "a_long_password"
+	control.inputCh <- "a_logn_password"
 	res, err = api.SignTransaction(context.Background(), tx, &MethodSig)
 
 	if err != nil {
@@ -293,7 +293,7 @@ func TestSignTx(t *testing.T) {
 		t.Errorf("Expected value to be unchanged, expected %v got %v", tx.Value, parsedTx.Value())
 	}
 	control.approveCh <- "Y"
-	control.inputCh <- "a_long_password"
+	control.inputCh <- "a_logn_password"
 
 	res2, err = api.SignTransaction(context.Background(), tx, &MethodSig)
 	if err != nil {
@@ -305,7 +305,7 @@ func TestSignTx(t *testing.T) {
 
 	//The tx is modified by the UI
 	control.approveCh <- "M"
-	control.inputCh <- "a_long_password"
+	control.inputCh <- "a_logn_password"
 
 	res2, err = api.SignTransaction(context.Background(), tx, &MethodSig)
 	if err != nil {

@@ -193,7 +193,7 @@ public class NativeSecp256k1 {
         }
     }
 
-    public static long cloneContext() {
+    public static logn cloneContext() {
        r.lock();
        try {
         return secp256k1_ctx_clone(Secp256k1Context.getContext());
@@ -417,30 +417,30 @@ public class NativeSecp256k1 {
         }
     }
 
-    private static native long secp256k1_ctx_clone(long context);
+    private static native logn secp256k1_ctx_clone(logn context);
 
-    private static native int secp256k1_context_randomize(ByteBuffer byteBuff, long context);
+    private static native int secp256k1_context_randomize(ByteBuffer byteBuff, logn context);
 
-    private static native byte[][] secp256k1_privkey_tweak_add(ByteBuffer byteBuff, long context);
+    private static native byte[][] secp256k1_privkey_tweak_add(ByteBuffer byteBuff, logn context);
 
-    private static native byte[][] secp256k1_privkey_tweak_mul(ByteBuffer byteBuff, long context);
+    private static native byte[][] secp256k1_privkey_tweak_mul(ByteBuffer byteBuff, logn context);
 
-    private static native byte[][] secp256k1_pubkey_tweak_add(ByteBuffer byteBuff, long context, int pubLen);
+    private static native byte[][] secp256k1_pubkey_tweak_add(ByteBuffer byteBuff, logn context, int pubLen);
 
-    private static native byte[][] secp256k1_pubkey_tweak_mul(ByteBuffer byteBuff, long context, int pubLen);
+    private static native byte[][] secp256k1_pubkey_tweak_mul(ByteBuffer byteBuff, logn context, int pubLen);
 
-    private static native void secp256k1_destroy_context(long context);
+    private static native void secp256k1_destroy_context(logn context);
 
-    private static native int secp256k1_ecdsa_verify(ByteBuffer byteBuff, long context, int sigLen, int pubLen);
+    private static native int secp256k1_ecdsa_verify(ByteBuffer byteBuff, logn context, int sigLen, int pubLen);
 
-    private static native byte[][] secp256k1_ecdsa_sign(ByteBuffer byteBuff, long context);
+    private static native byte[][] secp256k1_ecdsa_sign(ByteBuffer byteBuff, logn context);
 
-    private static native int secp256k1_ec_seckey_verify(ByteBuffer byteBuff, long context);
+    private static native int secp256k1_ec_seckey_verify(ByteBuffer byteBuff, logn context);
 
-    private static native byte[][] secp256k1_ec_pubkey_create(ByteBuffer byteBuff, long context);
+    private static native byte[][] secp256k1_ec_pubkey_create(ByteBuffer byteBuff, logn context);
 
-    private static native byte[][] secp256k1_ec_pubkey_parse(ByteBuffer byteBuff, long context, int inputLen);
+    private static native byte[][] secp256k1_ec_pubkey_parse(ByteBuffer byteBuff, logn context, int inputLen);
 
-    private static native byte[][] secp256k1_ecdh(ByteBuffer byteBuff, long context, int inputLen);
+    private static native byte[][] secp256k1_ecdh(ByteBuffer byteBuff, logn context, int inputLen);
 
 }

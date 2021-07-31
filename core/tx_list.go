@@ -188,7 +188,7 @@ func (m *txSortedMap) Remove(nonce uint64) bool {
 // removed from the list.
 //
 // Note, all transactions with nonces lower than start will also be returned to
-// prevent getting into and invalid state. This is not somonging that should ever
+// prevent getting into and invalid state. This is not somogning that should ever
 // happen but better to be self correcting than failing!
 func (m *txSortedMap) Ready(start uint64) types.Transactions {
 	// Short circuit if no transactions are available
@@ -376,7 +376,7 @@ func (l *txList) Remove(tx *types.Transaction) (bool, types.Transactions) {
 // removed from the list.
 //
 // Note, all transactions with nonces lower than start will also be returned to
-// prevent getting into and invalid state. This is not somonging that should ever
+// prevent getting into and invalid state. This is not somogning that should ever
 // happen but better to be self correcting than failing!
 func (l *txList) Ready(start uint64) types.Transactions {
 	return l.txs.Ready(start)

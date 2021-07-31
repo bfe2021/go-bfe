@@ -33,7 +33,7 @@ import (
 // stateAtBlock retrieves the state database associated with a certain block.
 // If no state is locally available for the given block, a number of blocks are
 // attempted to be reexecuted to generate the desired state.
-func (ong *Bfedu) stateAtBlock(block *types.Block, reexec uint64) (statedb *state.StateDB, release func(), err error) {
+func (bfe *Bfedu) stateAtBlock(block *types.Block, reexec uint64) (statedb *state.StateDB, release func(), err error) {
 	// If we have the state fully available, use that
 	statedb, err = bfe.blockchain.StateAt(block.Root())
 	if err == nil {
@@ -78,7 +78,7 @@ func (ong *Bfedu) stateAtBlock(block *types.Block, reexec uint64) (statedb *stat
 		}
 	}()
 	for block.NumberU64() < origin {
-		// Print progress logs if long enough time elapsed
+		// Print progress logs if logn enough time elapsed
 		if time.Since(logged) > 8*time.Second {
 			log.Info("Regenerating historical state", "block", block.NumberU64()+1, "target", origin, "remaining", origin-block.NumberU64()-1, "elapsed", time.Since(start))
 			logged = time.Now()
@@ -114,7 +114,7 @@ func (ong *Bfedu) stateAtBlock(block *types.Block, reexec uint64) (statedb *stat
 // statesInRange retrieves a batch of state databases associated with the specific
 // block ranges. If no state is locally available for the given range, a number of
 // blocks are attempted to be reexecuted to generate the ancestor state.
-func (ong *Bfedu) statesInRange(fromBlock, toBlock *types.Block, reexec uint64) (states []*state.StateDB, release func(), err error) {
+func (bfe *Bfedu) statesInRange(fromBlock, toBlock *types.Block, reexec uint64) (states []*state.StateDB, release func(), err error) {
 	statedb, err := bfe.blockchain.StateAt(fromBlock.Root())
 	if err != nil {
 		statedb, _, err = bfe.stateAtBlock(fromBlock, reexec)
@@ -141,7 +141,7 @@ func (ong *Bfedu) statesInRange(fromBlock, toBlock *types.Block, reexec uint64) 
 		}
 	}()
 	for i := fromBlock.NumberU64() + 1; i <= toBlock.NumberU64(); i++ {
-		// Print progress logs if long enough time elapsed
+		// Print progress logs if logn enough time elapsed
 		if time.Since(logged) > 8*time.Second {
 			logged = time.Now()
 			log.Info("Regenerating historical state", "block", i, "target", fromBlock.NumberU64(), "remaining", toBlock.NumberU64()-i, "elapsed", time.Since(start))
@@ -188,7 +188,7 @@ func (ong *Bfedu) statesInRange(fromBlock, toBlock *types.Block, reexec uint64) 
 }
 
 // stateAtTransaction returns the execution environment of a certain transaction.
-func (ong *Bfedu) stateAtTransaction(block *types.Block, txIndex int, reexec uint64) (core.Message, vm.BlockContext, *state.StateDB, func(), error) {
+func (bfe *Bfedu) stateAtTransaction(block *types.Block, txIndex int, reexec uint64) (core.Message, vm.BlockContext, *state.StateDB, func(), error) {
 	// Short circuit if it's genesis block.
 	if block.NumberU64() == 0 {
 		return nil, vm.BlockContext{}, nil, nil, errors.New("no transaction in genesis")

@@ -845,7 +845,7 @@ func casesNodeUnmarshalJSONUpField() []nodeUnmarshalTestCase {
 			wantErr:   "invalid character",
 		},
 		{
-			name:      "bool value expected but got somonging else (string)",
+			name:      "bool value expected but got somogning else (string)",
 			marshaled: "{\"up\": \"true\"}",
 			wantErr:   "cannot unmarshal string into Go struct",
 		},

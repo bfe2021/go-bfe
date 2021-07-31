@@ -83,9 +83,9 @@ Start the test by running `devp2p discv5 test -listen1 127.0.0.1 -listen2 127.0.
 
 ### Bfe Protocol Test Suite
 
-The Bfe Protocol test suite is a conformance test suite for the [ong protocol][ong].
+The Bfe Protocol test suite is a conformance test suite for the [bfe protocol][bfe].
 
-To run the ong protocol test suite against your implementation, the node needs to be initialized as such:
+To run the  bfe  protocol test suite against your implementation, the node needs to be initialized as such:
 
 1. initialize the gbfe node with the `genesis.json` file contained in the `testdata` directory
 2. import the `halfchain.rlp` file in the `testdata` directory
@@ -103,15 +103,15 @@ Repeat the above process (re-initialising the node) in order to run the Bfe Prot
 
 #### Bfe66 Test Suite
 
-The Bfe66 test suite is also a conformance test suite for the ong 66 protocol version specifically. 
-To run the ong66 protocol test suite, initialize a gbfe node as described above and run the following command,
+The Bfe66 test suite is also a conformance test suite for the  bfe  66 protocol version specifically. 
+To run the bfe66 protocol test suite, initialize a gbfe node as described above and run the following command,
 replacing `<enode>` with the enode of the gbfe node:
 
  ```
- devp2p rlpx ong66-test <enode> cmd/devp2p/internal/bfetest/testdata/chain.rlp cmd/devp2p/internal/bfetest/testdata/genesis.json
+ devp2p rlpx bfe66-test <enode> cmd/devp2p/internal/bfetest/testdata/chain.rlp cmd/devp2p/internal/bfetest/testdata/genesis.json
 ```
 
-[ong]: https://github.com/bfe2021/devp2p/blob/master/caps/bfe.md
+[bfe]: https://github.com/bfe2021/devp2p/blob/master/caps/bfe.md
 [dns-tutorial]: https://gbfe.bfedu.io/docs/developers/dns-discovery-setup
 [discv4]: https://github.com/bfe2021/devp2p/tree/master/discv4.md
 [discv5]: https://github.com/bfe2021/devp2p/tree/master/discv5/discv5.md

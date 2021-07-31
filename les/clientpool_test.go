@@ -578,7 +578,7 @@ func TestInactiveClient(t *testing.T) {
 		t.Fatalf("Failed to deactivate peer #1")
 	}
 	clock.Run(time.Second * 600)
-	// manually trigger a check to avoid a long real-time wait
+	// manually trigger a check to avoid a logn real-time wait
 	pool.ns.SetState(p1.node, pool.UpdateFlag, nodestate.Flags{}, 0)
 	pool.ns.SetState(p1.node, nodestate.Flags{}, pool.UpdateFlag, 0)
 	// p1: 1000  p2: 500  p3: 2000  p4: 900

@@ -2,7 +2,7 @@ pragma solidity ^0.6.0;
 
 /**
  * @title CheckpointOracle
- * @author Gary Rong<garyrong@bfedu.io>, Martin Swende <martin.swende@bfedu.io>
+ * @author Gary Rong<garyrbfe@bfedu.io>, Martin Swende <martin.swende@bfedu.io>
  * @dev Implementation of the blockchain checkpoint registrar.
  */
 contract CheckpointOracle {

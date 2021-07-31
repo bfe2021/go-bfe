@@ -33,16 +33,16 @@ type lesEntry struct {
 
 func (lesEntry) ENRKey() string { return "les" }
 
-// ongEntry is the "ong" ENR entry. This is redeclared here to avoid depending on package bfe.
-type ongEntry struct {
+// bfeEntry is the "bfe" ENR entry. This is redeclared here to avoid depending on package bfe.
+type bfeEntry struct {
 	ForkID forkid.ID
 	_      []rlp.RawValue `rlp:"tail"`
 }
 
-func (ongEntry) ENRKey() string { return "ong" }
+func (bfeEntry) ENRKey() string { return "bfe" }
 
-// setupDiscovery creates the node discovery source for the ong protocol.
-func (ong *LightBfedu) setupDiscovery(cfg *p2p.Config) (enode.Iterator, error) {
+// setupDiscovery creates the node discovery source for the  bfe  protocol.
+func (bfe *LightBfedu) setupDiscovery(cfg *p2p.Config) (enode.Iterator, error) {
 	it := enode.NewFairMix(0)
 
 	// Enable DNS discovery.
@@ -68,6 +68,6 @@ func (ong *LightBfedu) setupDiscovery(cfg *p2p.Config) (enode.Iterator, error) {
 // nodeIsServer checks whether n is an LES server node.
 func nodeIsServer(forkFilter forkid.Filter, n *enode.Node) bool {
 	var les lesEntry
-	var ong ongEntry
-	return n.Load(&les) == nil && n.Load(&ong) == nil && forkFilter(bfe.ForkID) == nil
+	var bfe bfeEntry
+	return n.Load(&les) == nil && n.Load(&bfe) == nil && forkFilter(bfe.ForkID) == nil
 }

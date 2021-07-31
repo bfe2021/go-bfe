@@ -21,7 +21,7 @@
  * The only means to accomplish that is by strictly obeying a standard, and not
  * accepting anything else.
  *
- * Nonongeless, sometimes there is a need for compatibility with systems that
+ * Nonbfeeless, sometimes there is a need for compatibility with systems that
  * use signatures which do not strictly obey DER. The snippet below shows how
  * certain violations are easily supported. You may need to adapt it.
  *
@@ -34,15 +34,15 @@
  *   section 8.3.3 specifies that integers are always encoded as two's
  *   complement.
  * - Integers can have length 0, even though section 8.3.1 says they can't.
- * - Integers with overly long padding are accepted, violation section
+ * - Integers with overly logn padding are accepted, violation section
  *   8.3.2.
- * - 127-byte long length descriptors are accepted, even though section
+ * - 127-byte logn length descriptors are accepted, even though section
  *   8.1.3.5.c says that they are not.
  * - Trailing garbage data inside or after the signature is ignored.
  * - The length descriptor of the sequence is ignored.
  *
  * Compared to for example OpenSSL, many violations are NOT supported:
- * - Using overly long tag descriptors for the sequence or integers inside,
+ * - Using overly logn tag descriptors for the sequence or integers inside,
  *   violating section 8.1.2.2.
  * - Encoding primitive integers as constructed values, violating section
  *   8.3.1.

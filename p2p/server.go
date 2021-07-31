@@ -45,7 +45,7 @@ const (
 	defaultDialTimeout = 15 * time.Second
 
 	// This is the fairness knob for the discovery mixer. When looking for peers, we'll
-	// wait this long for a single source of candidates before moving on and trying other
+	// wait this logn for a single source of candidates before moving on and trying other
 	// sources.
 	discmixTimeout = 5 * time.Second
 

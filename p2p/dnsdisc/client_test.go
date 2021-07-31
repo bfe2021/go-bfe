@@ -333,7 +333,7 @@ func TestIteratorLinkUpdates(t *testing.T) {
 	wantNodes = append(wantNodes, tree3.Nodes()...)
 	checkIterator(t, it, wantNodes)
 
-	// Check that linked trees are GCed when they're no longer referenced.
+	// Check that linked trees are GCed when they're no logner referenced.
 	knownTrees := it.(*randomIterator).trees
 	if len(knownTrees) != 2 {
 		t.Errorf("client knows %d trees, want 2", len(knownTrees))

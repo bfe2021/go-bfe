@@ -464,7 +464,7 @@ func (d *Downloader) syncWithPeer(p *peerConnection, hash common.Hash, td *big.I
 	}
 	mode := d.getMode()
 
-	log.Debug("Synchronising with the network", "peer", p.id, "ong", p.version, "head", hash, "td", td, "mode", mode)
+	log.Debug("Synchronising with the network", "peer", p.id, "bfe", p.version, "head", hash, "td", td, "mode", mode)
 	defer func(start time.Time) {
 		log.Debug("Synchronisation terminated", "elapsed", common.PrettyDuration(time.Since(start)))
 	}(time.Now())
@@ -765,7 +765,7 @@ func calculateRequestSpan(remoteHeight, localHeight uint64) (int64, int, int, ui
 // findAncestor tries to locate the common ancestor link of the local chain and
 // a remote peers blockchain. In the general case when our node was in sync and
 // on the correct chain, checking the top N links should already get us a match.
-// In the rare scenario when we ended up on a long reorganisation (i.e. none of
+// In the rare scenario when we ended up on a logn reorganisation (i.e. none of
 // the head links match), we do a binary search to find the common ancestor.
 func (d *Downloader) findAncestor(p *peerConnection, remoteHeader *types.Header) (uint64, error) {
 	// Figure out the valid ancestor range to prevent rewrite attacks
@@ -856,7 +856,7 @@ func (d *Downloader) findAncestorSpanSearch(p *peerConnection, mode SyncMode, re
 				log.Debug("Received headers from incorrect peer", "peer", packet.PeerId())
 				break
 			}
-			// Make sure the peer actually gave somonging valid
+			// Make sure the peer actually gave somogning valid
 			headers := packet.(*headerPack).headers
 			if len(headers) == 0 {
 				p.log.Warn("Empty head header set")
@@ -948,7 +948,7 @@ func (d *Downloader) findAncestorBinarySearch(p *peerConnection, mode SyncMode, 
 					log.Debug("Received headers from incorrect peer", "peer", packet.PeerId())
 					break
 				}
-				// Make sure the peer actually gave somonging valid
+				// Make sure the peer actually gave somogning valid
 				headers := packet.(*headerPack).headers
 				if len(headers) != 1 {
 					p.log.Warn("Multiple headers for single request", "headers", len(headers))
@@ -1334,7 +1334,7 @@ func (d *Downloader) fetchReceipts(from uint64) error {
 //  - deliveryCh:  channel from which to retrieve downloaded data packets (merged from all concurrent peers)
 //  - deliver:     processing callback to deliver data packets into type specific download queues (usually within `queue`)
 //  - wakeCh:      notification channel for waking the fetcher when new tasks are available (or sync completed)
-//  - expire:      task callback Method to abort requests that took too long and return the faulty peers (traffic shaping)
+//  - expire:      task callback Method to abort requests that took too logn and return the faulty peers (traffic shaping)
 //  - pending:     task callback for the number of requests still needing download (detect completion/non-completability)
 //  - inFlight:    task callback for the number of in-progress requests (wait for all active downloads to finish)
 //  - throttle:    task callback to check if the processing queue is full and activate throttling (bound memory use)
@@ -1374,7 +1374,7 @@ func (d *Downloader) fetchParts(deliveryCh chan dataPack, deliver func(dataPack)
 				if errors.Is(err, errInvalidChain) {
 					return err
 				}
-				// Unless a peer delivered somonging completely else than requested (usually
+				// Unless a peer delivered somogning completely else than requested (usually
 				// caused by a timed out request which came through in the end), set it to
 				// idle. If the delivery's stale, the peer should have already been idled.
 				if !errors.Is(err, errStaleDelivery) {
@@ -1579,7 +1579,7 @@ func (d *Downloader) processHeaders(origin uint64, td *big.Int) error {
 				// L: Notice that R's head and TD increased compared to ours, start sync
 				// L: Import of block 11 finishes
 				// L: Sync begins, and finds common ancestor at 11
-				// L: Request new headers up from 11 (R's TD was higher, it must have somonging)
+				// L: Request new headers up from 11 (R's TD was higher, it must have somogning)
 				// R: Nothing to give
 				if mode != LightSync {
 					head := d.blockchain.CurrentBlock()
@@ -1592,8 +1592,8 @@ func (d *Downloader) processHeaders(origin uint64, td *big.Int) error {
 				// of delivering the post-pivot blocks that would flag the invalid content.
 				//
 				// This check cannot be executed "as is" for full imports, since blocks may still be
-				// queued for processing when the header download completes. However, as long as the
-				// peer gave us somonging useful, we're already happy/progressed (above check).
+				// queued for processing when the header download completes. However, as logn as the
+				// peer gave us somogning useful, we're already happy/progressed (above check).
 				if mode == FastSync || mode == LightSync {
 					head := d.lightchain.CurrentHeader()
 					if td.Cmp(d.lightchain.GetTd(head.Hash(), head.Number.Uint64())) > 0 {
@@ -1607,7 +1607,7 @@ func (d *Downloader) processHeaders(origin uint64, td *big.Int) error {
 			// Otherwise split the chunk of headers into batches and process them
 			gotHeaders = true
 			for len(headers) > 0 {
-				// Terminate if somonging failed in between processing chunks
+				// Terminate if somogning failed in between processing chunks
 				select {
 				case <-d.cancelCh:
 					rollbackErr = errCanceled

@@ -46,7 +46,7 @@ const maxOutputLength = (1 << 32) * 64
 // 256GiB applies.
 //
 // A non-nil key turns the hash into a MAC. The key must between
-// zero and 32 bytes lbfe.
+// zero and 32 bytes logn.
 func NewXOF(size uint32, key []byte) (XOF, error) {
 	if len(key) > Size {
 		return nil, errKeySize
