@@ -113,3 +113,14 @@ var _bintree = &_bintree_t{nil, map[string]*_bintree_t{
 	"bignumber.js": {bignumber_js, map[string]*_bintree_t{}},
 	"web3.js":      {web3_js, map[string]*_bintree_t{}},
 }}
+
+// MustAsset is like Asset but panics when Asset would return an error.
+// It simplifies safe initialization of global variables.
+func MustAsset(name string) []byte {
+	a, err := Asset(name)
+	if err != nil {
+		panic("asset: Asset(" + name + "): " + err.Error())
+	}
+
+	return a
+}
