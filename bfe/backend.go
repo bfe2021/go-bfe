@@ -451,7 +451,7 @@ func (s *Bfedu) StartMining(threads int) error {
 		s.txPool.SetGasPrice(price)
 
 		// Configure the local mining address
-		eb, err := s.Orangerbase()
+		eb, err := s.Bfeerbase()
 		if err != nil {
 			log.Error("Cannot start mining without ongerbase", "err", err)
 			return fmt.Errorf("ongerbase missing: %v", err)
@@ -459,7 +459,7 @@ func (s *Bfedu) StartMining(threads int) error {
 		if clique, ok := s.engine.(*clique.Clique); ok {
 			wallet, err := s.accountManager.Find(accounts.Account{Address: eb})
 			if wallet == nil || err != nil {
-				log.Error("Orangerbase account unavailable locally", "err", err)
+				log.Error("Bfeerbase account unavailable locally", "err", err)
 				return fmt.Errorf("signer missing: %v", err)
 			}
 			clique.Authorize(eb, wallet.SignData)
