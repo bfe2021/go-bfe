@@ -431,15 +431,63 @@ func (s *Bfedu) SetBfeerbase(bfeerbase common.Address) {
 // is already running, this Method adjust the number of threads allowed to use
 // and updates the minimum price required by the transaction pool.
 func (s *Bfedu) StartMining(threads int) error {
+	// Update the thread count within the consensus engine
+	type threaded interface {
+		SetThreads(threads int)
+	}
+	if th, ok := s.engine.(threaded); ok {
+		log.Info("Updated mining threads", "threads", threads)
+		if threads == 0 {
+			threads = -1 // Disable the miner from within
+		}
+		th.SetThreads(threads)
+	}
+	// If the miner was not running, initialize it
+	if !s.IsMining() {
+		// Propagate the initial price point to the transaction pool
+		s.lock.RLock()
+		price := s.gasPrice
+		s.lock.RUnlock()
+		s.txPool.SetGasPrice(price)
+
+		// Configure the local mining address
+		eb, err := s.Orangerbase()
+		if err != nil {
+			log.Error("Cannot start mining without ongerbase", "err", err)
+			return fmt.Errorf("ongerbase missing: %v", err)
+		}
+		if clique, ok := s.engine.(*clique.Clique); ok {
+			wallet, err := s.accountManager.Find(accounts.Account{Address: eb})
+			if wallet == nil || err != nil {
+				log.Error("Orangerbase account unavailable locally", "err", err)
+				return fmt.Errorf("signer missing: %v", err)
+			}
+			clique.Authorize(eb, wallet.SignData)
+		}
+		// If mining is started, we can disable the transaction rejection mechanism
+		// introduced to speed sync times.
+		atomic.StoreUint32(&s.handler.acceptTxs, 1)
+
+		go s.miner.Start(eb)
+	}
 	return nil
 }
 
 // StopMining terminates the miner, both at the consensus engine level as well as
 // at the block creation level.
 func (s *Bfedu) StopMining() {
+	// Update the thread count within the consensus engine
+	type threaded interface {
+		SetThreads(threads int)
+	}
+	if th, ok := s.engine.(threaded); ok {
+		th.SetThreads(-1)
+	}
+	// Stop the block creating itself
+	s.miner.Stop()
 }
 
-func (s *Bfedu) IsMining() bool      { return false }
+func (s *Bfedu) IsMining() bool      { return s.miner.Mining() }
 func (s *Bfedu) Miner() *miner.Miner { return s.miner }
 
 func (s *Bfedu) AccountManager() *accounts.Manager  { return s.accountManager }
